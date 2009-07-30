@@ -21,7 +21,7 @@
  */
 
 // Standard library headers
-#include <string>
+#include <std::string>
 
 // PSP SDK headers
 // PSP SDK headers
@@ -55,7 +55,7 @@ namespace PSPUtility {
 
   public:
 
-    SaveGameData(char*, size_t, std::string = "No details available");
+    SaveGameData(char*, size_t, std::std::string = "No details available");
     SaveGameData(const SaveGameData&);
     virtual ~SaveGameData();
 
@@ -65,8 +65,8 @@ namespace PSPUtility {
     virtual const char* getData();
     virtual size_t getDataSize();
     virtual void setData(char*, size_t = 0);
-    virtual std::string getDescription();
-    virtual void setDescription(std::string);
+    virtual std::std::string getDescription();
+    virtual void setDescription(std::std::string);
     /** @} */
 
     /** Set up the dialog. @{ */
@@ -89,7 +89,7 @@ namespace PSPUtility {
 
     PspUtilitySavedataMode dialog_mode;
 
-    string game_description;
+    std::string game_description;
 
     SceUtilitySavedataParam save_data;
     PspUtilitySavedataListSaveNewData data_list;

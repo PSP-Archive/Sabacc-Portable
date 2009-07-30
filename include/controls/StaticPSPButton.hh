@@ -14,8 +14,8 @@
  */
 
 // Standard Library headers
-#include <string>
-using std::string;
+#include <std::string>
+
 
 // SMF headers
 #include "base/FreeTypeControl.hh"
@@ -36,8 +36,8 @@ public:
      *        These justify the text in the confines of the label when it is lager than
      *        the text itself.
      * @{ */
-    PSPButton(string, const Rect& = default_rect, string = "autosize: true");
-    PSPButton(Widget*, string, const Rect& = default_rect, string = "autosize: true");
+    PSPButton(std::string, const Rect& = default_rect, string = "autosize: true");
+    PSPButton(Widget*, std::string, const Rect& = default_rect, string = "autosize: true");
     PSPButton(const PSPButton&);
     ~PSPButton();
     /** @} */
@@ -46,9 +46,9 @@ public:
     PSPButton& operator=(const PSPButton&);
 
     /** Retrieve or set label text and properties. @{ */
-    virtual string getText();
-    virtual void setText(string);
-  virtual string getPSPKey();
+    virtual std::string getText();
+    virtual void setText(std::string);
+  virtual std::string getPSPKey();
   virtual void setPSPKey(char);
 
     /** Initialization and cleanup functions which must be overloaded by derived classes. @{ */
@@ -60,7 +60,7 @@ public:
     virtual void draw();
 
 private:
-  string	label_text, psp_key;
+  std::string	label_text, psp_key;
 
 };	// class PSPButton
 

@@ -37,8 +37,8 @@ class SimpleDialog : public DialogBase {
 public:
 
     /** Constructors. Same as any lower tier Control base class. @{ */
-  SimpleDialog(const Rect& = default_rect, const string& = "");
-  SimpleDialog(const string&, const string& = "", const string& = "OK", const Rect& = default_rect, const string& = "");
+  SimpleDialog(const Rect& = default_rect, const std::string& = "");
+  SimpleDialog(const std::string&, const string& = "", const string& = "OK", const Rect& = default_rect, const string& = "");
     SimpleDialog(const SimpleDialog&);
     virtual ~SimpleDialog();
 
@@ -46,10 +46,10 @@ public:
     SimpleDialog& operator=(const SimpleDialog&);
 
   /** Text properties. @{ */
-  virtual std::string getDialogText();
-  virtual void setDialogText(std::string);
-  virtual std::string getDialogTitle();
-  virtual void setDialogTitle(std::string);
+  virtual std::std::string getDialogText();
+  virtual void setDialogText(std::std::string);
+  virtual std::std::string getDialogTitle();
+  virtual void setDialogTitle(std::std::string);
   /** @} */
 
 	/** Keyboard event handlers, all defined to return true to prevent underlying

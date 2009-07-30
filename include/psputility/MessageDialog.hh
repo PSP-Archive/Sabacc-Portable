@@ -14,7 +14,7 @@
  */
 
 // Standard Library headers
-#include <string>
+#include <std::string>
 
 // PSP SDK headers
 #include <psputility.h>
@@ -27,16 +27,16 @@ class PSPDialog : public Control {
 public:
 
   // Keep interface similar to the standard SMF dialog
-  PSPDialog(const std::string&, const std::string& = "", const std::string& = "Ok");
+  PSPDialog(const std::std::string&, const std::string& = "", const std::string& = "Ok");
   ~PSPDialog();
 
   /** Text properties. @{ */
-  virtual std::string getDialogText();
-  virtual void setDialogText(std::string);
-  virtual std::string getDialogTitle();
-  virtual void setDialogTitle(std::string);
-  virtual std::string getDialogButtontext();
-  virtual void setDialogButtonText(std::string);
+  virtual std::std::string getDialogText();
+  virtual void setDialogText(std::std::string);
+  virtual std::std::string getDialogTitle();
+  virtual void setDialogTitle(std::std::string);
+  virtual std::std::string getDialogButtontext();
+  virtual void setDialogButtonText(std::std::string);
   /** @} */
 
   /** Initialization of the control and cleanup. */
@@ -48,7 +48,7 @@ public:
 
 private:
 
-  std::string message, button_text;
+  std::std::string message, button_text;
   
   pspUtilityMsgDialogParams dialog_params;
 

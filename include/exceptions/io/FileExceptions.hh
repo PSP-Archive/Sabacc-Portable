@@ -13,8 +13,8 @@
  */
 
 // Standard library headers
-#include <string>
-using std::string;
+#include <std::string>
+
 
 // SMF Exception headers
 #include "exceptions/base/ExceptionBase.hh"
@@ -28,14 +28,14 @@ namespace Exceptions {
         public:
 
             /** Constructors. See documentation for ExceptionBase. @{ */
-            FileNotFound(const string&, const char* = "", int = 0);	/// Short message, file (default: zero length) and line (default: -1)
-            FileNotFound(const string&, const string&, const char* = "", int = 0);	/// Short message, long message, file (default: zero length) and line (default: -1)
-            FileNotFound(const string&, const string&, const string&, const char* = "", int = 0);	/// Short message, long message, extra data, file (default: zero length) and line (default: -1)
+            FileNotFound(const std::string&, const char* = "", int = 0);	/// Short message, file (default: zero length) and line (default: -1)
+            FileNotFound(const std::string&, const string&, const char* = "", int = 0);	/// Short message, long message, file (default: zero length) and line (default: -1)
+            FileNotFound(const std::string&, const string&, const string&, const char* = "", int = 0);	/// Short message, long message, extra data, file (default: zero length) and line (default: -1)
             virtual ~FileNotFound() { }
             /** @} */
 
             /** These functions get exception information. @{ */
-            virtual string getExceptionName();
+            virtual std::string getExceptionName();
 
         };	// class FileNotFound
 
@@ -44,14 +44,14 @@ namespace Exceptions {
         public:
 
             /** Constructors. See documentation for ExceptionBase. @{ */
-            ZeroLengthFileName(const string&, const char* = "", int = 0);	/// Short message, file (default: zero length) and line (default: -1)
-            ZeroLengthFileName(const string&, const string&, const char* = "", int = 0);	/// Short message, long message, file (default: zero length) and line (default: -1)
-            ZeroLengthFileName(const string&, const string&, const string&, const char* = "", int = 0);	/// Short message, long message, extra data, file (default: zero length) and line (default: -1)
+            ZeroLengthFileName(const std::string&, const char* = "", int = 0);	/// Short message, file (default: zero length) and line (default: -1)
+            ZeroLengthFileName(const std::string&, const string&, const char* = "", int = 0);	/// Short message, long message, file (default: zero length) and line (default: -1)
+            ZeroLengthFileName(const std::string&, const string&, const string&, const char* = "", int = 0);	/// Short message, long message, extra data, file (default: zero length) and line (default: -1)
             virtual ~ZeroLengthFileName() { }
             /** @} */
 
             /** These functions get exception information. @{ */
-            virtual string getExceptionName();
+            virtual std::string getExceptionName();
 
         };	// class ZeroLengthFileName
 

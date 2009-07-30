@@ -13,8 +13,8 @@
  */
 
 // Standard Library headers
-#include <string>
-using std::string;
+#include <std::string>
+
 
 // Simple Directmedia Library headers
 #if defined(__APPLE__)
@@ -40,9 +40,9 @@ class FreeTypeControl : public Control {
 
 public:
 
-    FreeTypeControl(const Rect& = default_rect, string = "", const string& = default_font_file, int = default_font_size, int = default_font_style, SDL_Color = default_forecolor);
+    FreeTypeControl(const Rect& = default_rect, std::string = "", const string& = default_font_file, int = default_font_size, int = default_font_style, SDL_Color = default_forecolor);
     FreeTypeControl(const Rect& = default_rect, const FontState& = getDefaultFontState());
-    FreeTypeControl(Widget*, const Rect& = default_rect, string = "", const string& = default_font_file, int = default_font_size, int = default_font_style, SDL_Color = default_forecolor);
+    FreeTypeControl(Widget*, const Rect& = default_rect, std::string = "", const string& = default_font_file, int = default_font_size, int = default_font_style, SDL_Color = default_forecolor);
     FreeTypeControl(Widget*, const Rect& = default_rect, const FontState& = getDefaultFontState());
     FreeTypeControl(const FreeTypeControl&);
     virtual ~FreeTypeControl();
@@ -57,8 +57,8 @@ public:
     virtual const SDL_Color& getTextColor();
     virtual void setTextColor(SDL_Color = default_forecolor);
     virtual void setTextColor(int, int, int, int);
-    virtual string getFontProperties();
-    virtual void setFontProperties(string);
+    virtual std::string getFontProperties();
+    virtual void setFontProperties(std::string);
     /** @} */
 
     /** Read-only properties. @{ */
@@ -77,16 +77,16 @@ public:
     /** @} */
 
     /** Get sizing data. @{ */
-    virtual int lineWidth(const string&);
+    virtual int lineWidth(const std::string&);
     virtual int lineWidth(const char*);
-    virtual int textWidth(const string&);
+    virtual int textWidth(const std::string&);
     virtual int textWidth(const char*);
-    virtual int textHeight(const string&);
+    virtual int textHeight(const std::string&);
     virtual int textHeight(const char*);
     /** @} */
 
     /** Render to the widget surface. @{ */
-    virtual void render(const string&, SDL_Surface*, int = 0, int = 0);
+    virtual void render(const std::string&, SDL_Surface*, int = 0, int = 0);
     virtual void render(const char*, SDL_Surface*, int = 0, int = 0);
     /** @} */
 

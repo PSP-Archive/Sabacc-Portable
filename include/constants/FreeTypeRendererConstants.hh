@@ -13,17 +13,17 @@
  */
 
 // Standard Library headers
-#include <string>
-using std::string;
+#include <std::string>
+
 
 /** Constant for bitmap renering. */
 static const unsigned short num_greys = 256;
 
 /** Constants defining defaults. @{ */
-static const string default_font_file = "SabaccUIFont.ttf";
+static const std::string default_font_file = "SabaccUIFont.ttf";
 static const int default_font_size = 12;
 static const int default_font_style = 0;
-static const string default_font_properties = "justify: left;";
+static const std::string default_font_properties = "justify: left;";
 
 /** Style constants @{ */
 static const short font_style_normal = 0;

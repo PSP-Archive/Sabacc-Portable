@@ -19,8 +19,8 @@
  */
 
 // Standard library headers
-#include <list>
-#include <string>
+#include <std::list>
+#include <std::string>
 
 // SDL headers
 #ifdef __APPLE__
@@ -53,23 +53,23 @@ class SystemManager {
   virtual ~SystemManager();
   
   /** Retrieve and set system resource paths. @{ */
-    virtual string getBasePath();
-    virtual void setBasePath(string);
+    virtual std::string getBasePath();
+    virtual void setBasePath(std::string);
 
-    virtual string getPathDelimiter();
-    virtual void setPathDelimiter(string);
+    virtual std::string getPathDelimiter();
+    virtual void setPathDelimiter(std::string);
 
-    virtual string getFontPath();
-    virtual string getFontPath(string);
-    virtual void setFontPath(string);
+    virtual std::string getFontPath();
+    virtual std::string getFontPath(string);
+    virtual void setFontPath(std::string);
 
-    virtual string getSoundPath();
-    virtual string getSoundPath(string);
-    virtual void setSoundPath(string);
+    virtual std::string getSoundPath();
+    virtual std::string getSoundPath(string);
+    virtual void setSoundPath(std::string);
 
-    virtual string getImagePath();
-    virtual string getImagePath(string);
-    virtual void setImagePath(string);
+    virtual std::string getImagePath();
+    virtual std::string getImagePath(string);
+    virtual void setImagePath(std::string);
   /** @} */
 
   /** Retrieve and set Joystick input properties. @{ */
@@ -78,20 +78,20 @@ class SystemManager {
   /** @} */
 
   /** Retrieve and set Window Manager settings. @{ */
-    virtual string getWindowTitle();
-    virtual void setWindowTitle(string);
+    virtual std::string getWindowTitle();
+    virtual void setWindowTitle(std::string);
   /** @} */
 
 private:
     // Paths
-    string		path_base;
-    string		path_delimiter;
-    string		font_path;
-    string		sound_path;
-    string		image_path;
+    std::string		path_base;
+    std::string		path_delimiter;
+    std::string		font_path;
+    std::string		sound_path;
+    std::string		image_path;
 
     // Window title
-    string		window_title;
+    std::string		window_title;
 
     // Video Manager
     VideoManager*	video;

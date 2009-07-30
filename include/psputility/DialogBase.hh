@@ -57,7 +57,7 @@ namespace PSPUtility {
     /** Constructors. These are the same as standard SMF dialogs, however,
 	as the SDK dialogs do not allow positioning nor do they allow colors,
 	all they do is set up the dialog properties. @{ */
-    DialogBase(const Rect&, const string&, const SDL_Color& = default_frame_forecolor, const SDL_Color& = default_frame_backcolor, const SDL_Color& = default_frame_titlecolor, const SDL_Color& = default_frame_bordercolor);
+    DialogBase(const Rect&, const std::string&, const SDL_Color& = default_frame_forecolor, const SDL_Color& = default_frame_backcolor, const SDL_Color& = default_frame_titlecolor, const SDL_Color& = default_frame_bordercolor);
     DialogBase(const DialogBase&);
     virtual ~DialogBase();
     

@@ -17,8 +17,8 @@
  */
 
 // Standard Library headers
-#include <vector>
-using std::vector;
+#include <std::vector>
+
 
 // Simple Directmedia Library headers
 #if defined(__APPLE__)
@@ -44,8 +44,8 @@ public:
     /** EventManager operators @{ */
     virtual EventManager& operator<<(Control*);
   virtual EventManager& operator<<(Widget*);
-    virtual Control* operator[](vector<Control*>::size_type);	/// Allow for EM[] = x.
-    virtual Control* operator[](vector<Control*>::size_type) const;	/// Read only.
+    virtual Control* operator[](std::vector<Control*>::size_type);	/// Allow for EM[] = x.
+    virtual Control* operator[](std::vector<Control*>::size_type) const;	/// Read only.
     /** @} */
 
     /** Event queue operations. @{ */
@@ -55,11 +55,11 @@ public:
   virtual void push(Widget*);  /// Add a Widget, conversion done in function
     virtual void pop();	/// Remove the last Widget from the queue.
 
-    virtual void erase(vector<Control*>::iterator);	/// Erase the Widget indicated by iterator
+    virtual void erase(std::vector<Control*>::iterator);	/// Erase the Widget indicated by iterator
     /** @} */
 
     /** Event queue status. @{ */
-    virtual vector<Control*>::size_type size();
+    virtual std::vector<Control*>::size_type size();
     virtual bool empty();
     /** @} */
 
@@ -71,11 +71,11 @@ public:
 
 private:
 
-    vector<Control*>	event_queue;
+    std::vector<Control*>	event_queue;
 
     SDL_Event	system_event;
 
-  //  list<user_fn*(int)> user_event_handlers;
+  //  std::list<user_fn*(int)> user_event_handlers;
 
     // Copying not allowed
     EventManager(const EventManager&);

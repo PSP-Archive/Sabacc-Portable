@@ -15,7 +15,7 @@
  */
 
 // Standard Library headers
-#include <string>
+#include <std::string>
 
 // PSP SDK headers
 #include <psputility.h>
@@ -29,26 +29,26 @@ class PSPKeyboard : public Object {
 
 public:
 
-  PSPKeyboard(const std::string& = "Text", const std::string& = "");
+  PSPKeyboard(const std::std::string& = "Text", const std::string& = "");
   ~PSPKeyboard();
 
   /** Set up the Keyboard @{ */
-  virtual const std::string getText();
-  virtual void setInputText(const std::string&);
+  virtual const std::std::string getText();
+  virtual void setInputText(const std::std::string&);
   
-  virtual const std::string getHelpText();
-  virtual void setHelptext(const std::string&);
+  virtual const std::std::string getHelpText();
+  virtual void setHelptext(const std::std::string&);
   /** @} */
 
   /// Initialize the keyboard
   virtual void init();
 
   /// Display the keyboard, returning the user's entry.
-  virtual std::string show();
+  virtual std::std::string show();
 
 private:
 
-  std::string input, output, help;
+  std::std::string input, output, help;
 
   static const psp_osk_size_t field_length;
 
@@ -61,9 +61,9 @@ private:
   PSPKeyboard(const PSPKeyboard&);
   PSPKeyboard& operator=(const PSPKeyboard&);
 
-  // Utility function for copying string to required format
-  void stringToUShort(const std::string&, unsigned short*);
-  std::string uShortToString(unsigned short*);
+  // Utility function for copying std::string to required format
+  void std::stringToUShort(const std::string&, unsigned short*);
+  std::std::string uShortToString(unsigned short*);
   
 };// class PSPKeyboard
 

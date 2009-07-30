@@ -14,7 +14,7 @@
  */
 
 // Standard Library headers
-#include <string>
+#include <std::string>
 
 // PSP SDK headers
 #include <psputility.h>
@@ -27,18 +27,18 @@ class PSPOkCancelDialog : public Control {
 public:
 
   // Keep interface similar to the standard SMF dialog
-  PSPOkCancelDialog(const std::string&, const std::string& = "", const std::string& = "Ok", const std::string& = "Cancel");
+  PSPOkCancelDialog(const std::std::string&, const std::string& = "", const std::string& = "Ok", const std::string& = "Cancel");
   ~PSPOkCancelDialog();
 
   /** Text properties. @{ */
-  virtual std::string getDialogText();
-  virtual void setDialogText(std::string);
-  virtual std::string getDialogTitle();
-  virtual void setDialogTitle(std::string);
-  virtual std::string getDialogOKButtontext();
-  virtual void setDialogOKButtonText(std::string);
-  virtual std::string getDialogCancelButtontext();
-  virtual void setDialogCancelButtonText(std::string);
+  virtual std::std::string getDialogText();
+  virtual void setDialogText(std::std::string);
+  virtual std::std::string getDialogTitle();
+  virtual void setDialogTitle(std::std::string);
+  virtual std::std::string getDialogOKButtontext();
+  virtual void setDialogOKButtonText(std::std::string);
+  virtual std::std::string getDialogCancelButtontext();
+  virtual void setDialogCancelButtonText(std::std::string);
   /** @} */
 
   /** Initialization of the control and cleanup. */
@@ -50,7 +50,7 @@ public:
 
 private:
 
-  std::string message, ok_text, cancel_text;
+  std::std::string message, ok_text, cancel_text;
   
   pspUtilityMsgDialogParams dialog_params;
 

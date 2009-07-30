@@ -13,8 +13,8 @@
  */
 
 // Standard library headers
-#include <string>
-using std::string;
+#include <std::string>
+
 
 // SMF Exception headers
 #include "exceptions/base/ExceptionBase.hh"
@@ -28,14 +28,14 @@ namespace Exceptions {
         public:
 
             /** Constructors. See ExceptionBase. @{ */
-            PushFailed(const string&, const char* = "", int = 0);	/// Short message, file (default: zero length) and line (default: -1)
-            PushFailed(const string&, const string&, const char* = "", int = 0);	/// Short message, long message, file (default: zero length) and line (default: -1)
-            PushFailed(const string&, const string&, const string&, const char* = "", int = 0);	/// Short message, long message, extra data, file (default: zero length) and line (default: -1)
+            PushFailed(const std::string&, const char* = "", int = 0);	/// Short message, file (default: zero length) and line (default: -1)
+            PushFailed(const std::string&, const string&, const char* = "", int = 0);	/// Short message, long message, file (default: zero length) and line (default: -1)
+            PushFailed(const std::string&, const string&, const string&, const char* = "", int = 0);	/// Short message, long message, extra data, file (default: zero length) and line (default: -1)
             virtual ~PushFailed() { }
             /** @} */
 
             /** These functions get exception information. @{ */
-            virtual string getExceptionName();
+            virtual std::string getExceptionName();
 
         };	// class PushFailed
 

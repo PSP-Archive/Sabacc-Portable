@@ -51,7 +51,7 @@ class DialogBase : public Control {
 public:
 
     /** Constructors. Same as any lower tier Control base class. @{ */
-    DialogBase(const Rect&, const string&, const SDL_Color& = default_frame_forecolor, const SDL_Color& = default_frame_backcolor, const SDL_Color& = default_frame_titlecolor, const SDL_Color& = default_frame_bordercolor);
+    DialogBase(const Rect&, const std::string&, const SDL_Color& = default_frame_forecolor, const SDL_Color& = default_frame_backcolor, const SDL_Color& = default_frame_titlecolor, const SDL_Color& = default_frame_bordercolor);
     DialogBase(const DialogBase&);
     virtual ~DialogBase();
 

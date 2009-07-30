@@ -29,7 +29,7 @@ public:
       * allowing a consistent interface for calling the base class constructor without having
       * to pass all parameters. The top level classes may move these parameters around
       * for easier access to the end user. */
-    AudioControl(const media_time_t& = 0, const string& = "", const string& = "");
+    AudioControl(const media_time_t& = 0, const std::string& = "", const string& = "");
     AudioControl(const AudioControl& src);
     virtual ~AudioControl();
     /** @} */
@@ -37,8 +37,8 @@ public:
     virtual AudioControl& operator=(const AudioControl&);	/// Gives this AudioControl's members the values of another AudioControl.
 
     /** File and media properties @{ */
-    virtual string getFileName();
-    virtual void setFileName(string);
+    virtual std::string getFileName();
+    virtual void setFileName(std::string);
     virtual unsigned long getBitrate();
     virtual void setBitrate(unsigned long);
     /** Todo: complete interface @} */
@@ -72,7 +72,7 @@ public:
 
 private:
 
-    string	audio_file;
+    std::string	audio_file;
 
     media_time_t	start_position, pause_position;
 

@@ -22,7 +22,7 @@
  */
 
 // Standard Library headers
-#include <string>
+#include <std::string>
 
 // SMF headers
 #include "psputility/DialogBase.hh"
@@ -41,10 +41,10 @@ class SingleButtonDialog : public DialogBase {
 public:
 
   /** Constructors. Same as any lower tier Control base class. @{ */
-  SingleButtonDialog(const Rect& = default_rect, const string& = "");
-  SingleButtonDialog(const std::string&, const std::string& = "",
-		     const std::string& = "OK", const Rect& = default_rect,
-		     const std::string& = "");
+  SingleButtonDialog(const Rect& = default_rect, const std::string& = "");
+  SingleButtonDialog(const std::std::string&, const std::string& = "",
+		     const std::std::string& = "OK", const Rect& = default_rect,
+		     const std::std::string& = "");
   SingleButtonDialog(const SingleButtonDialog&);
   virtual ~SingleButtonDialog();
 
@@ -52,12 +52,12 @@ public:
   SingleButtonDialog& operator=(const SingleButtonDialog&);
 
   /** Text properties. @{ */
-  virtual std::string getDialogText();
-  virtual void setDialogText(std::string);
-  virtual std::string getDialogTitle();
-  virtual void setDialogTitle(std::string);
-  virtual std::string getDialogButtontext();
-  virtual void setDialogButtonText(std::string);
+  virtual std::std::string getDialogText();
+  virtual void setDialogText(std::std::string);
+  virtual std::std::string getDialogTitle();
+  virtual void setDialogTitle(std::std::string);
+  virtual std::std::string getDialogButtontext();
+  virtual void setDialogButtonText(std::std::string);
   /** @} */
 
   /** Initialization of the control and cleanup. */
@@ -69,7 +69,7 @@ public:
 
 protected:
 
-  std::string dialog_text, dialog_title, dialog_button;
+  std::std::string dialog_text, dialog_title, dialog_button;
 
 };	// class SingleButtonDialog
 

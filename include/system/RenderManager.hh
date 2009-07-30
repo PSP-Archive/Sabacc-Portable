@@ -13,8 +13,8 @@
  */
 
 // Standard Library headers
-#include <vector>
-using std::vector;
+#include <std::vector>
+
 
 // Simple Directmedia Layer headers
 #if defined(__APPLE__)
@@ -35,8 +35,8 @@ public:
 
     /** RenderManager operators @{ */
     virtual RenderManager& operator<<(Widget*);
-    virtual Widget* operator[](vector<Widget*>::size_type);	/// Allow for RM[] = x.
-    virtual Widget* operator[](vector<Widget*>::size_type) const;	/// Read only.
+    virtual Widget* operator[](std::vector<Widget*>::size_type);	/// Allow for RM[] = x.
+    virtual Widget* operator[](std::vector<Widget*>::size_type) const;	/// Read only.
     /** @} */
 
     /** Render queue operations. @{ */
@@ -46,11 +46,11 @@ public:
     virtual void pop();	/// Remove the last Widget from the queue.
 
   virtual void erase(Widget*);
-    virtual void erase(vector<Widget*>::iterator);	/// Erase the Widget indicated by iterator
+    virtual void erase(std::vector<Widget*>::iterator);	/// Erase the Widget indicated by iterator
     /** @} */
 
     /** Render queue status. @{ */
-    virtual vector<Widget*>::size_type size();
+    virtual std::vector<Widget*>::size_type size();
     virtual bool empty();
     /** @} */
 
@@ -59,7 +59,7 @@ public:
 
 private:
 
-    vector<Widget*>	render_queue;
+    std::vector<Widget*>	render_queue;
 
     // Copying not allowed
     RenderManager(const RenderManager&);

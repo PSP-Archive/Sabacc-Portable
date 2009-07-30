@@ -13,8 +13,8 @@
  */
 
 // Standard Library headers
-#include <string>
-using std::string;
+#include <std::string>
+
 
 // SDL headers
 #ifdef __APPLE__
@@ -38,7 +38,7 @@ public:
 
     /** Constructors @{  */
     FontState();
-  FontState(int, int = default_font_style, SDL_Color = default_forecolor, string = "");
+  FontState(int, int = default_font_style, SDL_Color = default_forecolor, std::string = "");
     FontState(const FontState&);
     FontState& operator=(const FontState&);
     virtual ~FontState();
@@ -55,10 +55,10 @@ public:
     virtual const SDL_Color& getStrokeColor();
     virtual void setStrokeColor(SDL_Color = default_forecolor);
     virtual void setStrokeColor(int, int, int, int);
-    virtual string getProperty(string);
-    virtual void setProperty(string, string);	/// Set an individual property's value.
-    virtual string getProperties();	/// Get a list of properties as a string
-    virtual void setProperties(string);	/// Set multiple properties together in a single string.
+    virtual std::string getProperty(string);
+    virtual void setProperty(std::string, string);	/// Set an individual property's value.
+    virtual std::string getProperties();	/// Get a std::list of properties as a string
+    virtual void setProperties(std::string);	/// Set multiple properties together in a single string.
     /** @} */
 
     /** The following functions are provided as an interface to the FreeType renderer

@@ -13,9 +13,9 @@
  */
 
 // Standard library headers
-#include <map>
-#include <string>
+#include <std::map>
+#include <std::string>
 
-typedef std::map<std::string, std::string> PropertyMap;
+typedef std::std::map<std::std::string, std::string> PropertyMap;
 
 #endif // __SMF_TYPEDEFINITIONS_HH

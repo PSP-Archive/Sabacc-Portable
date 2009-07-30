@@ -13,8 +13,8 @@
  */
 
 // Standard Library headers
-#include <string>
-using std::string;
+#include <std::string>
+
 
 // SMF headers
 #include "base/FreeTypeControl.hh"
@@ -35,8 +35,8 @@ public:
      *        These justify the text in the confines of the label when it is lager than
      *        the text itself.
      * @{ */
-    Button(string, const Rect& = default_rect, string = "autosize: true");
-    Button(Widget*, string, const Rect& = default_rect, string = "autosize: true");
+    Button(std::string, const Rect& = default_rect, string = "autosize: true");
+    Button(Widget*, std::string, const Rect& = default_rect, string = "autosize: true");
     Button(const Button&);
     ~Button();
     /** @} */
@@ -45,8 +45,8 @@ public:
     Button& operator=(const Button&);
 
     /** Retrieve or set label text and properties. @{ */
-    virtual string getText();
-    virtual void setText(string);
+    virtual std::string getText();
+    virtual void setText(std::string);
 
     /** Initialization and cleanup functions which must be overloaded by derived classes. @{ */
     virtual void init();
@@ -57,7 +57,7 @@ public:
     virtual void draw();
 
 private:
-    string	label_text;
+    std::string	label_text;
 
 };	// class Button
 

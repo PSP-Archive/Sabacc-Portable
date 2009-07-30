@@ -14,7 +14,7 @@
  */
 
 // Standard library headers
-#include <map>
+#include <std::map>
 
 // SDL headers
 #if defined(__APPLE__)
@@ -45,7 +45,7 @@ public:
 
 protected:
   SDL_Surface* my_ptr;
-  static std::map<SDL_Surface*, int> reference_map;
+  static std::std::map<SDL_Surface*, int> reference_map;
 
   void releaseSurface();
   void initializeSurface(SDL_Surface*);

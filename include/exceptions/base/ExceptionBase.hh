@@ -16,9 +16,9 @@
 
 // Standard library headers
 #include <ostream>
-#include <string>
+#include <std::string>
 using std::ostream;
-using std::string;
+
 
 namespace Exceptions {
 
@@ -30,37 +30,37 @@ namespace Exceptions {
         /** ExceptionBase parameters, most derived exceptions will follow the same convention:
          *  - @param message - A short description of the exception.
          *  - @param details - A more detailed message of what occurred.
-         *  - @param data - A string containing extra information about exception (i.e. Widget address).
+         *  - @param data - A std::string containing extra information about exception (i.e. Widget address).
          *  - @param file - The source file in which the exception was raised.
          *  - @param line - The approximate line number. This will direct developer to the try block which raised
          *                  the exception, this number is not the exact line of code which raised the exception.
          */
-        ExceptionBase(const string&, const char* = "", int = 0);	/// Short message, file (default: zero length) and line (default: 0)
-        ExceptionBase(const string&, const string&, const char* = "", int = 0);	/// Short message, long message, file (default: zero length) and line (default: 0)
-        ExceptionBase(const string&, const string&, const string&, const char* = "", int = 0);	/// Short message, long message, extra data, file (default: zero length) and line (default: 0)
+        ExceptionBase(const std::string&, const char* = "", int = 0);	/// Short message, file (default: zero length) and line (default: 0)
+        ExceptionBase(const std::string&, const string&, const char* = "", int = 0);	/// Short message, long message, file (default: zero length) and line (default: 0)
+        ExceptionBase(const std::string&, const string&, const string&, const char* = "", int = 0);	/// Short message, long message, extra data, file (default: zero length) and line (default: 0)
         virtual ~ExceptionBase() { }
         /** @} */
 
         /** These functions get exception information. @{ */
-        virtual string getExceptionName();
-        virtual const string& getMessage();
-        virtual const string& getDetails();
-        virtual const string& getData();
-        virtual const string& getFile();
+        virtual std::string getExceptionName();
+        virtual const std::string& getMessage();
+        virtual const std::string& getDetails();
+        virtual const std::string& getData();
+        virtual const std::string& getFile();
         virtual int getLine();
         /** @} */
 
     private:
 
-        string		exception_message;
-        string		exception_details;
-        string		exception_data;
-        string		exception_file;
+        std::string		exception_message;
+        std::string		exception_details;
+        std::string		exception_data;
+        std::string		exception_file;
         int			exception_line;
 
     };	// class ExceptionBase
 
-    string exceptionString(ExceptionBase& exc);
+    std::string exceptionString(ExceptionBase& exc);
 
 }	// namespace Exceptions
 

@@ -14,8 +14,8 @@
  */
 
 // Standard Library headers
-#include <string>
-using std::string;
+#include <std::string>
+
 
 // SMF headers
 #include "base/SurfaceWidget.hh"
@@ -35,8 +35,8 @@ public:
      *        as well as the following StaticImage specifics:
      *        - @c format: @c noconversion, @c display, @c displayalpha
      * @{ */
-    StaticImage(unsigned char*, unsigned long, const Rect& = default_rect, const string& = "autosize: true; format: display");
-    StaticImage(string, const Rect& = default_rect, const string& = "autosize: true; format: display");
+    StaticImage(unsigned char*, unsigned long, const Rect& = default_rect, const std::string& = "autosize: true; format: display");
+    StaticImage(std::string, const Rect& = default_rect, const string& = "autosize: true; format: display");
     StaticImage(const StaticImage&);
     ~StaticImage();
     /** @} */
@@ -46,8 +46,8 @@ public:
 
     /** Retrieve or set the image file. @{ */
   virtual void setImageBuffer(unsigned char*, unsigned long);
-    virtual string getFileName();
-    virtual void setFileName(string);
+    virtual std::string getFileName();
+    virtual void setFileName(std::string);
     /** @} */
 
     /** Initialization and cleanup functions which must be overloaded by derived classes. @{ */
@@ -62,7 +62,7 @@ private:
 
   unsigned char* image_buffer;
   unsigned long image_buffer_size;
-    string	image_file;
+    std::string	image_file;
 
 };	// class StaticImage
 

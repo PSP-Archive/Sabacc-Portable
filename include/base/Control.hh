@@ -13,8 +13,8 @@
  */
 
 // Standard Library headers
-#include <string>
-using std::string;
+#include <std::string>
+
 
 // Simple Directmedia Library headers
 #if defined(__APPLE__)
@@ -31,8 +31,8 @@ using std::string;
 class Control : public SurfaceWidget {
 public:
     /** Constructors @{ */
-    Control(const Rect& = default_rect, string = "");
-    Control(Widget*, const Rect& = default_rect, string = "");
+    Control(const Rect& = default_rect, std::string = "");
+    Control(Widget*, const Rect& = default_rect, std::string = "");
     Control(const Control&);
     virtual ~Control();
     /** @} */

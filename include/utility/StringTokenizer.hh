@@ -9,34 +9,34 @@
  *
  * File: StringTokenizer.hh
  *
- * A simple string tokenizer
+ * A simple std::string tokenizer
  */
 
 // Standard library headers
 #include <deque>
-#include <string>
+#include <std::string>
 using std::deque;
-using std::string;
+
 
 class StringTokenizer {
-    deque<string>		tokens;
-    deque<string>::iterator	current_token;
-    string					delimiter;
+    deque<std::string>		tokens;
+    deque<std::string>::iterator	current_token;
+    std::string					delimiter;
 
-    bool						delim_single;	// Adjecent delimeters create empty string if true
+    bool						delim_single;	// Adjecent delimeters create empty std::string if true
 
-    StringTokenizer();	// Can not create instance without string to parse
-    void tokenize(string);	// do it
+    StringTokenizer();	// Can not create instance without std::string to parse
+    void tokenize(std::string);	// do it
 
 public:
-    StringTokenizer(string);
-    StringTokenizer(string, bool);
-    StringTokenizer(string, string);
-    StringTokenizer(string, string, bool);
+    StringTokenizer(std::string);
+    StringTokenizer(std::string, bool);
+    StringTokenizer(std::string, string);
+    StringTokenizer(std::string, string, bool);
     ~StringTokenizer() { }
 
-    deque<string>::size_type size();
-    string next();
+    deque<std::string>::size_type size();
+    std::string next();
     bool end();
 };	// class StringTokenizer
 

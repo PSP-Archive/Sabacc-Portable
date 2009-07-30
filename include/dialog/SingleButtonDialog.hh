@@ -47,8 +47,8 @@ class SingleButtonDialog : public DialogBase {
 public:
 
     /** Constructors. Same as any lower tier Control base class. @{ */
-  SingleButtonDialog(const Rect& = default_rect, const string& = "");
-  SingleButtonDialog(const string&, const string& = "", const string& = "OK", const Rect& = default_rect, const string& = "");
+  SingleButtonDialog(const Rect& = default_rect, const std::string& = "");
+  SingleButtonDialog(const std::string&, const string& = "", const string& = "OK", const Rect& = default_rect, const string& = "");
     SingleButtonDialog(const SingleButtonDialog&);
     virtual ~SingleButtonDialog();
 
@@ -56,12 +56,12 @@ public:
     SingleButtonDialog& operator=(const SingleButtonDialog&);
 
   /** Text properties. @{ */
-  virtual std::string getDialogText();
-  virtual void setDialogText(std::string);
-  virtual std::string getDialogTitle();
-  virtual void setDialogTitle(std::string);
-  virtual std::string getDialogButtontext();
-  virtual void setDialogButtonText(std::string);
+  virtual std::std::string getDialogText();
+  virtual void setDialogText(std::std::string);
+  virtual std::std::string getDialogTitle();
+  virtual void setDialogTitle(std::std::string);
+  virtual std::std::string getDialogButtontext();
+  virtual void setDialogButtonText(std::std::string);
   /** @} */
 
 	/** Keyboard event handlers, all defined to return true to prevent underlying
