@@ -1,0 +1,111 @@
+/*
+ * Sabacc Media Framework
+ *
+ * Author: goumba
+ * Date: August 26, 2008
+ *
+ * File: SmartSurface.cc
+ *
+ * A utility class for automatic creation and deletion
+ * of heap based objects.
+ */
+
+// SDL headers
+#if defined(__APPLE__)
+#include <SDL/SDL.h>
+#else
+#include <SDL.h>
+#endif
+
+// SMF headers
+#include "base/SmartSurface.hh"
+
+// SMF Debugging headers
+#if defined(_DEBUG) || defined(_DEBUGSMARTSURFACE)
+#include <cstdlib>
+#include "utility/Log.hh"
+#endif
+
+SmartSurface::~SmartSurface() {
+    release();
+}	// ~SmartSurface
+SmartSurface::SmartSurface(const SmartSurface& src) : pointer_data(0) {
+    set(src.pointer_data);
+}	// SmartSurface copy
+SmartSurface& SmartSurface::operator=(const SmartSurface& src) {
+
+    if (this != &src) {
+
+        release();
+        set(src.pointer_data);
+
+    }
+
+    return(*this);
+}
+
+SDL_Surface* SmartSurface::operator->() const {
+    return(pointer_data->pointer);
+}	// operator->
+
+bool SmartSurface::operator!() const {
+    if (!pointer_data) return true;
+
+    return(0 == pointer_data->pointer);
+}
+
+bool SmartSurface::operator==(const SmartSurface& rhs) {
+
+    return(rhs.pointer_data == this->pointer_data);
+
+}
+bool SmartSurface::operator!=(const SmartSurface& rhs) {
+
+    return(!operator==(rhs));
+
+}
+
+SDL_Surface* SmartSurface::get() const {
+	if(!pointer_data) return(NULL);
+    return(pointer_data->pointer);
+}	// get
+bool SmartSurface::unique() {
+    return ((pointer_data) ? (pointer_data->count == 1) : true);
+}	// unique
+
+void SmartSurface::set(PointerData* p) {
+
+    if (pointer_data) release();
+
+    pointer_data = p;
+    if (p) ++p->count;
+
+#if defined(_DEBUG) || defined(_DEBUGSMARTSURFACE)
+    if (pointer_data) {
+        char debug_string[128];
+        sprintf(debug_string, "SmartSurface: Surface set to 0x%x.", pointer_data->pointer);
+        logAppend(debug_string);
+    }	// if(pointer_data)
+#endif
+
+}	// set
+void SmartSurface::release() {
+
+    if (pointer_data) {
+
+        if (0 == --pointer_data->count) {
+
+#if defined(_DEBUG) || defined(_DEBUGSMARTSURFACE)
+            char debug_string[128];
+            sprintf(debug_string, "SmartSurface: Releasing surface 0x%x.", pointer_data->pointer);
+            logAppend(debug_string);
+#endif
+
+            SDL_FreeSurface(pointer_data->pointer);
+            delete(pointer_data);
+
+        }	// if(0)
+
+    }	// if(pointer_data)
+
+}	// release

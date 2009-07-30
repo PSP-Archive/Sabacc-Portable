@@ -1,0 +1,36 @@
+LIB = build/libsmf.a
+BIN = build/smftest
+
+LIB_SRC = $(shell find src -type f -name "*.cc")
+LIB_OBJ = $(patsubst %.cc,%.o,$(filter %.cc,$(LIB_SRC)))
+BIN_SRC = $(shell find test -type f -name "*.cc")
+BIN_OBJ = $(patsubst %.cc,%.o,$(filter %.cc,$(BIN_SRC)))
+
+SMFDEBUGFLAGS += -D_DEBUGRENDERMANAGERFPS -D_DEBUG
+# DEBUGFLAGS += -g -ggdb
+# PROFILEFLAGS += -pg
+# WARNFLAGS += -Wall -Wfatal-errors -Weffc++ -std=c++98 -pedantic -pedantic-errors -ansi 
+
+SDLFLAGS = $(shell sdl-config --cflags)
+SDLLIBS = -lSDL_mixer -lSDL_image -lSDL_gfx $(shell sdl-config --libs)
+
+INCLUDEDIR = -I. -Iinclude -I/usr/include -I/usr/include/freetype2
+
+CFLAGS += $(INCLUDEDIR) $(SDLFLAGS) $(SMFDEBUGFLAGS) $(DEBUGFLAGS) $(PROFILEFLAGS) $(WARNFLAGS)
+CXXFLAGS += $(CFLAGS)
+
+LIBDIR += -L. -L/usr/lib
+LIBS += -lfreetype $(SDLLIBS)
+
+CXX = g++
+
+all: $(LIB) $(BIN)
+
+$(LIB): $(LIB_OBJ)
+	$(AR) $(ARFLAGS) $(LIB) $?
+
+$(BIN): $(LIB) $(BIN_OBJ)
+	$(CXX) -o $(BIN) $(BIN_OBJ) $(CXXFLAGS) $(LIBDIR) $(LIBS) $(LIB)
+
+clean:
+	rm -f $(LIB_OBJ) $(BIN_OBJ) $(LIB) $(BIN)

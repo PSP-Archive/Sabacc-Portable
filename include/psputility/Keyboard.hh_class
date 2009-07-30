@@ -1,0 +1,70 @@
+#if !defined(__SMF_PSP_KEYBOARD_HH) && (_PSP_FW_VERSION >= 1)
+#define __SMF_PSP_KEYBOARD_HH
+
+/**
+ * Sabacc Media Framework
+ *
+ * Author: goumba
+ * Date: December 29, 2008
+ *
+ * File: Keyboard.hh
+ *
+ * An interface to the PSP On Screen Keyboard (and in the future the
+ * IR keyboard for models which support it).
+ *
+ */
+
+// Standard Library headers
+#include <string>
+
+// PSP SDK headers
+#include <psputility.h>
+
+// SMF headers
+#include "base/Object.hh"
+
+class PSPKeyboard : public Object {
+
+public:
+
+  PSPKeyboard();
+  PSPKeyboard(const std::string&);
+  PSPKeyboard(const std::string&, const std::string&);
+  ~PSPKeyboard();
+
+  /** Set up the Keyboard @{ */
+  virtual const std::string getText();
+  virtual void setText(const std::string&);
+  
+  virtual const std::string getHelpText();
+  virtual void setHelptext(const std::string&);
+  /** @} */
+
+  /// Initialize the keyboard
+  virtual void init();
+
+  /// Display the keyboard, returning the user's entry.
+  virtual std::string show();
+
+private:
+
+  unsigned short input_text[32];
+  unsigned short output_text[32];
+  unsigned short help_text[32];
+  
+  bool is_init;
+  
+  SceUtilityOskData osk_data[1];
+  SceUtilityOskParams osk_params;
+
+  // No sense in copying this class
+  PSPKeyboard(const PSPKeyboard&);
+  PSPKeyboard& operator=(const PSPKeyboard&);
+
+  // Utility function for copying string to required format
+  void copyStringToUShort(const std::string&, unsigned short*);
+  std::string copyUShortToString(unsigned short*);
+  
+};// class PSPKeyboard
+
+#endif// __SMF_PSP_KEYBOARD_HH

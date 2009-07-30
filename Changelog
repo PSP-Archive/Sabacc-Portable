@@ -1,0 +1,68 @@
+Version 0.7.2
+	* Fixed: Fixed the "Call" routine to consider who called the hand. I really don't know if this is necessary. In the future there may be a sudden death feature, or the winner in a tie is (s)he who called the hand.
+	* Fixed: Music once again working on PSP.
+	* New: (Untested) PSP Save/Load feature.
+	* New: (Untested) PSP OSK for player customization.
+	* Note: The above new features are not available on any platform other than PSP.	
+
+Version 0.7.1
+	* Fixed: Removed some of the PSP dialogs.
+	* Fixed: Removed suite names.
+	
+Version 0.7.0a
+	* Fixed: Completed transition to PSP dialogs.
+	
+Version 0.7.0
+	* New: Card face names and suites are rendered using Peter Schuster's New Aurebesh. I can't find any license info online, hopefully it's ok for me to use it.
+	* New/Fixed: Some dialog changes to the PSP utility dialogs.
+	* Fixed: Misc. bug fixes.
+
+Version 0.6.4
+	* Fixed: PSP crash on startup.
+	* Fixed: More dealer call logic.
+	* Fixed: Rearranged the event handling code within the game itself. It no longer uses switch/case, PSP and Keyboard controls now being handled within the same blocks.
+
+Version 0.6.3
+	* Fixed: Some logic flaws in the code for calculating the winner when the hand is called.
+	* Fixed: The dealer called as soon as the round started. This meant that the player was not looking at their current cards or total when the hand was called. The dealer now calls after the player passes on the opportunity and before the next round continues.
+	* Fixed: A debugging feature where the dealer's cards were displayed slipped through into the build.
+	* Fixed: When the hand is called, the dealer's cards are now displayed. A bug in previous versions continued to hide the cards.
+	* Fixed: Resized the call dialog so that when the hand is called, the dealer's cards are visible behind the dialog. This was originally intended to be accomplished with a standard size dialog and alpha blending, but that isn't happening.
+
+Verion 0.6.2
+	* New: Graphics for suite display.
+	* Fixed: A rather big bug. You freeloaders didn't mention it either. When the player ran out of credits, they were still able to continue playing. This has been fixed.
+
+Version 0.6.1
+	* Never released.
+	* Fixed: Some small bug fixes.
+	
+Version 0.6.0
+	* New: Totally rewritten UI library, the Sabacc Media Framework, formerly the Sabacc Interface Toolkit version 2.
+	* New: Gameplay again restricted to Four Cards only.
+	* New: Continue a game that was in play before going to the main menu.
+	* New: The cards use a new feature of the text renderer. Unfortunately while it has been extensively tested on the development platform (Linux PPC), the same code does not work on PSP. It has its own code, which appears to work, but not tested as well as the development version. Hopefully the FreeType library port will be updated, I don't have the time to do it myself.
+	* Bug: The new format of stored music breaks on the PSP. For now, music is not played on this platform. The Linux PPC development version continues to play fine.
+
+Version 0.5.4
+	* Removed: Standard Game.
+	* Fixed: When cards were placed back in the deck, they were never removed from the table, leading to an infinite deck.
+	
+Version 0.5.3
+	* New: Standard Game, based on the rules as outlined by the Star Wars Artists Guild (SWAG).
+	* Fixed: Some UI Elements that caused errors.
+	* Fixed: Some memory allocation errors.
+	* Fixed: Cards were never recycled, so at some point the game ran out of cards to deal.
+
+Version 0.5.2:
+	* Fixed: FreeType rendering moved to a memory stream, so it no longer reads from the Memory Stick every time the player does something requiring text to be updated.
+	* Fixed: Miscellaneous bugs.
+
+Version 0.4.1:
+	* Fixed: When a round ended, the cards were not placed back in the deck. Eventually bad things happened.
+
+Version 0.4.0:
+	* New: First public release.
+	
+Version 0.1.0 - 0.3.9
+	* New: Development releases only.

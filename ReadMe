@@ -1,0 +1,34 @@
+Sabacc Basics 0.7.2 for PlayStation Portable
+====== ====== ===== === =========== ========
+
+Installation
+===========+
+
+Since 0.7.0, the only build available is for firmware 3 and up. I no longer build for nor support firmware 1.50.
+
+1. Copy the program itself
+==========================
+
+Copy EBOOT.PBP in the CFW folder to a folder of your choice within GAME/GAME3xx, GAME4XX or GAME5XX on your memory stick. For firmwares 3.0 to 3.9, replace GAME3xx with the appropriate version. For 4.xx use GAME4XX exactly as such, and similarly for 5.xx
+
+2. Copy the data files
+======================
+
+No longer necessary, all data is built-in.
+
+3. Play
+=======
+
+Self explanatory.
+
+4. Special Thanks
+=================
+To Dark Alex, to which this wouldn't be possible.
+To the devs of the PSP SDK and those who ported SDL and FreeType.
+To Peter Schuster for the New Aurebesh font.
+To the Debian team for providing a great alternative to OS X on my iBook G4 (Debian Lenny on an iBook is sweet). Sorry Ubuntu you're history. Yeah I know Ubuntu is Debian based, but Lenny runs so much faster and more reliably than Feisty, Gutsy, Hardy or Jaunty ever did on the iBook.
+
+
+Feedback always welcome, and remember, I need some graphic artists! Please help!
+
+-- goumba

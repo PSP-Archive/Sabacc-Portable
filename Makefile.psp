@@ -1,0 +1,323 @@
+# Makefile for the Sabacc Media Framework and Sabacc Basics
+# 2009, goumba
+
+# Define location of development tools and SDK
+PSPDEV = $(shell psp-config --pspdev-path)
+PSPSDK = $(shell psp-config --pspsdk-path)
+
+# Define target
+BUILD_PRX = 1
+USE_USER_LIB = 1
+TARGET = sabaccbasics
+
+# Filename conversions functions
+object-file = $(subst .cc,.o,$(filter %.cc, $1))
+depend-file = $(subst .o,.d,$(filter %.o,$1))
+define make-dependencies
+       $(CC) -MM \
+       	     -MF $3 \
+	     -MP \
+	     -MT $2 \
+	     $(CFLAGS) \
+	     $(CXXFLAGS) \
+	     $1
+endef
+
+# Build directory info
+all_dir		:= build/psp-debug \
+		   build/psp-profiled \
+		   build/psp-release
+build_dir 	:= $(foreach t,$(all_dir),$(filter $(all_dir)/%,$(CURDIR)))
+build_type	:= $(notdir $(subst -,/,$(build_dir)))
+
+# Define files needed
+library_short	:= smf
+library		:= lib$(library_short).a
+library_sources	:= $(shell find src -type f -name "*.cc")
+library_objects	:= $(call object-file,$(library_sources))
+library_depends	:= $(call depend-file,$(library_objects))
+
+binary_sources	:= $(shell find sabacc/src -type f -name "*.cc")
+binary_objects	:= $(call object-file,$(binary_sources))
+binary_depends	:= $(call depend-file,$(binary_objects))
+
+object_files	:= $(binary_objects) $(library_objects)
+object_depends	:= $(binary_depends) $(library_depends)
+
+# Path information
+include_dirs	:= . \
+		   include \
+		   sabacc/include \
+		   $(PSPDEV)/include \
+		   $(PSPDEV)/psp/include \
+		   $(PSPDEV)/psp/include/freetype2 \
+		   $(PSPSDK)/include
+library_dirs	:= . \
+		   $(PSPDEV)/psp/lib \
+		   $(PSPSDK)/lib
+
+# Required libraries
+libraries	= $(library_short) \
+		  pspgu \
+     		  pspfpu \
+		  stdc++ \
+		  SDL_gfx \
+      		  freetype \
+      		  SDL \
+      		  SDL_image \
+      		  png \
+      		  jpeg \
+      		  SDL_mixer \
+      		  vorbisfile \
+      		  vorbis \
+      		  ogg \
+      		  smpeg \
+      		  mikmod \
+      		  z \
+      		  m
+
+# Set up flags depending on PSP firmware version
+ifeq "1" "$(BUILD_PRX)"
+
+	PSP_FW_VERSION=300
+
+	SDLFLAGS = -I$(PSPDEV)/psp/include/SDL
+	SDLLIBS = -lSDL -lm -lGL -lpspvfpu -lpspdebug -lpspgu \
+		  -lpspctrl -lpspge -lpspdisplay -lpsphprm -lpspsdk \
+		  -lpsprtc -lpspaudio -lc -lpspuser -lpsputility \
+		  -lpspkernel -lpspnet_inet -lpspirkeyb -lpsppower
+
+	PSP_EBOOT_TITLE = Sabacc Basics ($(PSP_FW_VERSION))
+
+else
+
+	SDLFLAGS = $(shell $(PSPDEV)/psp/bin/sdl-config --cflags)
+	SDLLIBS = $(shell $(PSPDEV)/psp/bin/sdl-config --libs)
+
+	PSP_EBOOT_TITLE = Sabacc Basics (1.50)
+
+endif
+
+# Compiler flags
+
+# Tool file definitions
+CC       = psp-gcc
+CXX      = psp-g++
+AS       = psp-gcc
+LD       = psp-gcc
+AR       = psp-ar
+RANLIB   = psp-ranlib
+STRIP    = psp-strip
+MKSFO    = mksfo
+PACK_PBP = pack-pbp
+FIXUP    = psp-fixup-imports
+RM	 = rm -f
+MV	 = mv
+
+SMFDEBUGFLAGS := -D_DEBUG
+
+# Add in PSPSDK includes and libraries.
+CFLAGS   := $(addprefix -I,$(include_dirs)) \
+	    $(SDLFLAGS) \
+	    $(SMFDEBUGFLAGS) \
+	    $(DEBUGFLAGS) \
+	    $(WARNFLAGS) \
+	    $(ERRORFLAGS) \
+	    $(PSPBUILDFLAGS) \
+	    $(INCLUDEDIR) \
+	    -D__PSP__ \
+	    $(CFLAGS)
+CXXFLAGS := $(CFLAGS) $(CXXFLAGS)
+ASFLAGS  := $(CFLAGS) $(ASFLAGS)
+
+# PSP Specifics
+PSP_EBOOT_TITLE = Sabacc Basics
+EXTRA_TARGETS = EBOOT.PBP
+PSP_EBOOT_UNKPNG = psp/pic0.png
+PSP_EBOOT_PIC1 = psp/pic1.png
+
+ifeq ($(PSP_FW_VERSION),)
+PSP_FW_VERSION=150
+endif
+
+CFLAGS += -D_PSP_FW_VERSION=$(PSP_FW_VERSION)
+CXXFLAGS += -D_PSP_FW_VERSION=$(PSP_FW_VERSION)
+
+ifeq ($(BUILD_PRX),1)
+LDFLAGS  := $(addprefix -L,$(library_dirs)) \
+	    -specs=$(PSPSDK)/lib/prxspecs \
+	    -Wl,-q,-T$(PSPSDK)/lib/linkfile.prx \
+	    $(LDFLAGS)
+
+EXTRA_CLEAN += $(TARGET).elf
+
+# Setup default exports if needed
+ifdef PRX_EXPORTS
+EXPORT_OBJ=$(patsubst %.exp,%.o,$(PRX_EXPORTS))
+EXTRA_CLEAN += $(EXPORT_OBJ)
+else 
+EXPORT_OBJ=$(PSPSDK)/lib/prxexports.o
+endif
+else
+LDFLAGS  := $(addprefix -L,$(LIBDIR)) $(LDFLAGS)
+endif
+
+# Library selection.  By default we link with Newlib's libc.  Allow the
+# user to link with PSPSDK's libc if USE_PSPSDK_LIBC is set to 1.
+
+ifeq ($(USE_KERNEL_LIBC),1)
+# Use the PSP's kernel libc
+PSPSDK_LIBC_LIB = 
+CFLAGS := -I$(PSPSDK)/include/libc $(CFLAGS)
+else
+ifeq ($(USE_PSPSDK_LIBC),1)
+# Use the pspsdk libc
+PSPSDK_LIBC_LIB = -lpsplibc
+CFLAGS := -I$(PSPSDK)/include/libc $(CFLAGS)
+else
+# Use newlib (urgh)
+PSPSDK_LIBC_LIB = -lc
+endif
+endif
+
+# Link with following default libraries.  Other libraries should be specified in the $(LIBS) variable.
+# TODO: This library list needs to be generated at configure time.
+#
+ifeq ($(USE_KERNEL_LIBS),1)
+PSPSDK_LIBS = -lpspdebug -lpspdisplay_driver -lpspctrl_driver -lpspsdk
+LIBS     := $(LIBS) $(addprefix -l,$(libraries)) $(SDLLIBS) \
+	    $(PSPSDK_LIBS) $(PSPSDK_LIBC_LIB) -lpspkernel
+else
+ifeq ($(USE_USER_LIBS),1)
+PSPSDK_LIBS = -lpspdebug -lpspdisplay -lpspge -lpspctrl -lpspsdk
+LIBS     := $(LIBS) $(addprefix -l,$(libraries)) $(SDLLIBS) \
+	    $(PSPSDK_LIBS) $(PSPSDK_LIBC_LIB) -lpspnet \
+	    -lpspnet_inet -lpspnet_apctl -lpspnet_resolver -lpsputility \
+	    -lpspuser
+else
+PSPSDK_LIBS = -lpspdebug -lpspdisplay -lpspge -lpspctrl -lpspsdk
+LIBS     := $(LIBS) $(addprefix -l,$(libraries)) $(SDLLIBS) \
+	    $(PSPSDK_LIBS) $(PSPSDK_LIBC_LIB) -lpspnet \
+	    -lpspnet_inet -lpspnet_apctl -lpspnet_resolver -lpsputility \
+	    -lpspuser -lpspkernel
+endif
+endif
+
+# Define the overridable parameters for EBOOT.PBP
+ifndef PSP_EBOOT_TITLE
+PSP_EBOOT_TITLE = $(TARGET)
+endif
+
+ifndef PSP_EBOOT_SFO
+PSP_EBOOT_SFO = PARAM.SFO
+endif
+
+ifndef PSP_EBOOT_ICON
+PSP_EBOOT_ICON = NULL
+endif
+
+ifndef PSP_EBOOT_ICON1
+PSP_EBOOT_ICON1 = NULL
+endif
+
+ifndef PSP_EBOOT_UNKPNG
+PSP_EBOOT_UNKPNG = NULL
+endif
+
+ifndef PSP_EBOOT_PIC1
+PSP_EBOOT_PIC1 = NULL
+endif
+
+ifndef PSP_EBOOT_SND0
+PSP_EBOOT_SND0 = NULL
+endif
+
+ifndef PSP_EBOOT_PSAR
+PSP_EBOOT_PSAR = NULL
+endif
+
+ifndef PSP_EBOOT
+PSP_EBOOT = EBOOT.PBP
+endif
+
+ifeq ($(BUILD_PRX),1)
+ifneq ($(TARGET_LIB),)
+$(error TARGET_LIB should not be defined when building a prx)
+else
+FINAL_TARGET = $(TARGET).prx
+endif
+else
+ifneq ($(TARGET_LIB),)
+FINAL_TARGET = $(TARGET_LIB)
+else
+FINAL_TARGET = $(TARGET).elf
+endif
+endif
+
+all: $(object_depends) $(library) $(EXTRA_TARGETS) $(FINAL_TARGET)
+
+kxploit: $(TARGET).elf $(PSP_EBOOT_SFO)
+	mkdir -p "$(TARGET)"
+	$(STRIP) $(TARGET).elf -o $(TARGET)/$(PSP_EBOOT)
+	mkdir -p "$(TARGET)%"
+	$(PACK_PBP) "$(TARGET)%/$(PSP_EBOOT)" $(PSP_EBOOT_SFO) $(PSP_EBOOT_ICON)  \
+		$(PSP_EBOOT_ICON1) $(PSP_EBOOT_UNKPNG) $(PSP_EBOOT_PIC1)  \
+		$(PSP_EBOOT_SND0) NULL $(PSP_EBOOT_PSAR)
+
+SCEkxploit: $(TARGET).elf $(PSP_EBOOT_SFO)
+	mkdir -p "__SCE__$(TARGET)"
+	$(STRIP) $(TARGET).elf -o __SCE__$(TARGET)/$(PSP_EBOOT)
+	mkdir -p "%__SCE__$(TARGET)"
+	$(PACK_PBP) "%__SCE__$(TARGET)/$(PSP_EBOOT)" $(PSP_EBOOT_SFO) $(PSP_EBOOT_ICON)  \
+		$(PSP_EBOOT_ICON1) $(PSP_EBOOT_UNKPNG) $(PSP_EBOOT_PIC1)  \
+		$(PSP_EBOOT_SND0) NULL $(PSP_EBOOT_PSAR)
+
+$(TARGET).elf: $(object_files) $(EXPORT_OBJ)
+	$(LINK.c) $^ $(LIBS) -o $@
+	$(FIXUP) $@
+
+$(TARGET_LIB): $(library_objects)
+	$(AR) cru $@ $(library_objects)
+	$(RANLIB) $@
+
+$(PSP_EBOOT_SFO): 
+	$(MKSFO) '$(PSP_EBOOT_TITLE)' $@
+
+ifeq ($(BUILD_PRX),1)
+$(PSP_EBOOT): $(TARGET).prx $(PSP_EBOOT_SFO)
+	$(PACK_PBP) $(PSP_EBOOT) $(PSP_EBOOT_SFO) $(PSP_EBOOT_ICON)  \
+		$(PSP_EBOOT_ICON1) $(PSP_EBOOT_UNKPNG) $(PSP_EBOOT_PIC1)  \
+		$(PSP_EBOOT_SND0)  $(TARGET).prx $(PSP_EBOOT_PSAR)
+else
+$(PSP_EBOOT): $(TARGET).elf $(PSP_EBOOT_SFO)
+	$(STRIP) $(TARGET).elf -o $(TARGET)_strip.elf
+	$(PACK_PBP) $(PSP_EBOOT) $(PSP_EBOOT_SFO) $(PSP_EBOOT_ICON)  \
+		$(PSP_EBOOT_ICON1) $(PSP_EBOOT_UNKPNG) $(PSP_EBOOT_PIC1)  \
+		$(PSP_EBOOT_SND0)  $(TARGET)_strip.elf $(PSP_EBOOT_PSAR)
+	-rm -f $(TARGET)_strip.elf
+endif
+
+$(library): $(library_objects)
+	$(AR) $(ARFLAGS) $(library) $?
+
+%.prx: %.elf
+	psp-prxgen $< $@
+
+%.cc: %.exp
+	psp-build-exports -b $< > $@
+
+%.d: %.cc
+	echo Building dependency information for in $(build_dir) $<; \
+ 	$(call make-dependencies,$<,$@,$(subst .o,.d,$@))
+
+clean: 
+	-$(RM) $(FINAL_TARGET)
+	-$(RM) $(EXTRA_CLEAN)
+	-$(RM) $(object_depends)
+	-$(RM) $(binary_objects)
+	-$(RM) $(library_objects)
+	-$(RM) $(PSP_EBOOT_SFO) $(PSP_EBOOT)
+	-$(RM) $(EXTRA_TARGETS)
+
+rebuild: clean all
+

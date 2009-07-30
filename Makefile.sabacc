@@ -1,0 +1,50 @@
+LIB = build/libsmf.a
+BIN = build/sabacc
+
+LIB_SRC = $(shell find src -type f -name "*.cc")
+LIB_OBJ = $(patsubst %.cc,%.o,$(filter %.cc,$(LIB_SRC)))
+BIN_SRC = $(shell find sabacc/src -type f -name "*.cc")
+BIN_OBJ = $(patsubst %.cc,%.o,$(filter %.cc,$(BIN_SRC)))
+
+# Version definitions
+BUILD_MAJOR = 0
+BUILD_MINOR = 6
+BUILD_PATCHLEVEL = 0
+
+VERSIONFLAGS = -D_VERMAJOR=$(BUILD_MAJOR) -D_VERMINOR=$(BUILD_MINOR) -D_VERPATCHLEVEL=$(BUILD_PATCHLEVEL)
+
+SMFDEBUGFLAGS += -D_DEBUG
+# -D_DEBUGTOFILE
+DEBUGFLAGS += -g -ggdb
+PROFILEFLAGS += -pg
+WARNFLAGS += -Wall -Wfatal-errors -Weffc++ -std=c++98 -ansi 
+
+SDLFLAGS = $(shell sdl-config --cflags)
+SDLLIBS = -lSDL_mixer -lSDL_image -lSDL_gfx $(shell sdl-config --libs)
+
+INCLUDEDIR = -I. -Iinclude -Isabacc/include -I/usr/include -I/usr/include/freetype2
+
+CFLAGS += $(INCLUDEDIR) $(SDLFLAGS) $(SMFDEBUGFLAGS) $(DEBUGFLAGS) $(PROFILEFLAGS) $(WARNFLAGS) $(VERSIONFLAGS)
+CXXFLAGS += $(CFLAGS)
+
+LIBDIR += -L. -L/usr/lib
+LIBS += -lfreetype $(SDLLIBS)
+
+CXX = g++
+
+all: $(LIB) $(BIN)
+
+$(LIB): $(LIB_OBJ)
+	$(AR) $(ARFLAGS) $(LIB) $?
+
+$(BIN): $(LIB) $(BIN_OBJ)
+	$(CXX) -o $(BIN) $(BIN_OBJ) $(CXXFLAGS) $(LIBDIR) $(LIBS) $(LIB)
+
+clean:
+	rm -f $(LIB_OBJ) $(BIN_OBJ) $(LIB) $(BIN)
+
+cleangame:
+	rm -f $(BIN_OBJ) $(BIN)
+
+cleanlib:
+	rm -f $(LIB_OBJ) $(LIB)
