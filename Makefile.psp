@@ -1,4 +1,4 @@
-# Makefile for the Sabacc Media Framework and Sabacc Basics
+# Makefile for the Sabacc Media Framework and Sabacc Portable
 # 2009, goumba
 
 # Define location of development tools and SDK
@@ -87,14 +87,14 @@ ifeq "1" "$(BUILD_PRX)"
 		  -lpsprtc -lpspaudio -lc -lpspuser -lpsputility \
 		  -lpspkernel -lpspnet_inet -lpspirkeyb -lpsppower
 
-	PSP_EBOOT_TITLE = Sabacc Basics ($(PSP_FW_VERSION))
+	PSP_EBOOT_TITLE = Sabacc Portable ($(PSP_FW_VERSION))
 
 else
 
 	SDLFLAGS = $(shell $(PSPDEV)/psp/bin/sdl-config --cflags)
 	SDLLIBS = $(shell $(PSPDEV)/psp/bin/sdl-config --libs)
 
-	PSP_EBOOT_TITLE = Sabacc Basics (1.50)
+	PSP_EBOOT_TITLE = Sabacc Portable (1.50)
 
 endif
 
@@ -131,7 +131,7 @@ CXXFLAGS := $(CFLAGS) $(CXXFLAGS)
 ASFLAGS  := $(CFLAGS) $(ASFLAGS)
 
 # PSP Specifics
-PSP_EBOOT_TITLE = Sabacc Basics
+PSP_EBOOT_TITLE = Sabacc Portable
 EXTRA_TARGETS = EBOOT.PBP
 PSP_EBOOT_UNKPNG = psp/pic0.png
 PSP_EBOOT_PIC1 = psp/pic1.png
