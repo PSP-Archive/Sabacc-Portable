@@ -4,7 +4,7 @@
 /**
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: December 29, 2008
  *
  * File: Keyboard.hh
@@ -15,7 +15,7 @@
  */
 
 // Standard Library headers
-#include <std::string>
+#include <string>
 
 // PSP SDK headers
 #include <psputility.h>
@@ -29,26 +29,26 @@ class PSPKeyboard : public Object {
 
 public:
 
-  PSPKeyboard(const std::std::string& = "Text", const std::string& = "");
+  PSPKeyboard(const std::string& = "Text", const std::string& = "");
   ~PSPKeyboard();
 
   /** Set up the Keyboard @{ */
-  virtual const std::std::string getText();
-  virtual void setInputText(const std::std::string&);
+  virtual const std::string getText();
+  virtual void setInputText(const std::string&);
   
-  virtual const std::std::string getHelpText();
-  virtual void setHelptext(const std::std::string&);
+  virtual const std::string getHelpText();
+  virtual void setHelptext(const std::string&);
   /** @} */
 
   /// Initialize the keyboard
   virtual void init();
 
   /// Display the keyboard, returning the user's entry.
-  virtual std::std::string show();
+  virtual std::string show();
 
 private:
 
-  std::std::string input, output, help;
+  std::string input, output, help;
 
   static const psp_osk_size_t field_length;
 
@@ -61,9 +61,9 @@ private:
   PSPKeyboard(const PSPKeyboard&);
   PSPKeyboard& operator=(const PSPKeyboard&);
 
-  // Utility function for copying std::string to required format
-  void std::stringToUShort(const std::string&, unsigned short*);
-  std::std::string uShortToString(unsigned short*);
+  // Utility function for copying string to required format
+  void stringToUShort(const std::string&, unsigned short*);
+  std::string uShortToString(unsigned short*);
   
 };// class PSPKeyboard
 

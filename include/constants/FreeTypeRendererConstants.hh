@@ -4,7 +4,7 @@
 /*
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: September 3, 2008
  *
  * File: FreeTypeRendererConstants.hh
@@ -13,17 +13,17 @@
  */
 
 // Standard Library headers
-#include <std::string>
-
+#include <string>
+using std::string;
 
 /** Constant for bitmap renering. */
 static const unsigned short num_greys = 256;
 
 /** Constants defining defaults. @{ */
-static const std::string default_font_file = "SabaccUIFont.ttf";
+static const string default_font_file = "SabaccUIFont.ttf";
 static const int default_font_size = 12;
 static const int default_font_style = 0;
-static const std::string default_font_properties = "justify: left;";
+static const string default_font_properties = "justify: left;";
 
 /** Style constants @{ */
 static const short font_style_normal = 0;

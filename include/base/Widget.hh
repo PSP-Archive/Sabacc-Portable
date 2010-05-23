@@ -4,7 +4,7 @@
 /*
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: August 27, 2008
  *
  * File:Widget.hh
@@ -20,8 +20,8 @@
 class Widget : public Object {
 public:
     /** Constructors @{ */
-    Widget(const Rect& = default_rect, std::std::string = "autosize: true;");
-    Widget(Widget*, const Rect& = default_rect, std::std::string = "autosize: true;");
+    Widget(const Rect& = default_rect, std::string = "autosize: true;");
+    Widget(Widget*, const Rect& = default_rect, std::string = "autosize: true;");
     Widget(const Widget& other);
     virtual ~Widget();
     /** @} */

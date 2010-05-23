@@ -2,8 +2,8 @@
 #define __GAMEBASE_HH
 
 // Standard library headers
-#include <std::string>
-#include <std::vector>
+#include <string>
+#include <vector>
 
 // SDL headers
 #include <SDL_mixer.h>
@@ -19,15 +19,15 @@ class Player;
 
 class GameBase {
 
-    std::std::vector<Player>		players, winners;
-    std::std::vector<Card>		deck, waste;
+    std::vector<Player>		players, winners;
+    std::vector<Card>		deck, waste;
 
-    unsigned int			current_round;
+    unsigned int		current_round;
 
-    long					current_bet, last_bet, hand_pot, sabacc_pot;
+    long			current_bet, last_bet, hand_pot, sabacc_pot;
 
-    Mix_Chunk*				select_sound;
-    Mix_Chunk*				hold_sound;
+    Mix_Chunk*			select_sound;
+    Mix_Chunk*			hold_sound;
 
     // A game cannot be copied or assigned
     GameBase(const GameBase&);
@@ -43,8 +43,10 @@ class GameBase {
 public:
 
     GameBase();
-    GameBase(std::std::vector<Player>);	// Vector of players with which to start the game
-    GameBase(std::std::vector<Player>, long);	// Vector of players, and a set amount each is to start at
+// Vector of players with which to start the game
+    GameBase(std::vector<Player>);	
+// Vector of players, and a set amount each is to start at
+    GameBase(std::vector<Player>, long);	
     virtual ~GameBase();
 
     // Deck/Card operations
@@ -54,12 +56,14 @@ public:
     // Player operations
     // There is no longer a clear players function... that's just end of game.
     // Access function for the derived classes to acess players
-    virtual std::std::vector<Player>& getPlayers();
+    virtual std::vector<Player>& getPlayers();
+    // Get a single player
+    virtual Player& getPlayer(int);
 
     virtual void addPlayer(Player);
-    virtual void remPlayer(const std::std::vector<Player>::size_type);
+    virtual void remPlayer(const std::vector<Player>::size_type);
     virtual void remPlayer(Player);
-    virtual void remPlayer(std::std::vector<Player>::iterator);
+    virtual void remPlayer(std::vector<Player>::iterator);
 
     // Access functions for the pot
     // No takeFromXXXPot functions as they only get added to or emptied
@@ -80,8 +84,8 @@ public:
     virtual void addToSabaccPot(long);
 
     // Access functions for the derived classes to acess the deck and waste
-    virtual std::std::vector<Card>& getDeck();
-    virtual std::std::vector<Card>& getWaste();
+    virtual std::vector<Card>& getDeck();
+    virtual std::vector<Card>& getWaste();
 
     // Access the current round info
     virtual const unsigned int getRound();
@@ -93,8 +97,8 @@ public:
     void playHoldSound();
 
     // Hold a card
-    virtual void hold(std::std::vector<Card>::iterator) = 0;
-    virtual void hold(std::std::vector<Card>::size_type) = 0;
+    virtual void hold(std::vector<Card>::iterator) = 0;
+    virtual void hold(std::vector<Card>::size_type) = 0;
 
     // Start the game, run the event loop, &c.
     virtual void start() = 0;

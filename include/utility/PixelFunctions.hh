@@ -4,7 +4,7 @@
 /*
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: September 17, 2008
  *
  * File: PixelFunctions.hh

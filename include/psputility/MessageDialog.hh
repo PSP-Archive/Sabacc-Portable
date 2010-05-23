@@ -4,7 +4,7 @@
 /**
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: January 4, 2008
  *
  * File: MessageDialog.hh
@@ -14,7 +14,7 @@
  */
 
 // Standard Library headers
-#include <std::string>
+#include <string>
 
 // PSP SDK headers
 #include <psputility.h>
@@ -27,16 +27,16 @@ class PSPDialog : public Control {
 public:
 
   // Keep interface similar to the standard SMF dialog
-  PSPDialog(const std::std::string&, const std::string& = "", const std::string& = "Ok");
+  PSPDialog(const std::string&, const std::string& = "", const std::string& = "Ok");
   ~PSPDialog();
 
   /** Text properties. @{ */
-  virtual std::std::string getDialogText();
-  virtual void setDialogText(std::std::string);
-  virtual std::std::string getDialogTitle();
-  virtual void setDialogTitle(std::std::string);
-  virtual std::std::string getDialogButtontext();
-  virtual void setDialogButtonText(std::std::string);
+  virtual std::string getDialogText();
+  virtual void setDialogText(std::string);
+  virtual std::string getDialogTitle();
+  virtual void setDialogTitle(std::string);
+  virtual std::string getDialogButtontext();
+  virtual void setDialogButtonText(std::string);
   /** @} */
 
   /** Initialization of the control and cleanup. */
@@ -48,7 +48,7 @@ public:
 
 private:
 
-  std::std::string message, button_text;
+  std::string message, button_text;
   
   pspUtilityMsgDialogParams dialog_params;
 

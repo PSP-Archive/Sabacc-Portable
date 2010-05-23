@@ -4,7 +4,7 @@
 /*
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: August 27, 2008
  *
  * File: Rect.hh
@@ -23,7 +23,7 @@
 /*
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: August 20, 2008
  *
  * File: Rect.hh

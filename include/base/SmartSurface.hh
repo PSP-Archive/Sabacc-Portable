@@ -4,7 +4,7 @@
 /*
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: December 9, 2008
  *
  * File: SmartSurface.hh
@@ -14,7 +14,7 @@
  */
 
 // Standard library headers
-#include <std::map>
+#include <map>
 
 // SDL headers
 #if defined(__APPLE__)
@@ -45,7 +45,7 @@ public:
 
 protected:
   SDL_Surface* my_ptr;
-  static std::std::map<SDL_Surface*, int> reference_map;
+  static std::map<SDL_Surface*, int> reference_map;
 
   void releaseSurface();
   void initializeSurface(SDL_Surface*);

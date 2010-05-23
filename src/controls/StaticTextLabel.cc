@@ -1,7 +1,7 @@
 /*
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: August 28, 2008
  *
  * File: TextLabel.hh

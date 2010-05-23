@@ -1,7 +1,7 @@
 /**
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: December 1, 2008
  *
  * File: OKCancelDialog.hh

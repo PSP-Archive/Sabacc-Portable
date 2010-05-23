@@ -4,7 +4,7 @@
 /*
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: September 4, 2008
  *
  * File: FreeTypeDefinitions.hh

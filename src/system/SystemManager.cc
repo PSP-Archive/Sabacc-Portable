@@ -1,7 +1,7 @@
 /*
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: August 29, 2008
  *
  * File: SystemManager.cc

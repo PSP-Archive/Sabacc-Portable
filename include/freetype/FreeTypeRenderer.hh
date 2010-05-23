@@ -4,7 +4,7 @@
 /*
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: September 4, 2008
  *
  * File: FreeTypeRenderer.hh
@@ -13,9 +13,12 @@
  */
 
 // Standard Library headers
-#include <std::map>
-#include <std::string>
-#include <std::vector>
+#include <map>
+#include <string>
+#include <vector>
+using std::map;
+using std::string;
+using std::vector;
 
 // SDL headers
 #ifdef __APPLE__
@@ -45,69 +48,69 @@ class FreeTypeRenderer {
 public:
 
     FreeTypeRenderer();
-  FreeTypeRenderer(FontState const &);
-    FreeTypeRenderer(const std::std::string&, int = default_font_size, int = default_font_style, SDL_Color = default_forecolor, const std::string& = "");
-    FreeTypeRenderer(const char*, int = default_font_size, int = default_font_style, SDL_Color = default_forecolor, const std::std::string& = "");
-    FreeTypeRenderer(FreeTypeRenderer const &);
-    ~FreeTypeRenderer();
+    FreeTypeRenderer(const FontState&);
+    FreeTypeRenderer(const string&, int = default_font_size, int = default_font_style, SDL_Color = default_forecolor, const string& = "");
+    FreeTypeRenderer(const char*, int = default_font_size, int = default_font_style, SDL_Color = default_forecolor, const string& = "");
+    FreeTypeRenderer(const FreeTypeRenderer&);
+    virtual ~FreeTypeRenderer();
 
     /** Operators @{ */
-    FreeTypeRenderer& operator=(FreeTypeRenderer const &);
-    bool operator<(FreeTypeRenderer const&);	/// Compare by font size and style
-    bool operator>(FreeTypeRenderer const &);	/// Compare by font size and style
+    FreeTypeRenderer& operator=(const FreeTypeRenderer&);
+    virtual bool operator<(const FreeTypeRenderer&);	/// Compare by font size and style
+    virtual bool operator>(const FreeTypeRenderer&);	/// Compare by font size and style
     /** @} */
 
     /** Retrieve and set font properties. @{ */
-  void setFileStream(FT_Byte*, int);
-    std::std::string getProperty(std::string);
-    void setProperty(std::std::string, std::string);
-    std::std::string getProperties();
-    void setProperties(std::std::string);
-    int getSize();
-    void setSize(int);
-    int getStyle();
-    void setStyle(int);
-    const SDL_Color& getColor();
-    void setColor(SDL_Color = default_forecolor);
-    void setColor(int, int, int, int);
-    const SDL_Color& getStrokeColor();
-    void setStrokeColor(SDL_Color = default_forecolor);
-    void setStrokeColor(int, int, int, int);
+  virtual void setFileStream(FT_Byte*, int);
+    virtual string getProperty(string);
+    virtual void setProperty(string, string);
+    virtual string getProperties();
+    virtual void setProperties(string);
+    virtual int getSize();
+    virtual void setSize(int);
+    virtual int getStyle();
+    virtual void setStyle(int);
+    virtual const SDL_Color& getColor();
+    virtual void setColor(SDL_Color = default_forecolor);
+    virtual void setColor(int, int, int, int);
+    virtual const SDL_Color& getStrokeColor();
+    virtual void setStrokeColor(SDL_Color = default_forecolor);
+    virtual void setStrokeColor(int, int, int, int);
     /** @} */
 
     /** Read-only properties. @{ */
-    int getAscent();
-    int getDescent();
-    int getFontHeight();
-    int getLineHeight();
+    virtual int getAscent();
+    virtual int getDescent();
+    virtual int getFontHeight();
+    virtual int getLineHeight();
     /** @} */
 
     /** State operatoions. @{ */
-    void pushState();	/// Saves state for future retrieval.
-    void popState();	/// Retrieves the most recently saved state.
-    void clearStates();
-    FontState const &getState();	/// Gets the data of the current font state.
-    void setState(FontState const &);	/// Replaces the current state with the specified data.
+    virtual void pushState();	/// Saves state for future retrieval.
+    virtual void popState();	/// Retrieves the most recently saved state.
+    virtual void clearStates();
+    virtual const FontState& getState();	/// Gets the data of the current font state.
+    virtual void setState(FontState);	/// Replaces the current state with the specified data.
     /** @} */
 
     /** Text measurement. @{ */
-    int const lineWidth(const std::std::string&);
-    int const lineWidth(const char*);
-    int const textWidth(const std::std::string&);
-    int const textWidth(const char*);
-    int const textHeight(const std::std::string&);
-    int const textHeight(const char*);
+    virtual int lineWidth(const string&);
+    virtual int lineWidth(const char*);
+    virtual int textWidth(const string&);
+    virtual int textWidth(const char*);
+    virtual int textHeight(const string&);
+    virtual int textHeight(const char*);
     /** @} */
 
     /** Creates a new surface and renders to it. @{ */
-    SmartSurface render(const std::std::string&);
-    SmartSurface render(const char*);
+    virtual SmartSurface render(const string&);
+    virtual SmartSurface render(const char*);
     /** @} */
 
 
     /** These methods render to an existing surface at the specified position within the surface. @{ */
-    void render(const std::std::string&, SmartSurface, int = 0, int = 0);
-    void render(const char*, SmartSurface, int = 0, int = 0);
+    virtual void render(const string&, SDL_Surface*, int = 0, int = 0);
+    virtual void render(const char*, SDL_Surface*, int = 0, int = 0);
     /** @} */
 
 private:
@@ -127,22 +130,24 @@ private:
     int					result;
 
     // Set up the library
-    void init();
-  void initFromStream(FT_Byte*, int);
-    void cleanup();
-    void close();
-    void open();
+    virtual void init();
+  virtual void initFromStream(FT_Byte*, int);
+    virtual void cleanup();
+    virtual void close();
+    virtual void open();
 
     // Font information
     FontState			current_state;
-    std::std::vector<FontState>		states;
+    vector<FontState>		states;
 
     // Glyph retrieval and cache
-  std::std::map<char, CachedGlyph>	glyph_cache, stroke_cache;	// char, glyph index, bitmap
-    CachedGlyph loadGlyph(char);
+    map<char, CachedGlyph>	glyph_cache, stroke_cache;	// char, glyph index, bitmap
+    virtual CachedGlyph loadGlyph(char);
 
-  // Stroked glyphs now work under PSP.
-    CachedGlyph loadStrokedGlyph(char);
+  // Do not use this under PSP as the newer FreeType lib works with stroker
+  // differently. To be fixed, and dependent on FreeType lib version rather
+  // than if SMF is being compiled for PSP or not.
+    virtual CachedGlyph loadStrokedGlyph(char);
 
     void clearCache();
 

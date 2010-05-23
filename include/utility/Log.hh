@@ -4,7 +4,7 @@
 /*
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: August 26, 2008
  *
  * File: Log.hh
@@ -15,9 +15,9 @@
 // Standard Library headers
 #include <ctime>
 #include <fstream>
-#include <std::string>
+#include <string>
 using std::ofstream;
-
+using std::string;
 
 // Utility headers
 #include "Singleton.hh"
@@ -33,16 +33,16 @@ private:
 
     // Functions for formatting timestamp
     tm getNow();
-    std::string date();
+    string date();
 
 public:
     // ctor/dtor
     Log();
     ~Log();
 
-    void useFile(std::string);
-    void append(std::string);
-    void append(std::string, const char*, int);
+    void useFile(string);
+    void append(string);
+    void append(string, const char*, int);
 }; // class Log
 
 // An easy way to refer to the singleton

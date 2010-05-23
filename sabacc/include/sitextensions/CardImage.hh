@@ -2,8 +2,8 @@
 #define __CARDWIDGET_HH
 
 // Standard library headers
-#include <std::string>
-#include <std::vector>
+#include <string>
+#include <vector>
 
 // SDL headers
 #ifdef __APPLE__
@@ -26,9 +26,9 @@
 class Card;
 
 #if defined(__PSP__) || defined(__PSPTEST__)
-static const std::std::string default_card_image = "card_small.png";
+static const std::string default_card_image = "card_small.png";
 #else
-static const std::std::string default_card_image = "card_small.png";
+static const std::string default_card_image = "card_small.png";
 #endif
 
 class CardImage : public StaticImage {

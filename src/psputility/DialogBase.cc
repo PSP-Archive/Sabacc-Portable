@@ -2,7 +2,7 @@
 /**
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: January 8, 2009.
  *
  * File: DialogBase.cc

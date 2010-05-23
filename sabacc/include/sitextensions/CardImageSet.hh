@@ -2,7 +2,7 @@
 #define __CARDIMAGESET_HH
 
 // Standard headers
-#include <std::vector>
+#include <vector>
 
 // Sabacc headers
 #include "base/Widget.hh"
@@ -12,11 +12,11 @@
 class CardImage;
 class Player;
 
-/* This class uses a std::vector of CardImage objects and is derived from widget so that it may
+/* This class uses a vector of CardImage objects and is derived from widget so that it may
  * be added to the render queue. */
 class CardImageSet : public Widget {
 
-    std::std::vector<CardImage>	card_images;
+    std::vector<CardImage>	card_images;
     Player*					card_holder;
 
     // No need to copy or assign card image sets

@@ -2,7 +2,7 @@
 #define __GAMEBOOT_HH
 
 // Standard Library headers
-#include <std::string>
+#include <string>
 
 // SDL headers
 #if !defined(__APPLE__)
@@ -41,7 +41,7 @@ private:
 
     Mix_Chunk*	menu_music;
 
-  std::std::string player_name;
+  std::string player_name;
 
   //  GameBase* sabacc_game;
 

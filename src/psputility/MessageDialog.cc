@@ -3,7 +3,7 @@
 /**
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: January 4, 2008
  *
  * File: MessageDialog.hh

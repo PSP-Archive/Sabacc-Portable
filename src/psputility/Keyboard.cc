@@ -4,7 +4,7 @@
 /**
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: December 29, 2008
  *
  * File: Keyboard.cc

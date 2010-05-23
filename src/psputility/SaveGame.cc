@@ -3,7 +3,7 @@
 /**
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: January 15, 2009.
  *
  * File: SaveGame.cc
@@ -47,7 +47,7 @@ using std::string;
 // in the same application.
 namespace PSPUtility {
 
-  static const string game_title = "Sabacc Basics";
+  static const string game_title = "Sabacc Portable";
   static const string game_version = "0.7.2";
 
   static const char save_player_title[] = "Save Player Data";
@@ -64,7 +64,7 @@ namespace PSPUtility {
     ""
   };
 
-  static const string data_file = "SabaccBasics.savedata";
+  static const string data_file = "SabaccPortable.savedata";
 
   SaveGameData::SaveGameData(char* data, size_t data_size, string game_desc) :
     save_game_data(data), save_game_data_length(data_size),

@@ -69,7 +69,7 @@ GameBoot::GameBoot() :
   bg(sabacc_menu_bitmap, size_sabacc_menu_bitmap, Rect(0, 0, 480, 272), "autosize: true; pixelformat: display"),
   logo(main_logo_image, size_main_logo_image, Rect(0, 0, 480, 272), "autosize: true; pixelformat: displayalpha"),
   copyright("2008, goumba", Rect(380, 252), "autosize: true; anchor: bottom right"),
-  version("version 0.7.2", Rect(5, 252), "autosize: true; anchor: bottom left"),
+  version("version 0.7.5", Rect(5, 252), "autosize: true; anchor: bottom left"),
   main_menu("Main Menu", Rect(15, 120,
 	    const_cast<Rect&>(getSystemManager().getVideo().getResolution()).getWidth() - 15,
 	    const_cast<Rect&>(getSystemManager().getVideo().getResolution()).getHeight() - 

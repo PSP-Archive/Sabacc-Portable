@@ -1,7 +1,7 @@
 /**
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: September 8, 2008
  *
  * File: StaticMenu.cc

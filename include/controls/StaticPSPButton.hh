@@ -4,7 +4,7 @@
 /*
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: December 10, 2008
  *
  * File: StaticPSPButton.hh
@@ -14,8 +14,8 @@
  */
 
 // Standard Library headers
-#include <std::string>
-
+#include <string>
+using std::string;
 
 // SMF headers
 #include "base/FreeTypeControl.hh"
@@ -36,8 +36,8 @@ public:
      *        These justify the text in the confines of the label when it is lager than
      *        the text itself.
      * @{ */
-    PSPButton(std::string, const Rect& = default_rect, string = "autosize: true");
-    PSPButton(Widget*, std::string, const Rect& = default_rect, string = "autosize: true");
+    PSPButton(string, const Rect& = default_rect, string = "autosize: true");
+    PSPButton(Widget*, string, const Rect& = default_rect, string = "autosize: true");
     PSPButton(const PSPButton&);
     ~PSPButton();
     /** @} */
@@ -46,9 +46,9 @@ public:
     PSPButton& operator=(const PSPButton&);
 
     /** Retrieve or set label text and properties. @{ */
-    virtual std::string getText();
-    virtual void setText(std::string);
-  virtual std::string getPSPKey();
+    virtual string getText();
+    virtual void setText(string);
+  virtual string getPSPKey();
   virtual void setPSPKey(char);
 
     /** Initialization and cleanup functions which must be overloaded by derived classes. @{ */
@@ -60,7 +60,7 @@ public:
     virtual void draw();
 
 private:
-  std::string	label_text, psp_key;
+  string	label_text, psp_key;
 
 };	// class PSPButton
 

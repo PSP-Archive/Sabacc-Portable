@@ -114,6 +114,15 @@ void GameBase::shuffleDeck() {
 std::vector<Player>& GameBase::getPlayers() {
     return(players);
 }
+Player &GameBase::getPlayer(int player_number)
+{
+    // Throw this class on error.
+    class InvalidPlayer { };
+
+    if (players.size() < player_number) throw InvalidPlayer();
+
+    return players[player_number];
+}
 void GameBase::addPlayer(Player p) {
     players.push_back(p);
 }	// addPlayer

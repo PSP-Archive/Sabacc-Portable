@@ -2,7 +2,7 @@
 #define GAMEIMPL_HH_INCLUDED
 
 // Standard library headers
-#include <std::string>
+#include <string>
 
 // Exception headers
 #include "exceptions/base/ExceptionBase.hh"
@@ -14,9 +14,9 @@ namespace Exceptions {
         class Game : public ExceptionBase {
 
         public:
-            Game(std::std::string);
-            Game(std::std::string, std::string);
-            Game(std::std::string, std::string, std::string);
+            Game(std::string);
+            Game(std::string, std::string);
+            Game(std::string, std::string, std::string);
             virtual ~Game();
 
         };  // class Game
@@ -24,9 +24,9 @@ namespace Exceptions {
         class CouldNotCreateGameObject : public ExceptionBase {
 
         public:
-            CouldNotCreateGameObject(std::std::string);
-            CouldNotCreateGameObject(std::std::string, std::string);
-            CouldNotCreateGameObject(std::std::string, std::string, std::string);
+            CouldNotCreateGameObject(std::string);
+            CouldNotCreateGameObject(std::string, std::string);
+            CouldNotCreateGameObject(std::string, std::string, std::string);
             virtual ~CouldNotCreateGameObject();
 
         };  // class CouldNotCreateGameObject

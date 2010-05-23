@@ -29,7 +29,7 @@
 #define STDOUT_FILE "cout.txt"
 #define STDERR_FILE "cerr.txt"
 
-PSP_MODULE_INFO("SabaccBasics", 0, 1, 0);
+PSP_MODULE_INFO("SabaccPortable", 0, 1, 0);
 
 // HEAP_SIZE_MAX removed for compatibility reasons
 // but left here if it needs to be re-enabled.
@@ -89,7 +89,7 @@ int main (int arg_count, char** argv) {
         video.setResolution(Rect(0, 0, 480, 272));
     }
 
-    getSystemManager().setWindowTitle("Sabacc Basics");
+    getSystemManager().setWindowTitle("Sabacc Portable");
 
     GameBoot* sabacc_game = new GameBoot();
 
@@ -102,7 +102,7 @@ int main (int arg_count, char** argv) {
 
     // all is well ;)
 #if defined(_DEBUG)
-    logAppend("If you see this message, SabaccBasics exited normally.");
+    logAppend("If you see this message, SabaccPortable exited normally.");
 #endif
 
     return(0);

@@ -4,7 +4,7 @@
 /*
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: August 28, 2008
  *
  * File: WidgetExceptions.hh
@@ -13,8 +13,8 @@
  */
 
 // Standard library headers
-#include <std::string>
-
+#include <string>
+using std::string;
 
 // SMF Exception headers
 #include "exceptions/base/ExceptionBase.hh"
@@ -28,14 +28,14 @@ namespace Exceptions {
         public:
 
             /** Constructors. See ExceptionBase for details. @{ */
-            BlitError(const std::string&, const char* = "", int = 0);	/// Short message, file (default: zero length) and line (default: -1)
-            BlitError(const std::string&, const string&, const char* = "", int = 0);	/// Short message, long message, file (default: zero length) and line (default: -1)
-            BlitError(const std::string&, const string&, const string&, const char* = "", int = 0);	/// Short message, long message, extra data, file (default: zero length) and line (default: -1)
+            BlitError(const string&, const char* = "", int = 0);	/// Short message, file (default: zero length) and line (default: -1)
+            BlitError(const string&, const string&, const char* = "", int = 0);	/// Short message, long message, file (default: zero length) and line (default: -1)
+            BlitError(const string&, const string&, const string&, const char* = "", int = 0);	/// Short message, long message, extra data, file (default: zero length) and line (default: -1)
             virtual ~BlitError() { }
             /** @} */
 
             /** These functions get exception information. @{ */
-            virtual std::string getExceptionName();
+            virtual string getExceptionName();
 
         };	// class BlitError
 
@@ -44,14 +44,14 @@ namespace Exceptions {
         public:
 
             /** Constructors. See ExceptionBase for details. @{ */
-            InvalidSurfaceForBlit(const std::string&, const char* = "", int = 0);	/// Short message, file (default: zero length) and line (default: -1)
-            InvalidSurfaceForBlit(const std::string&, const string&, const char* = "", int = 0);	/// Short message, long message, file (default: zero length) and line (default: -1)
-            InvalidSurfaceForBlit(const std::string&, const string&, const string&, const char* = "", int = 0);	/// Short message, long message, extra data, file (default: zero length) and line (default: -1)
+            InvalidSurfaceForBlit(const string&, const char* = "", int = 0);	/// Short message, file (default: zero length) and line (default: -1)
+            InvalidSurfaceForBlit(const string&, const string&, const char* = "", int = 0);	/// Short message, long message, file (default: zero length) and line (default: -1)
+            InvalidSurfaceForBlit(const string&, const string&, const string&, const char* = "", int = 0);	/// Short message, long message, extra data, file (default: zero length) and line (default: -1)
             virtual ~InvalidSurfaceForBlit() { }
             /** @} */
 
             /** These functions get exception information. @{ */
-            virtual std::string getExceptionName();
+            virtual string getExceptionName();
 
         };	// class LoadError
 

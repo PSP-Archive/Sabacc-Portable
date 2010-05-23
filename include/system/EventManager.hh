@@ -4,7 +4,7 @@
 /*
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: September 30, 2008
  *
  * File: EventManager.hh
@@ -17,8 +17,8 @@
  */
 
 // Standard Library headers
-#include <std::vector>
-
+#include <vector>
+using std::vector;
 
 // Simple Directmedia Library headers
 #if defined(__APPLE__)
@@ -44,8 +44,8 @@ public:
     /** EventManager operators @{ */
     virtual EventManager& operator<<(Control*);
   virtual EventManager& operator<<(Widget*);
-    virtual Control* operator[](std::vector<Control*>::size_type);	/// Allow for EM[] = x.
-    virtual Control* operator[](std::vector<Control*>::size_type) const;	/// Read only.
+    virtual Control* operator[](vector<Control*>::size_type);	/// Allow for EM[] = x.
+    virtual Control* operator[](vector<Control*>::size_type) const;	/// Read only.
     /** @} */
 
     /** Event queue operations. @{ */
@@ -55,11 +55,11 @@ public:
   virtual void push(Widget*);  /// Add a Widget, conversion done in function
     virtual void pop();	/// Remove the last Widget from the queue.
 
-    virtual void erase(std::vector<Control*>::iterator);	/// Erase the Widget indicated by iterator
+    virtual void erase(vector<Control*>::iterator);	/// Erase the Widget indicated by iterator
     /** @} */
 
     /** Event queue status. @{ */
-    virtual std::vector<Control*>::size_type size();
+    virtual vector<Control*>::size_type size();
     virtual bool empty();
     /** @} */
 
@@ -71,11 +71,11 @@ public:
 
 private:
 
-    std::vector<Control*>	event_queue;
+    vector<Control*>	event_queue;
 
     SDL_Event	system_event;
 
-  //  std::list<user_fn*(int)> user_event_handlers;
+  //  list<user_fn*(int)> user_event_handlers;
 
     // Copying not allowed
     EventManager(const EventManager&);

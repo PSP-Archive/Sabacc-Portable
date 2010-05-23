@@ -4,7 +4,7 @@
 /*
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: September 7, 2008
  *
  * File: Control.hh
@@ -13,8 +13,8 @@
  */
 
 // Standard Library headers
-#include <std::string>
-
+#include <string>
+using std::string;
 
 // Simple Directmedia Library headers
 #if defined(__APPLE__)
@@ -31,8 +31,8 @@
 class Control : public SurfaceWidget {
 public:
     /** Constructors @{ */
-    Control(const Rect& = default_rect, std::string = "");
-    Control(Widget*, const Rect& = default_rect, std::string = "");
+    Control(const Rect& = default_rect, string = "");
+    Control(Widget*, const Rect& = default_rect, string = "");
     Control(const Control&);
     virtual ~Control();
     /** @} */

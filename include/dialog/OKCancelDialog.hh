@@ -4,7 +4,7 @@
 /**
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: December 3, 2008
  *
  * File: OKCancelDialog.hh
@@ -45,9 +45,9 @@ class OKCancelDialog : public DialogBase {
 public:
 
     /** Constructors. Same as any lower tier Control base class. @{ */
-  OKCancelDialog(const Rect& = default_rect, const std::string& = "");
-  //  OKCancelDialog(const std::string&, const string& = "", const Rect& = default_rect, const string& = "");
-  OKCancelDialog(const std::string&, const string& = "", const string& = "OK", const string& = "Cancel", const Rect& = default_rect, const string& = "");
+  OKCancelDialog(const Rect& = default_rect, const string& = "");
+  //  OKCancelDialog(const string&, const string& = "", const Rect& = default_rect, const string& = "");
+  OKCancelDialog(const string&, const string& = "", const string& = "OK", const string& = "Cancel", const Rect& = default_rect, const string& = "");
     OKCancelDialog(const OKCancelDialog&);
     virtual ~OKCancelDialog();
 
@@ -55,14 +55,14 @@ public:
     OKCancelDialog& operator=(const OKCancelDialog&);
 
   /** Text properties. @{ */
-  virtual std::std::string getDialogText();
-  virtual void setDialogText(std::std::string);
-  virtual std::std::string getDialogTitle();
-  virtual void setDialogTitle(std::std::string);
-  virtual std::std::string getDialogOKButtontext();
-  virtual void setDialogOKButtonText(std::std::string);
-  virtual std::std::string getDialogCancelButtontext();
-  virtual void setDialogCancelButtonText(std::std::string);
+  virtual std::string getDialogText();
+  virtual void setDialogText(std::string);
+  virtual std::string getDialogTitle();
+  virtual void setDialogTitle(std::string);
+  virtual std::string getDialogOKButtontext();
+  virtual void setDialogOKButtonText(std::string);
+  virtual std::string getDialogCancelButtontext();
+  virtual void setDialogCancelButtonText(std::string);
   /** @} */
 
 	/** Keyboard event handlers, all defined to return true to prevent underlying

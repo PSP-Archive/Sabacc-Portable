@@ -2,8 +2,8 @@
 #define __STANDARDGAME_HH
 
 // Standard library headers
-#include <std::string>
-#include <std::vector>
+#include <string>
+#include <vector>
 
 // SDL headers
 #include <SDL_mixer.h>
@@ -46,13 +46,13 @@ class StandardGame : public GameBase {
 public:
 
     StandardGame();
-    StandardGame(std::std::vector<Player>);	// Vector of players with which to start the game
-    StandardGame(std::std::vector<Player>, long);	// Vector of players, and a set amount each is to start at
+    StandardGame(std::vector<Player>);	// Vector of players with which to start the game
+    StandardGame(std::vector<Player>, long);	// Vector of players, and a set amount each is to start at
     virtual ~StandardGame();
 
     // Hold a card
-    virtual void hold(std::std::vector<Card>::iterator);
-    virtual void hold(std::std::vector<Card>::size_type);
+    virtual void hold(std::vector<Card>::iterator);
+    virtual void hold(std::vector<Card>::size_type);
 
     // Start the game, run the event loop, &c.
     virtual void start();

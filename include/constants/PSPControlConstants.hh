@@ -4,7 +4,7 @@
 /**
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: October 5, 2008
  *
  * File: PSPControlConstants.hh

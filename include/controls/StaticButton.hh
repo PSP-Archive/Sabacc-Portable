@@ -4,7 +4,7 @@
 /*
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: September 13, 2008
  *
  * File: StaticButton.hh
@@ -13,8 +13,8 @@
  */
 
 // Standard Library headers
-#include <std::string>
-
+#include <string>
+using std::string;
 
 // SMF headers
 #include "base/FreeTypeControl.hh"
@@ -35,8 +35,8 @@ public:
      *        These justify the text in the confines of the label when it is lager than
      *        the text itself.
      * @{ */
-    Button(std::string, const Rect& = default_rect, string = "autosize: true");
-    Button(Widget*, std::string, const Rect& = default_rect, string = "autosize: true");
+    Button(string, const Rect& = default_rect, string = "autosize: true");
+    Button(Widget*, string, const Rect& = default_rect, string = "autosize: true");
     Button(const Button&);
     ~Button();
     /** @} */
@@ -45,8 +45,8 @@ public:
     Button& operator=(const Button&);
 
     /** Retrieve or set label text and properties. @{ */
-    virtual std::string getText();
-    virtual void setText(std::string);
+    virtual string getText();
+    virtual void setText(string);
 
     /** Initialization and cleanup functions which must be overloaded by derived classes. @{ */
     virtual void init();
@@ -57,7 +57,7 @@ public:
     virtual void draw();
 
 private:
-    std::string	label_text;
+    string	label_text;
 
 };	// class Button
 

@@ -4,7 +4,7 @@
 /*
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: August 20, 2008
  *
  * File: Object.hh
@@ -14,8 +14,8 @@
  */
 
 // Standard library headers
-#include <std::string>
-
+#include <string>
+using std::string;
 
 // SMF headers
 #include "types/TypeDefinitions.hh"
@@ -28,7 +28,7 @@ public:
 
     /** Constructors. @{ */
     Object();
-    Object(std::string);
+    Object(string);
     Object(const Object&);
     virtual ~Object();
     /** @} */
@@ -39,10 +39,10 @@ public:
     object_id_type getID();
 
     /** String based property related methods. @{ */
-    virtual std::string getProperty(string);	/// Get property with key @param key.
-    virtual void setProperty(std::string, string);	/// Set (or change) property with key @param key to @param value
-    virtual std::string getProperties();	/// Get all properties in one string.
-    virtual void setProperties(std::string);	/// Set (or create) properties from a string containing @c key: @c value pairs
+    virtual string getProperty(string);	/// Get property with key @param key.
+    virtual void setProperty(string, string);	/// Set (or change) property with key @param key to @param value
+    virtual string getProperties();	/// Get all properties in one string.
+    virtual void setProperties(string);	/// Set (or create) properties from a string containing @c key: @c value pairs
     /** @} */
 
 private:

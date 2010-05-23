@@ -1,7 +1,7 @@
 /*
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: September 2, 2008
  *
  * File: FontManager.cc
@@ -18,6 +18,7 @@
 
 // PSP Glyph data
 #include "freetype/fonts/PSPGlyphs.h"
+#include "freetype/fonts/AureBesh.h"
 
 FreeTypeRenderer& getSystemFont() {
     static FreeTypeRenderer system_font;

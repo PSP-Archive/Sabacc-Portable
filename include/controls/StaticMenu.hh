@@ -4,7 +4,7 @@
 /*
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: September 7, 2008
  *
  * File: StaticMenu.hh
@@ -14,12 +14,12 @@
  */
 
 // Standard Library headers
-#include <std::string>
+#include <string>
 #include <utility>
-#include <std::vector>
+#include <vector>
 using std::pair;
-
-
+using std::string;
+using std::vector;
 
 // SMF headers
 #include "base/FreeTypeControl.hh"
@@ -27,7 +27,7 @@ using std::pair;
 #include "geometry/Rect.hh"
 
 // SMF Type definitions
-typedef pair<std::string, string> ItemType;
+typedef pair<string, string> ItemType;
 
 class Menu : public FreeTypeControl {
 
@@ -39,10 +39,10 @@ public:
      * @param property_string - properties for displaying the text.
      *        Can be any of the startdard Object, Widget and TextLabel properties.
      * @{ */
-    Menu(std::string = "Menu", const Rect& = default_rect, string = "autosize: true; justify: center");
-    Menu(std::vector<ItemType>, std::string = "Menu", const Rect& = default_rect, string = "autosize: true; justify: center");
-    Menu(Widget*, std::string = "Menu", const Rect& = default_rect, string = "autosize: true; justify: center");
-    Menu(Widget*, std::vector<ItemType>, std::string = "Menu", const Rect& = default_rect, string = "autosize: true; justify: center");
+    Menu(string = "Menu", const Rect& = default_rect, string = "autosize: true; justify: center");
+    Menu(vector<ItemType>, string = "Menu", const Rect& = default_rect, string = "autosize: true; justify: center");
+    Menu(Widget*, string = "Menu", const Rect& = default_rect, string = "autosize: true; justify: center");
+    Menu(Widget*, vector<ItemType>, string = "Menu", const Rect& = default_rect, string = "autosize: true; justify: center");
     Menu(const Menu&);
     virtual ~Menu();
     /** @} */
@@ -51,24 +51,24 @@ public:
     virtual Menu& operator=(const Menu&);
 
     /** Retrieve or set label text and properties. @{ */
-    virtual std::string getTitle();
-    virtual void setTitle(std::string);
+    virtual string getTitle();
+    virtual void setTitle(string);
 
     /** Item management. @{ */
-    virtual void add(std::string, string = "");
-  virtual void insert(const std::string&, const string&, const string& = "");
-  virtual void insert(std::vector<ItemType>::iterator, const std::string&, const string&);
-  virtual void insert(std::vector<ItemType>::iterator, ItemType);
-    virtual void erase(const std::string&);
-    virtual void erase(std::vector<ItemType>::iterator);
+    virtual void add(string, string = "");
+  virtual void insert(const string&, const string&, const string& = "");
+  virtual void insert(vector<ItemType>::iterator, const string&, const string&);
+  virtual void insert(vector<ItemType>::iterator, ItemType);
+    virtual void erase(const string&);
+    virtual void erase(vector<ItemType>::iterator);
     virtual void clear();
     /** @} */
 
     /** Functions for changing and retrieving the selection. @{ */
     virtual void previousItem();
     virtual void nextItem();
-    virtual const std::string& getSelectedItemText();
-    virtual std::vector<ItemType>::const_iterator getSelectedIterator();
+    virtual const string& getSelectedItemText();
+    virtual vector<ItemType>::const_iterator getSelectedIterator();
     /** @} */
 
     /** Control overloads @{ */
@@ -97,10 +97,10 @@ public:
     virtual void draw();
 
 private:
-    std::string	menu_title;
+    string	menu_title;
 
-    std::vector<ItemType>	items;
-    std::vector<ItemType>::iterator selector;
+    vector<ItemType>	items;
+    vector<ItemType>::iterator selector;
 
 };	// class Menu
 

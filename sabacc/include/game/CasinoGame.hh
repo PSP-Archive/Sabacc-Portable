@@ -2,8 +2,8 @@
 #define __CASINOGAME_HH
 
 // Standard library headers
-#include <std::string>
-#include <std::vector>
+#include <string>
+#include <vector>
 
 // SDL headers
 #include <SDL_mixer.h>
@@ -33,7 +33,12 @@ class CasinoGame : public GameBase {
 
     StaticImage					table_image;
 
-  SDL_TimerID shift_timer;
+    SDL_TimerID shift_timer;
+
+    // The casino game only supports two players, we'll define them here.
+    static const int DEALER = 0;
+    // The player may not necessarily be human :)
+    static const int HUMAN = 0;
 
     // A game cannot be copied or assigned
     CasinoGame(const CasinoGame&);
@@ -69,13 +74,13 @@ class CasinoGame : public GameBase {
 public:
 
     CasinoGame();
-    CasinoGame(std::std::vector<Player>);	// Vector of players with which to start the game
-    CasinoGame(std::std::vector<Player>, long);	// Vector of players, and a set amount each is to start at
+    CasinoGame(std::vector<Player>);	// Vector of players with which to start the game
+    CasinoGame(std::vector<Player>, long);	// Vector of players, and a set amount each is to start at
     virtual ~CasinoGame();
 
     // Hold a card
-    virtual void hold(std::std::vector<Card>::iterator);
-    virtual void hold(std::std::vector<Card>::size_type);
+    virtual void hold(std::vector<Card>::iterator);
+    virtual void hold(std::vector<Card>::size_type);
 
     // Start the game, run the event loop, &c.
     virtual void start();

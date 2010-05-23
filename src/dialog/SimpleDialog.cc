@@ -1,7 +1,7 @@
 /**
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: December 9, 2008
  *
  * File: SimpleDialog.cc

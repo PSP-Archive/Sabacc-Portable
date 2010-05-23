@@ -4,7 +4,7 @@
 /*
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: August 30, 2008
  *
  * File: StaticTextLabel.hh
@@ -13,8 +13,8 @@
  */
 
 // Standard Library headers
-#include <std::string>
-
+#include <string>
+using std::string;
 
 // SMF headers
 #include "base/FreeTypeControl.hh"
@@ -35,8 +35,8 @@ public:
      *        These justify the text in the confines of the label when it is lager than
      *        the text itself.
      * @{ */
-    TextLabel(const std::string&, const Rect& = default_rect, string = "autosize: true");
-    TextLabel(Widget*, const std::string&, const Rect& = default_rect, string = "autosize: true");
+    TextLabel(const string&, const Rect& = default_rect, string = "autosize: true");
+    TextLabel(Widget*, const string&, const Rect& = default_rect, string = "autosize: true");
     TextLabel(const TextLabel&);
     ~TextLabel();
     /** @} */
@@ -45,8 +45,8 @@ public:
     TextLabel& operator=(const TextLabel&);
 
     /** Retrieve or set label text. @{ */
-    virtual std::string getText();
-    virtual void setText(std::string);
+    virtual string getText();
+    virtual void setText(string);
     /** @} */
 
     /** Initialization and cleanup functions which must be overloaded by derived classes. @{ */
@@ -58,7 +58,7 @@ public:
     virtual void draw();
 
 private:
-    std::string	label_text;
+    string	label_text;
 
 };	// class TextLabel
 

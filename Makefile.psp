@@ -114,7 +114,7 @@ FIXUP    = psp-fixup-imports
 RM	 = rm -f
 MV	 = mv
 
-SMFDEBUGFLAGS := -D_DEBUG
+# SMFDEBUGFLAGS := -D_DEBUG
 
 # Add in PSPSDK includes and libraries.
 CFLAGS   := $(addprefix -I,$(include_dirs)) \

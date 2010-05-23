@@ -4,7 +4,7 @@
 /*
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: September 13, 2008
  *
  * File: StaticImageLabel.hh
@@ -14,8 +14,8 @@
  */
 
 // Standard Library headers
-#include <std::string>
-
+#include <string>
+using std::string;
 
 // SMF headers
 #include "base/FreeTypeControl.hh"
@@ -36,8 +36,8 @@ public:
      *        - @c image-anchor: @c left, @c right, @c top,@c bottom, @c center.
      *        These specify the position of the image relative to the text.
      * @{ */
-    ImageLabel(const std::string&, const string&, const Rect& = default_rect, string = "autosize: true");
-    ImageLabel(Widget*, const std::string&, const string&, const Rect& = default_rect, string = "autosize: true");
+    ImageLabel(const string&, const string&, const Rect& = default_rect, string = "autosize: true");
+    ImageLabel(Widget*, const string&, const string&, const Rect& = default_rect, string = "autosize: true");
     ImageLabel(const ImageLabel&);
     ~ImageLabel();
     /** @} */
@@ -46,10 +46,10 @@ public:
     ImageLabel& operator=(const ImageLabel&);
 
     /** Retrieve or set label text and image. @{ */
-    virtual std::string getText();
-    virtual void setText(const std::string&);
-    virtual std::string getFileName();
-    virtual void setFileName(const std::string&);
+    virtual string getText();
+    virtual void setText(const string&);
+    virtual string getFileName();
+    virtual void setFileName(const string&);
     /** @ } */
 
     /** Initialization and cleanup functions which must be overloaded by derived classes. @{ */
@@ -61,8 +61,8 @@ public:
     virtual void draw();
 
 private:
-    std::string	label_text;
-    std::string	image_file;
+    string	label_text;
+    string	image_file;
 
 };	// class ImageLabel
 

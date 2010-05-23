@@ -12,7 +12,7 @@
 /**
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: January 9, 2009.
  *
  * File: OKCancelDialog.hh
@@ -22,7 +22,7 @@
  */
 
 // Standard Library headers
-#include <std::string>
+#include <string>
 
 // SMF headers
 #include "psputility/DialogBase.hh"
@@ -41,11 +41,11 @@ class OKCancelDialog : public DialogBase {
 public:
 
   /** Constructors. Same as any lower tier Control base class. @{ */
-  OKCancelDialog(const Rect& = default_rect, const std::string& = "");
-  OKCancelDialog(const std::std::string&, const std::string& = "",
-		 const std::std::string& = "OK", const std::string& = "Cancel",
+  OKCancelDialog(const Rect& = default_rect, const string& = "");
+  OKCancelDialog(const std::string&, const std::string& = "",
+		 const std::string& = "OK", const std::string& = "Cancel",
 		 const Rect& = default_rect,
-		     const std::std::string& = "");
+		     const std::string& = "");
   OKCancelDialog(const OKCancelDialog&);
   virtual ~OKCancelDialog();
 
@@ -53,14 +53,14 @@ public:
   OKCancelDialog& operator=(const OKCancelDialog&);
 
   /** Text properties. @{ */
-  virtual std::std::string getDialogText();
-  virtual void setDialogText(std::std::string);
-  virtual std::std::string getDialogTitle();
-  virtual void setDialogTitle(std::std::string);
-  virtual std::std::string getDialogOKButtonText();
-  virtual void setDialogOKButtonText(std::std::string);
-  virtual std::std::string getDialogCancelButtonText();
-  virtual void setDialogCancelButtonText(std::std::string);
+  virtual std::string getDialogText();
+  virtual void setDialogText(std::string);
+  virtual std::string getDialogTitle();
+  virtual void setDialogTitle(std::string);
+  virtual std::string getDialogOKButtonText();
+  virtual void setDialogOKButtonText(std::string);
+  virtual std::string getDialogCancelButtonText();
+  virtual void setDialogCancelButtonText(std::string);
   /** @} */
 
   /** Initialization of the control and cleanup. */
@@ -72,7 +72,7 @@ public:
 
 protected:
 
-  std::std::string dialog_text, dialog_title, ok_button, cancel_button;
+  std::string dialog_text, dialog_title, ok_button, cancel_button;
 
 };	// class OKCancelDialog
 

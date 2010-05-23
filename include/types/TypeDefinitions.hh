@@ -4,7 +4,7 @@
 /*
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: August 27, 2008
  *
  * File: TypeDefinitions.hh
@@ -13,9 +13,9 @@
  */
 
 // Standard library headers
-#include <std::map>
-#include <std::string>
+#include <map>
+#include <string>
 
-typedef std::std::map<std::std::string, std::string> PropertyMap;
+typedef std::map<std::string, std::string> PropertyMap;
 
 #endif // __SMF_TYPEDEFINITIONS_HH

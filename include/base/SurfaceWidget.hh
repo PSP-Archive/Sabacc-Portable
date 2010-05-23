@@ -4,7 +4,7 @@
 /*
  * Sabacc Media Framework
  *
- * Author: goumba
+ * Author: Anthony Thomasel
  * Date: August 27, 2008
  *
  * File:SurfaceSurfaceWidget.hh
@@ -13,8 +13,8 @@
  */
 
 // Standard Library headers
-#include <std::string>
-
+#include <string>
+using std::string;
 
 // Simple Directmedia Library headers
 #if defined(__APPLE__)
@@ -31,8 +31,8 @@
 class SurfaceWidget : public Widget {
 public:
     /** Constructors @{ */
-    SurfaceWidget(const Rect& = default_rect, std::string = "");
-    SurfaceWidget(Widget*, const Rect& = default_rect, std::string = "");
+    SurfaceWidget(const Rect& = default_rect, string = "");
+    SurfaceWidget(Widget*, const Rect& = default_rect, string = "");
     SurfaceWidget(const SurfaceWidget&);
     virtual ~SurfaceWidget();
     /** @} */

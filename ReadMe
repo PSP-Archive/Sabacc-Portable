@@ -1,10 +1,10 @@
-Sabacc Basics 0.7.2 for PlayStation Portable
+Sabacc Basics 0.6.1 for PlayStation Portable
 ====== ====== ===== === =========== ========
 
 Installation
 ===========+
 
-Since 0.7.0, the only build available is for firmware 3 and up. I no longer build for nor support firmware 1.50.
+I've included three different flavors in this build. I haven't tested them all, so feedback is definitely welcome. I have never built a kxploit game before, so I definitely need feedback if I did this right.
 
 1. Copy the program itself
 ==========================
@@ -26,7 +26,7 @@ Self explanatory.
 To Dark Alex, to which this wouldn't be possible.
 To the devs of the PSP SDK and those who ported SDL and FreeType.
 To Peter Schuster for the New Aurebesh font.
-To the Debian team for providing a great alternative to OS X on my iBook G4 (Debian Lenny on an iBook is sweet). Sorry Ubuntu you're history. Yeah I know Ubuntu is Debian based, but Lenny runs so much faster and more reliably than Feisty, Gutsy, Hardy or Jaunty ever did on the iBook.
+To the Ubuntu team for providing a great alternative to OS X on my iBook G4.
 
 
 Feedback always welcome, and remember, I need some graphic artists! Please help!
