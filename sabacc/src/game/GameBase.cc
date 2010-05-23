@@ -3,6 +3,8 @@
 #include <iostream>
 #include <cstdio>
 #include <algorithm>
+#include <iterator>
+using namespace std;
 
 // SDL headers
 #ifdef __APPLE__
@@ -88,10 +90,13 @@ GameBase::~GameBase() {
 void GameBase::createDeck() {
     deck.clear();
     // Add standard value cards and those with face values up to 15
+
     for (int suite = 1; suite < 5; ++suite)
+    {
         for (int value = 1; value < 16; ++value) {
             deck.push_back(Card(value, suite));
         }
+    }
 
     // Add other face cards, two of each
     for (int c = 0; 2 > c; ++c) {

@@ -38,7 +38,7 @@ class CasinoGame : public GameBase {
     // The casino game only supports two players, we'll define them here.
     static const int DEALER = 0;
     // The player may not necessarily be human :)
-    static const int HUMAN = 0;
+    static const int HUMAN = 1;
 
     // A game cannot be copied or assigned
     CasinoGame(const CasinoGame&);

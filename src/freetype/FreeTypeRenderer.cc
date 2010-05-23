@@ -200,7 +200,12 @@ void FreeTypeRenderer::setColor(SDL_Color font_color) {
     current_state.setColor(font_color);
 }
 void FreeTypeRenderer::setColor(int red, int green, int blue, int alpha) {
-    SDL_Color font_color = { red, green, blue, alpha };
+    SDL_Color font_color = { 
+	static_cast<Uint8>(red),
+	static_cast<Uint8>(green),
+	static_cast<Uint8>(blue),
+	static_cast<Uint8>(alpha)
+    };
     current_state.setColor(font_color);
 }	// setColor
 const SDL_Color& FreeTypeRenderer::getStrokeColor() {
@@ -210,7 +215,12 @@ void FreeTypeRenderer::setStrokeColor(SDL_Color font_color) {
     current_state.setStrokeColor(font_color);
 }
 void FreeTypeRenderer::setStrokeColor(int red, int green, int blue, int alpha) {
-    SDL_Color font_color = { red, green, blue, alpha };
+    SDL_Color font_color = {
+	static_cast<Uint8>(red),
+	static_cast<Uint8>(green),
+	static_cast<Uint8>(blue),
+	static_cast<Uint8>(alpha)
+    };
     current_state.setStrokeColor(font_color);
 }	// setColor
 

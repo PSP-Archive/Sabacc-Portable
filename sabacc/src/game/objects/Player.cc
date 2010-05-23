@@ -1,4 +1,5 @@
 // Standard library headers
+#include <algorithm>
 #include <string>
 #include <vector>
 
@@ -232,17 +233,20 @@ short Player::getHandTotal() {
 #endif
 
     short sum = 0;
+    // A lambda for the hell of it.
+    for_each (hand.begin(), hand.end(),
+	      [&sum](Card &c) { sum += c.value; });
 
-    for (std::vector<Card>::iterator counter = hand.begin(); hand.end() > counter; ++counter) {
+    // for (std::vector<Card>::iterator counter = hand.begin(); hand.end() > counter; ++counter) {
 
-        if ((23 > counter->value) && (-23 < counter->value)) sum += counter->value;
+//         if ((23 > counter->value) && (-23 < counter->value)) sum += counter->value;
 
-#ifdef _DEBUGPLAYERTOTAL
-        sprintf(player_value, "Card value %d, with a sum of %d", counter->value, sum);
-        logAppend(player_value);
-#endif
+// #ifdef _DEBUGPLAYERTOTAL
+//         sprintf(player_value, "Card value %d, with a sum of %d", counter->value, sum);
+//         logAppend(player_value);
+// #endif
 
-    }
+//     }
 
     return(sum);
 

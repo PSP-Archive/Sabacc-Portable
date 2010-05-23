@@ -121,7 +121,12 @@ static const Rectf default_rectf;
 
 /** A helper function for getting an SDL compatible Rect from a BasicRect<int>. */
 inline SDL_Rect getSDLRect(Rect& src_rect) {
-    SDL_Rect temp_rect = { src_rect.getLeft(), src_rect.getTop(), src_rect.getWidth(),src_rect.getHeight() };
+    SDL_Rect temp_rect = { 
+	static_cast<Sint16>(src_rect.getLeft()), 
+	static_cast<Sint16>(src_rect.getTop()),
+	static_cast<Sint16>(src_rect.getWidth()),
+	static_cast<Sint16>(src_rect.getHeight())
+    };
     return(temp_rect);
 }	// getSDLRect
 

@@ -34,13 +34,13 @@ public:
     /** @} */
 
     /** position retrieval and modification functions. @{ */
-    virtual inline const Rect& getPosition();	/// Get the position of the Widget, as a Rect.
-    virtual inline const Rect::rect_type getLeft();	/// Get the leftmost boundary of the Widget.
-    virtual inline const Rect::rect_type getTop();	/// Get the topmost boundary of the Widget.
-    virtual inline const Rect::rect_type getRight();	/// Get the rightmost boundary of the Widget.
-    virtual inline const Rect::rect_type getBottom();	/// Get the bottommost boundary of the Widget.
-    virtual inline const Rect::rect_type getWidth();	/// Get the width of the Widget.
-    virtual inline const Rect::rect_type getHeight();	/// Get the height of the Widget.
+    virtual const Rect& getPosition();	/// Get the position of the Widget, as a Rect.
+    virtual const Rect::rect_type getLeft();	/// Get the leftmost boundary of the Widget.
+    virtual const Rect::rect_type getTop();	/// Get the topmost boundary of the Widget.
+    virtual const Rect::rect_type getRight();	/// Get the rightmost boundary of the Widget.
+    virtual const Rect::rect_type getBottom();	/// Get the bottommost boundary of the Widget.
+    virtual const Rect::rect_type getWidth();	/// Get the width of the Widget.
+    virtual const Rect::rect_type getHeight();	/// Get the height of the Widget.
     virtual void setposition(const Rect&);	/// Set the position @param @c position of the Widget.
     virtual void setLeft(Rect::rect_type);	/// Make @param @c left the leftmost boundary of the Widget.
     virtual void setTop(Rect::rect_type);	/// Make @param @c top the topmost boundary of the Widget.
@@ -56,9 +56,9 @@ public:
     /** @} */
 
     /** Initialization status functions. @{ */
-    virtual inline bool isInitialized();
-    virtual inline void setInitialized();
-    virtual inline void setNotInitialized();
+    virtual bool isInitialized();
+    virtual void setInitialized();
+    virtual void setNotInitialized();
     /** @} */
 
     /** Resize the widget: changes the dimensions of @c Widget::position to those of surface in most cases. */

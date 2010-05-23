@@ -51,25 +51,25 @@ void Widget::setParent(Widget* guardian) {
     parent = guardian;
 }
 
-inline const Rect& Widget::getPosition() {
+const Rect& Widget::getPosition() {
     return(position);
 }
-inline const Rect::rect_type Widget::getLeft() {
+const Rect::rect_type Widget::getLeft() {
     return(const_cast<Rect&>(getPosition()).getLeft());
 }
-inline const Rect::rect_type Widget::getTop() {
+const Rect::rect_type Widget::getTop() {
     return(const_cast<Rect&>(getPosition()).getTop());
 }
-inline const Rect::rect_type Widget::getRight() {
+const Rect::rect_type Widget::getRight() {
     return(const_cast<Rect&>(getPosition()).getRight());
 }
-inline const Rect::rect_type Widget::getBottom() {
+const Rect::rect_type Widget::getBottom() {
     return(const_cast<Rect&>(getPosition()).getBottom());
 }
-inline const Rect::rect_type Widget::getWidth() {
+const Rect::rect_type Widget::getWidth() {
     return(const_cast<Rect&>(getPosition()).getWidth());
 }
-inline const Rect::rect_type Widget::getHeight() {
+const Rect::rect_type Widget::getHeight() {
     return(const_cast<Rect&>(getPosition()).getHeight());
 }
 void Widget::setposition(const Rect& new_position) {
@@ -94,13 +94,13 @@ void Widget::setHeight(Rect::rect_type new_height) {
     position.setHeight(new_height);
 }
 
-inline bool Widget::isInitialized() {
+bool Widget::isInitialized() {
     return(initialized);
 }
-inline void Widget::setInitialized() {
+void Widget::setInitialized() {
     initialized = true;
 }
-inline void Widget::setNotInitialized() {
+void Widget::setNotInitialized() {
     initialized = false;
 }
 

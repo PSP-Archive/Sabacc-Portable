@@ -158,27 +158,8 @@ void CasinoGame::game() {
 
     if(!SDL_WasInit(SDL_INIT_TIMER)) SDL_Init(SDL_INIT_TIMER);
 
-#if 0 // Timer has revealed a shifting bug somewhere
-    shift_timer = SDL_AddTimer(3000, &CasinoGame::timedShiftCallback, this);
-    if(0 == shift_timer)
-      {
-#if defined(_DEBUG) || defined(_DEBUGSHIFTTIMER) || defined(_DEBUGCASINOGAME)
-	logAppend("Could not start shift timer.");
-	logAppend(SDL_GetError());
-#endif
-	  }
-#endif
-	  
-
-    // Randomly replace cards, we'll use shift() to accomplish this.
-    Random card_repl;
-
     // loop - draw graphics and await input
     while (!done) {
-
-	int discard = card_repl(500);
-
-	if (0 == discard % 499) shift();
 
         // Draw everything
         if (getSystemManager().getRenderer().empty()) {
@@ -408,7 +389,7 @@ void CasinoGame::game() {
 
     } // while(!done)
 
-    SDL_RemoveTimer(shift_timer);
+    // SDL_RemoveTimer(shift_timer);
 
     getSystemManager().getRenderer().clear();
     return;

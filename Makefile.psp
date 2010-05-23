@@ -94,7 +94,7 @@ else
 	SDLFLAGS = $(shell $(PSPDEV)/psp/bin/sdl-config --cflags)
 	SDLLIBS = $(shell $(PSPDEV)/psp/bin/sdl-config --libs)
 
-	PSP_EBOOT_TITLE = Sabacc Portable (1.50)
+	PSP_EBOOT_TITLE = Sabacc Portable (k1.50)
 
 endif
 
@@ -125,6 +125,7 @@ CFLAGS   := $(addprefix -I,$(include_dirs)) \
 	    $(ERRORFLAGS) \
 	    $(PSPBUILDFLAGS) \
 	    $(INCLUDEDIR) \
+	    --std=gnu++0x \
 	    -D__PSP__ \
 	    $(CFLAGS)
 CXXFLAGS := $(CFLAGS) $(CXXFLAGS)

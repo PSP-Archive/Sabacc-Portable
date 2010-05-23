@@ -123,7 +123,12 @@ void CardImage::init() {
 
         }	// (!suite_surf)
 
-        SDL_Rect dest = { (getWidth() - suite_surf->w) / 2, (getHeight() - suite_surf->w) / 2, suite_surf->w, suite_surf->h };
+	SDL_Rect dest = { static_cast<Sint16>((getWidth() - suite_surf->w) 
+					      / 2),
+			  static_cast<Sint16>((getHeight() - suite_surf->w) 
+					      / 2),
+			  static_cast<Sint16>(suite_surf->w),
+			  static_cast<Sint16>(suite_surf->h) };
         if (-1 == SDL_BlitSurface(suite_surf, NULL, getSurface(), &dest)) {
 
 #if defined(_DEBUG) || defined(_DEBUGCARDIMAGE)

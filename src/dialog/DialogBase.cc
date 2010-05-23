@@ -132,8 +132,27 @@ void DialogBase::init() {
 	Sint16 h = getHeight() - 1;
 	Sint16 m = 10;
 
-	Sint16 poly_x[8] = { l, l + m, w - m, w, w, w - m, l + m, l };
-	Sint16 poly_y[8] = { t + m, t, t, t + m, h - m, h, h, h - m };
+	Sint16 poly_x[8] = {
+	    static_cast<Sint16>(l),
+	    static_cast<Sint16>(l + m),
+	    static_cast<Sint16>(w - m),
+	    static_cast<Sint16>(w),
+	    static_cast<Sint16>(w),
+	    static_cast<Sint16>(w - m),
+	    static_cast<Sint16>(l + m),
+	    static_cast<Sint16>(l)
+	};
+	Sint16 poly_y[8] = {
+	    static_cast<Sint16>(t + m),
+	    static_cast<Sint16>(t),
+	    static_cast<Sint16>(t),
+	    static_cast<Sint16>(t + m),
+	    static_cast<Sint16>(h - m),
+	    static_cast<Sint16>(h),
+	    static_cast<Sint16>(h),
+	    static_cast<Sint16>(h - m)
+	};
+
 	filledPolygonRGBA(getSurface(), poly_x, poly_y, 8, background_color.r,
 		background_color.g, background_color.b, background_color.unused);
 

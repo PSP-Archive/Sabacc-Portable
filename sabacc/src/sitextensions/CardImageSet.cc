@@ -84,8 +84,26 @@ void CardImageSet::draw() {
             Sint16 h = it->getHeight();
             Sint16 m = 5;
 
-            Sint16 poly_x[8] = { l - m, l + m, l + w - m, l + w + m, l + w + m, l + w - m, l + m, l - m };
-            Sint16 poly_y[8] = { t + m, t - m, t - m, t + m, t + h - m, t + h + m, t + h + m, t + h - m };
+            Sint16 poly_x[8] = { 
+		static_cast<Sint16>(l - m),
+		static_cast<Sint16>(l + m),
+		static_cast<Sint16>(l + w - m),
+		static_cast<Sint16>(l + w + m),
+		static_cast<Sint16>(l + w + m),
+		static_cast<Sint16>(l + w - m),
+		static_cast<Sint16>(l + m),
+		static_cast<Sint16>(l - m)
+	    };
+            Sint16 poly_y[8] = {
+		static_cast<Sint16>(t + m),
+		static_cast<Sint16>(t - m),
+		static_cast<Sint16>(t - m),
+		static_cast<Sint16>(t + m),
+		static_cast<Sint16>(t + h - m),
+		static_cast<Sint16>(t + h + m),
+		static_cast<Sint16>(t + h + m),
+		static_cast<Sint16>(t + h - m)
+	    };
             filledPolygonRGBA(SDL_GetVideoSurface(), poly_x, poly_y, 8, 0xFF, 0xFF, 0x00, 0x80);
 
 //			boxRGBA(SDL_GetVideoSurface(), x_start, it->getTop() - 1, x_start + it->getWidth() + 1,
