@@ -63,14 +63,20 @@ void EventManager::push(Control* ctl)
 {
   event_queue.push_back(ctl);
 } // push(Control*)
+
 void EventManager::push(Widget* wgt)
 {
-  Control* c_test = dynamic_cast<Control*>(wgt);
-  if(c_test) {
-    push(c_test);
-  } else {
-    //    throw(Exceptions::EventManager::NotAControl("You tried to add a Widget to the event manager that is not a control."));
-  }
+    // This function takes a Widget as it is a base class for all.
+
+    // Thrown when trying to add something not a control.
+    class NotAControl { };
+
+    Control* c_test = dynamic_cast<Control*>(wgt);
+    if(c_test) {
+	push(c_test);
+    } else {
+	throw NotAControl();
+    }
 } // push(Widget*)
 void EventManager::pop()
 {
@@ -86,6 +92,7 @@ vector<Control*>::size_type EventManager::size()
 {
   return(event_queue.size());
 } // size
+
 bool EventManager::empty() 
 {
   return(event_queue.empty());
@@ -101,39 +108,40 @@ smf_event_t EventManager::doEvents()
 
       if (SDL_QUIT == system_event.type) return(event_quit);
 
-      for (vector<Control*>::reverse_iterator control_iter = event_queue.rbegin();
-            event_queue.rend() != control_iter; ++control_iter) {
+      for (vector<Control*>::reverse_iterator control_iter = 
+	       event_queue.rbegin();
+	   event_queue.rend() != control_iter; ++control_iter) {
 
       Control* control = *control_iter;
 
-            if (control) {
-
+      if (control) {
+	  
 #if defined(_DEBUG) || defined(_DEBUGEVENTS)
                 logAppend("Passing events to controls.");
 #endif
-
-                switch (system_event.type) {
-
-                case SDL_KEYDOWN:
-
+		
+		switch (system_event.type) {
+		    
+		case SDL_KEYDOWN:
+		    
 #if defined(_DEBUG) || defined(_DEBUGEVENTS)
                     logAppend("Key down.");
 #endif
 
-                    if (control->onKeyDown(system_event.key)) got_event = 0;
-                    break;
-                case SDL_KEYUP:
-
+		    if (control->onKeyDown(system_event.key)) got_event = 0;
+		    break;
+		case SDL_KEYUP:
+		    
 #if defined(_DEBUG) || defined(_DEBUGEVENTS)
-                    logAppend("Key up.");
+		    logAppend("Key up.");
 #endif
-
-                    if (control->onKeyUp(system_event.key)) got_event = 0;
-                    break;
-                case SDL_MOUSEMOTION:
-
+		    
+		    if (control->onKeyUp(system_event.key)) got_event = 0;
+		    break;
+		case SDL_MOUSEMOTION:
+		    
 #if defined(_DEBUG) || defined(_DEBUGEVENTS)
-                    logAppend("Mouse moved.");
+		    logAppend("Mouse moved.");
 #endif
 
                     if (control->onMouseMove(system_event.motion)) got_event = 0;
@@ -198,7 +206,8 @@ smf_event_t EventManager::doEvents()
 
 #if defined(_DEBUG) || defined(_DEBUGEVENTS)
                     char user_event_debug_string [128];
-                    sprintf(user_event_debug_string, "User event: 0x%x.", system_event.user.code);
+                    sprintf(user_event_debug_string, "User event: 0x%x.", 
+			    system_event.user.code);
                     logAppend(user_event_debug_string);
 #endif
 		    
@@ -220,7 +229,8 @@ smf_event_t EventManager::doEvents()
       // This presented a problem in diagnosing why a dialog would not return the proper
       // code when escape was pressed. Move this back to under "if(SDL_QUIT..." if being
       // here it presents a problem.
-      if ((SDL_KEYDOWN == system_event.type) && (SDLK_ESCAPE == system_event.key.keysym.sym)) return(event_quit);
+      if ((SDL_KEYDOWN == system_event.type) 
+	  && (SDLK_ESCAPE == system_event.key.keysym.sym)) return(event_quit);
 
     }// if(got_event)
 
