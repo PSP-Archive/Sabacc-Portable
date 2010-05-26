@@ -240,19 +240,7 @@ short Player::getHandTotal() {
     // Comment the above, uncomment below for standard toolchain.
     // sum = std::accumulate (hand.begin(), hand.end(), 0)
 
-    // for (std::vector<Card>::iterator counter = hand.begin(); hand.end() > counter; ++counter) {
-
-//         if ((23 > counter->value) && (-23 < counter->value)) sum += counter->value;
-
-// #ifdef _DEBUGPLAYERTOTAL
-//         sprintf(player_value, "Card value %d, with a sum of %d", counter->value, sum);
-//         logAppend(player_value);
-// #endif
-
-//     }
-
     return(sum);
-
 } // getHandTotal
 
 bool Player::pureSabacc() {
@@ -290,5 +278,7 @@ bool Player::bomb() {
     /* A bomb  is dependent on the rules being used to play. Zero is always a
      * bomb, however in some variants, outside of the Sabacc range is as well. */
 
-  return((0 >= getHandTotal()) || (23 < getHandTotal()));
+  return((0 == getHandTotal()) 
+	 || (-23 > getHandTotal())
+	 || (23 < getHandTotal()));
 } // bomb
