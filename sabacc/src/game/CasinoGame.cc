@@ -61,43 +61,46 @@ using std::vector;
 using std::stringstream;
 #endif // _DEBUG
 
-CasinoGame::CasinoGame() : GameBase(),
-        dealer_caption("Dealer", Rect(5, 0), "autosize: true"),
-        player_caption("Player", Rect(5, 252), "autosize: true; anchor: bottom left"),
-        selected_info("No card selected", Rect(5, 128), "autosize: true; anchor: left center"),
-        rules_text("Rules\n* No combinations", Rect(350, 50), "autosize: true; anchor: top right; justify: top left"),
-        round_caption("Round 1", Rect(225, 0), "autosize: true; anchor: bottom center"),
-        round_info("Hand pot: 0cr\nSabacc Pot: 0cr", Rect(350, 0), "autosize: true; anchor: right center"),
+CasinoGame::CasinoGame() : 
+    GameBase(),
+    dealer_caption("Dealer", Rect(10, 0), "autosize: true"),
+    player_caption("Player", Rect(10, 252), "autosize: true; anchor: bottom left"),
+    selected_info("No card selected", Rect(32, 128), "autosize: true; anchor: left center"),
+    rules_text("", Rect(350, 50), "autosize: true; anchor: top right; justify: top left"),
+    round_caption("\\bRound 1\\b", Rect(340, 56), "autosize: true; anchor: bottom center"),
+    round_info("Hand pot: 0cr\nSabacc Pot: 0cr", Rect(340, 178), "autosize: true; anchor: right center"),
 #if defined(__PSP__) || defined(__PSPTEST__)
-        dealer_cimages(Rect(10, 20, 288, 96)),
-        player_cimages(Rect(10, player_caption.getTop() - 96, 288, 96)),
+    dealer_cimages(Rect(20, 20, 288, 96)),
+    player_cimages(Rect(20, player_caption.getTop() - 96, 448, 96)),
 #else
-        dealer_cimages(Rect(10, 20, 0, 0)),
-        player_cimages(Rect(10, player_caption.getTop() - 96, 0, 0)),
+    dealer_cimages(Rect(20, 20, 0, 0)),
+    player_cimages(Rect(20, player_caption.getTop() - 96, 0, 0)),
 #endif
-			   table_image(table_image_data, size_table_image_data) {
-
+    table_image(table_image_data, size_table_image_data) 
+{
+    
     round_caption.setTextStyle(font_style_bold | font_style_underline);
     round_caption.setTextColor(0xFF, 0xD0, 0x40, 0xFF);
 
     createDeck();
     shuffleDeck();
 }	// CasinoGame
-CasinoGame::CasinoGame(vector<Player> players) : GameBase(players),
-        dealer_caption("Dealer", Rect(), "autosize: true"),
-        player_caption("Player", Rect(), "autosize: true; anchor: bottom left"),
-        selected_info("No card selected", Rect(), "autosize: true; anchor: left center"),
-        rules_text("<U>Rules<U>\n* No combinations", Rect(), "autosize: true; anchor: top right; justify: top left"),
-        round_caption("Round 1", Rect(), "autosize: true; anchor: bottom center"),
-        round_info("Hand pot: 0cr\nSabacc Pot: 0cr", Rect(), "autosize: true; anchor: right center"),
-        dealer_cimages(Rect(10, 20, 0, 0)),
+CasinoGame::CasinoGame(vector<Player> players) : 
+    GameBase(players),
+    dealer_caption("Dealer", Rect(), "autosize: true"),
+    player_caption("Player", Rect(), "autosize: true; anchor: bottom left"),
+    selected_info("No card selected", Rect(), "autosize: true; anchor: left center"),
+    rules_text("", Rect(), "autosize: true; anchor: top right; justify: top left"),
+    round_caption("\\bRound 1\\b", Rect(), "autosize: true; anchor: bottom center"),
+    round_info("Hand pot: 0cr\nSabacc Pot: 0cr", Rect(400, 200, 79, 100), "anchor: left center"),
+    dealer_cimages(Rect(10, 20, 0, 0)),
 #if defined(__PSP__) || defined(__PSPTEST__)
-        player_cimages(Rect(10, player_caption.getTop() - 96, 380, 96)),
+    player_cimages(Rect(10, player_caption.getTop() - 96, 380, 96)),
 #else
-        player_cimages(Rect(10, player_caption.getTop() - 128, 0, 0)),
+    player_cimages(Rect(10, player_caption.getTop() - 128, 0, 0)),
 #endif
-        table_image("table_top.png") {
-
+    table_image("table_top.png") {
+    
     round_caption.setTextStyle(font_style_bold | font_style_underline);
     round_caption.setTextColor(0xFF, 0xD0, 0x40, 0xFF);
 
@@ -407,12 +410,12 @@ void CasinoGame::updateUI() {
     sprintf(ui_output, "\\b\\i%s\\i\\b     %d credits, %d total in hand", getPlayer(HUMAN).getName().c_str(), getPlayer(HUMAN).getCredits(), getPlayer(HUMAN).getHandTotal());
     player_caption.setText(ui_output);
 
-    sprintf(ui_output, "Current bet: %dcr\nHand pot: %dcr\nSabacc pot: %dcr", getCurrentBet(), getHandPot(), getSabaccPot());
+    sprintf(ui_output, "\\bCurrent bet:\\b %dcr\n\\bHand pot:\\b %dcr\n\\bSabacc pot:\\b %dcr", getCurrentBet(), getHandPot(), getSabaccPot());
     round_info.setText(ui_output);
 
     selected_info.setText(getFullCardName(getPlayer(HUMAN).getSelectedCard()));
 
-    sprintf(ui_output, "Round %d", getRound());
+    sprintf(ui_output, "\\bRound %d\\b", getRound());
     round_caption.setText(ui_output);
 
     dealer_cimages.setHideCards(true);

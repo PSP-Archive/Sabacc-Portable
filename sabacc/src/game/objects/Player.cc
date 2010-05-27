@@ -1,5 +1,6 @@
 // Standard library headers
 #include <algorithm>
+#include <numeric>
 #include <string>
 #include <vector>
 
@@ -233,13 +234,16 @@ short Player::getHandTotal() {
 #endif
 
     short sum = 0;
+
     // A lambda for the hell of it, for testing GCC 4.5.0.
     for_each (hand.begin(), hand.end(),
 	      [&sum](Card &c) { sum += c.value; });
 
-    // Comment the above, uncomment below for standard toolchain.
-    // sum = std::accumulate (hand.begin(), hand.end(), 0)
-
+    // for (std::vector<Card>::iterator i = hand.begin();
+    // 	 hand.end() != i; ++i) {
+    // 	sum += i->value;
+    // }
+    
     return(sum);
 } // getHandTotal
 

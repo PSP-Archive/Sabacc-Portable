@@ -16,6 +16,7 @@ struct Card {
     Card(short, unsigned short);
     Card(const Card&);
 
+    short operator+(const Card&);
     Card& operator=(const Card&);
     bool operator==(Card&);
     bool operator!=(Card&);
