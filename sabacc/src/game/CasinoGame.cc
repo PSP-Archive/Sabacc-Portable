@@ -34,7 +34,6 @@ using std::vector;
 #include "dialog/SingleButtonDialog.hh"
 #include "exceptions/base/ExceptionBase.hh"
 #include "exceptions/GamePlay.hh"
-#include "game/CardUtil.hh"
 #include "game/CasinoGame.hh"
 #include "game/Ruleset.hh"
 #include "game/objects/Card.hh"

@@ -108,28 +108,28 @@ void DialogBase::init() {
 #endif
 
 	// If the dimensions are 0 in width or height, use a default size
-	if((0 == getWidth()) or (0 == getHeight())) {
+	if((0 == Width()) or (0 == Height())) {
 		float frame_ratio = 3.0f / 4.0f;
         int width = SDL_GetVideoSurface()->w;
         int height = SDL_GetVideoSurface()->h;
 
-        setWidth(static_cast<int>(static_cast<float>(width) * frame_ratio));
-        setHeight(static_cast<int>(static_cast<float>(height) * frame_ratio));
+        Width(static_cast<int>(static_cast<float>(width) * frame_ratio));
+        Height(static_cast<int>(static_cast<float>(height) * frame_ratio));
 
-        setLeft((width - getWidth()) / 2);
-        setTop((height - getHeight()) / 2);
+        Left((width - Width()) / 2);
+        Top((height - Height()) / 2);
 	}	// (zero dimension)
 
 	if(string::npos != getProperty("autosize").find("true")) {
 
 	}	// autosize
 
-	setSurface(SDL_AllocSurface(SDL_SWSURFACE, getWidth(), getHeight(), 32, 0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000));
+	setSurface(SDL_AllocSurface(SDL_SWSURFACE, Width(), Height(), 32, 0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000));
 
 	Sint16 l = 0;
 	Sint16 t = 0;
-	Sint16 w = getWidth() - 1;
-	Sint16 h = getHeight() - 1;
+	Sint16 w = Width() - 1;
+	Sint16 h = Height() - 1;
 	Sint16 m = 10;
 
 	Sint16 poly_x[8] = {

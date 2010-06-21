@@ -172,8 +172,8 @@ void SimpleDialog::init() {
 
 	dialog_title.setProperties("autosize: true;");
 	dialog_title.init();
-	dialog_title.setLeft(3 + getLeft() + ((getWidth() - dialog_title.getWidth()) / 2));
-	dialog_title.setTop(getTop() + 3);
+	dialog_title.Left(3 + Left() + ((Width() - dialog_title.Width()) / 2));
+	dialog_title.Top(Top() + 3);
 
 	dialog_text.setProperties("justify: center; autosize: true;");
 
@@ -182,13 +182,13 @@ void SimpleDialog::init() {
 	// Although we used autosize, resulting text must be smaller than
 	// the dialog, so clip accordingly
 
-	if((getWidth() - 6) < dialog_text.getWidth()) dialog_text.setWidth(getWidth() - 6);
+	if((Width() - 6) < dialog_text.Width()) dialog_text.Width(Width() - 6);
 
-	int text_max_height = getHeight() - dialog_title.getHeight() - 9;
-	if(text_max_height < dialog_text.getHeight()) dialog_text.setHeight(text_max_height);
+	int text_max_height = Height() - dialog_title.Height() - 9;
+	if(text_max_height < dialog_text.Height()) dialog_text.Height(text_max_height);
 
-	dialog_text.setLeft(3 + getLeft() + ((getWidth() - dialog_text.getWidth()) / 2));
-	dialog_text.setTop(getTop() + ((getHeight() - dialog_text.getHeight()) / 2));
+	dialog_text.Left(3 + Left() + ((Width() - dialog_text.Width()) / 2));
+	dialog_text.Top(Top() + ((Height() - dialog_text.Height()) / 2));
 	
 	setInitialized();
 

@@ -246,14 +246,15 @@ void OKCancelDialog::init() {
 	dialog_title.setProperties("autosize: true;");
 	dialog_title.init();
 	dialog_title.setTextColor(default_frame_titlecolor);
-	dialog_title.setLeft(3 + getLeft() + ((getWidth() - dialog_title.getWidth()) / 2));
-	dialog_title.setTop(getTop() + 3);
+	dialog_title.Left(3 + Left() 
+			  + ((Width() - dialog_title.Width()) / 2));
+	dialog_title.Top(Top() + 3);
 
 	// 20081208: The location of the OK and Cancel buttons reversed so OK is on the right.
 	ok_button.setProperties("autosize: true;");
 	ok_button.init();
-	ok_button.setLeft(getLeft() + getWidth() - ok_button.getWidth() - 13);
-	ok_button.setTop((getTop() + getHeight() - 3) - ok_button.getHeight());
+	ok_button.Left(Left() + Width() - ok_button.Width() - 13);
+	ok_button.Top((Top() + Height() - 3) - ok_button.Height());
 
 #if defined(__PSP__)
 	cancel_button.setPSPKey('C');
@@ -261,8 +262,8 @@ void OKCancelDialog::init() {
 
 	cancel_button.setProperties("autosize: true;");
 	cancel_button.init();
-	cancel_button.setLeft(getLeft() + 13);
-	cancel_button.setTop((getTop() + getHeight() - 3) - cancel_button.getHeight());
+	cancel_button.Left(Left() + 13);
+	cancel_button.Top((Top() + Height() - 3) - cancel_button.Height());
 
 	dialog_text.setProperties("justify: center; autosize: true;");
 
@@ -272,13 +273,13 @@ void OKCancelDialog::init() {
 	// Although we used autosize, resulting text must be smaller than
 	// the dialog, so clip accordingly
 
-	if((getWidth() - 6) < dialog_text.getWidth()) dialog_text.setWidth(getWidth() - 6);
+	if((Width() - 6) < dialog_text.Width()) dialog_text.Width(Width() - 6);
 
-	int text_max_height = getHeight() - dialog_title.getHeight() - ok_button.getHeight() - 9;
-	if(text_max_height < dialog_text.getHeight()) dialog_text.setHeight(text_max_height);
+	int text_max_height = Height() - dialog_title.Height() - ok_button.Height() - 9;
+	if(text_max_height < dialog_text.Height()) dialog_text.Height(text_max_height);
 
-	dialog_text.setLeft(3 + getLeft() + ((getWidth() - dialog_text.getWidth()) / 2));
-	dialog_text.setTop(getTop() + ((getHeight() - dialog_text.getHeight()) / 2));
+	dialog_text.Left(3 + Left() + ((Width() - dialog_text.Width()) / 2));
+	dialog_text.Top(Top() + ((Height() - dialog_text.Height()) / 2));
 	
 	setInitialized();
 

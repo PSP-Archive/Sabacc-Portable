@@ -20,7 +20,6 @@ using namespace std;
 #include "dialog/DialogBase.hh"
 #include "exceptions/base/ExceptionBase.hh"
 #include "exceptions/GamePlay.hh"
-#include "game/CardUtil.hh"
 #include "game/GameBase.hh"
 #include "game/Ruleset.hh"
 #include "game/objects/Card.hh"

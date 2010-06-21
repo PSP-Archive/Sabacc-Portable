@@ -66,8 +66,8 @@ const Rect& VideoManager::getResolution() {
     return(resolution);
 }
 void VideoManager::setResolution(int width, int height) {
-    resolution.setWidth(width);
-    resolution.setHeight(height);
+    resolution.Width(width);
+    resolution.Height(height);
     init();
 }	// setResolution
 void VideoManager::setResolution(Rect rez) {
@@ -141,7 +141,8 @@ void VideoManager::init() {
 #endif
     }
 
-    screen = SDL_SetVideoMode(resolution.getWidth(), resolution.getHeight(), color_depth, video_flags);
+    screen = SDL_SetVideoMode(resolution.Width(),
+			      resolution.Height(), color_depth, video_flags);
     if (!screen) {
         throw(Exceptions::SystemManager::InitFailed("Could not set video mode.", SDL_GetError(), "", __FILE__, __LINE__));
     }   // if(SDL_SetVideoMode)

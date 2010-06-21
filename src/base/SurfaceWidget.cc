@@ -79,12 +79,12 @@ void SurfaceWidget::draw() {
         }
     }	// if(!init)
 
-    SDL_Rect position = getSDLRect(const_cast<Rect&>(getPosition()));
+    SDL_Rect position = getSDLRect(const_cast<Rect&>(Position()));
     SDL_Rect draw_rect = {
 	0,
 	0,
-	static_cast<Uint16>(getWidth()),
-	static_cast<Uint16>(getHeight())
+	static_cast<Uint16>(Width()),
+	static_cast<Uint16>(Height())
     };
 
 #if defined(_DEBUG) || defined(_DEBUGSURFACEWIDGET)

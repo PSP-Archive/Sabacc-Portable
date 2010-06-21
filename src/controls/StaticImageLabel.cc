@@ -203,8 +203,8 @@ void ImageLabel::init() {
     // Adjust size
     // Automatic adjustment of Widget size
     if (string::npos != getProperty("autosize").find("true")) {
-        setWidth(surface_width);
-        setHeight(surface_height);
+        Width(surface_width);
+        Height(surface_height);
     }	// getProperty("all")
 
     setInitialized();

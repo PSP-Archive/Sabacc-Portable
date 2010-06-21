@@ -143,8 +143,8 @@ void StaticImage::init() {
 
     // Automatic adjustment of Widget size
     if (string::npos != getProperty("autosize").find("true")) {
-        setWidth(getSurface()->w);
-        setHeight(getSurface()->h);
+        Width(getSurface()->w);
+        Height(getSurface()->h);
     }	// getProperty("all")
 
     setInitialized();

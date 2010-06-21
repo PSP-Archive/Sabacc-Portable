@@ -314,8 +314,10 @@ void Menu::init() {
     // If we have set the size of the control manually, adjust here
     if(string::npos == getProperty("autosize").find("true")) 
       {
-	largest_width = (getWidth() > largest_width) ? getWidth() : largest_width;
-	largest_height = (getHeight() > largest_height) ? getHeight() : largest_height;
+	largest_width = (Width() > largest_width) 
+	    ? Width() : largest_width;
+	largest_height = (Height() > largest_height) 
+	    ? Height() : largest_height;
       }
 
     setSurface(SDL_AllocSurface(SDL_SWSURFACE, largest_width, largest_height,
@@ -371,8 +373,8 @@ void Menu::init() {
 
     // Automatic adjustment of Widget size
     if (string::npos != getProperty("autosize").find("true")) {
-        setWidth(getSurface()->w);
-        setHeight(getSurface()->h);
+        Width(getSurface()->w);
+        Height(getSurface()->h);
     }	// getProperty("all")
 
 #if defined(_DEBUG) || defined(_DEBUGSTATICMENU)
