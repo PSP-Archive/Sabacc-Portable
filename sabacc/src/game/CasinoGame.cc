@@ -70,10 +70,10 @@ CasinoGame::CasinoGame() :
     round_info("Hand pot: 0cr\nSabacc Pot: 0cr", Rect(340, 178), "autosize: true; anchor: right center"),
 #if defined(__PSP__) || defined(__PSPTEST__)
     dealer_cimages(Rect(20, 20, 288, 96)),
-    player_cimages(Rect(20, player_caption.getTop() - 96, 448, 96)),
+    player_cimages(Rect(20, player_caption.Top() - 96, 448, 96)),
 #else
     dealer_cimages(Rect(20, 20, 0, 0)),
-    player_cimages(Rect(20, player_caption.getTop() - 96, 0, 0)),
+    player_cimages(Rect(20, player_caption.Top() - 96, 0, 0)),
 #endif
     table_image(table_image_data, size_table_image_data) 
 {
@@ -94,9 +94,9 @@ CasinoGame::CasinoGame(vector<Player> players) :
     round_info("Hand pot: 0cr\nSabacc Pot: 0cr", Rect(400, 200, 79, 100), "anchor: left center"),
     dealer_cimages(Rect(10, 20, 0, 0)),
 #if defined(__PSP__) || defined(__PSPTEST__)
-    player_cimages(Rect(10, player_caption.getTop() - 96, 380, 96)),
+    player_cimages(Rect(10, player_caption.Top() - 96, 380, 96)),
 #else
-    player_cimages(Rect(10, player_caption.getTop() - 128, 0, 0)),
+    player_cimages(Rect(10, player_caption.Top() - 128, 0, 0)),
 #endif
     table_image("table_top.png") {
     
@@ -115,9 +115,9 @@ CasinoGame::CasinoGame(vector<Player> players, long starting_creds) :
         round_info("Hand pot: 0cr\nSabacc Pot: 0cr", Rect(), "autosize: true; anchor: right center"),
         dealer_cimages(Rect(10, 20, 0, 0)),
 #if defined(__PSP__) || defined(__PSPTEST__)
-        player_cimages(Rect(10, player_caption.getTop() - 96, 380, 96)),
+        player_cimages(Rect(10, player_caption.Top() - 96, 380, 96)),
 #else
-        player_cimages(Rect(10, player_caption.getTop() - 128, 0, 0)),
+        player_cimages(Rect(10, player_caption.Top() - 128, 0, 0)),
 #endif
         table_image("table_top.png") {
 
@@ -412,7 +412,7 @@ void CasinoGame::updateUI() {
     sprintf(ui_output, "\\bCurrent bet:\\b %dcr\n\\bHand pot:\\b %dcr\n\\bSabacc pot:\\b %dcr", getCurrentBet(), getHandPot(), getSabaccPot());
     round_info.setText(ui_output);
 
-    selected_info.setText(getFullCardName(getPlayer(HUMAN).getSelectedCard()));
+    selected_info.setText(getPlayer(HUMAN).getSelectedCard().DescriptiveName());
 
     sprintf(ui_output, "\\bRound %d\\b", getRound());
     round_caption.setText(ui_output);
@@ -547,7 +547,7 @@ void CasinoGame::shift() {
     logAppend(debug_string);
 #endif
 	    
-            if (!cd_it->hold) {
+    if (!cd_it->Hold()) {
 
 		shuffleDeck();
 
@@ -555,7 +555,6 @@ void CasinoGame::shift() {
                 getWaste().push_back(*cd_it);
 
 		// Make sure the new card is not held
-		getDeck().back().hold = false;
                 pl_it->takeCard(getDeck().back());
                 getDeck().pop_back();
 
@@ -817,8 +816,9 @@ void CasinoGame::call() {
 
 // Hold offers to hold, then places hold
 // void CasinoGame::hold(Card&);	// Card
-void CasinoGame::hold(vector<Card>::iterator card_iter) {	// Card iterator
-    card_iter->hold = true;
+void CasinoGame::hold(vector<Card>::iterator card_iter)
+{	// Card iterator
+    card_iter->Hold(true);
 }
 
 void CasinoGame::hold(vector<Card>::size_type card_number) {	// Card #

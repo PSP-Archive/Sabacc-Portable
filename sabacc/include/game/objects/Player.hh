@@ -50,9 +50,9 @@ public:
 
     // Main player properties
     std::string getName();
-    void setName(std::string);
+    Player &setName(std::string);
     long getCredits();
-    void setCredits(long);
+    Player &setCredits(long);
     void incCredits(long);
     void decCredits(long);
     std::string getRace();

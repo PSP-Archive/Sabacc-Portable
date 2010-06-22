@@ -125,7 +125,7 @@ public:
     BasicRect
     &Width(rect_type val)
 	{
-	    x2 = val - x1;
+	    x2 = x1 + val;
 	    return *this;
 	}
 
@@ -139,14 +139,14 @@ public:
     BasicRect
     &Bottom(rect_type val)
 	{
-	    x2 = val;
+	    y2 = val;
 	    return *this;
 	}
 
     BasicRect
     &Height(rect_type val)
 	{
-	    y2 = val - y1;
+	    y2 = y1 + val;
 	    return *this;
 	}
 

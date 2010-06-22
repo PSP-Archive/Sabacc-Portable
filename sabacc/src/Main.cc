@@ -19,7 +19,6 @@
 #endif
 
 #if (_PSP_FW_VERSION > 200)
-#warning "Building for kernel 2+"
 #include <pspkernel.h>
 #include <pspdebug.h>
 #include <pspsdk.h>

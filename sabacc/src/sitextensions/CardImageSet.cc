@@ -57,32 +57,32 @@ void CardImageSet::draw() {
 
     if (card_images.empty()) return;
 
-    int x_start = getLeft();
-    int x_sel = getLeft();
+    int x_start = Left();
+    int x_sel = Left();
 
     std::vector<CardImage>::iterator c_sel = card_images.begin();
 
-    setWidth((card_images.size() * card_images.back().getWidth() / 3) + card_images.back().getWidth());
-    setHeight(card_images.back().getHeight());
+    Width((card_images.size() * card_images.back().Width() / 3) + card_images.back().Width());
+    Height(card_images.back().Height());
 
 #ifdef _DEBUGCARDIMAGESET
     char debug_string[128];
-    sprintf(debug_string, "Drawing cards for 0x%x @ %d %d", card_holder, getLeft(), getTop());
+    sprintf(debug_string, "Drawing cards for 0x%x @ %d %d", card_holder, Left(), Top());
     logAppend(debug_string);
 #endif
 
     for (std::vector<CardImage>::iterator it = card_images.begin(); card_images.end() > it; ++it) {
 
       if(card_images.end() != it) {
-        it->setLeft(x_start);
-        it->setTop(getTop());
+        it->Left(x_start);
+        it->Top(Top());
 
-        if (it->getCard()->hold) {
-            Sint16 l = it->getLeft();
-            Sint16 t = it->getTop();
-            Sint16 w = it->getWidth();
-            Sint16 h = it->getHeight();
-            Sint16 m = 5;
+	if (it->getCard()->Hold()) {
+            Sint16 l = it->Left();
+            Sint16 t = it->Top();
+            Sint16 w = it->Width();
+            Sint16 h = it->Height();
+            Sint16 m = 4;
 
             Sint16 poly_x[8] = { 
 		static_cast<Sint16>(l - m),
@@ -104,10 +104,9 @@ void CardImageSet::draw() {
 		static_cast<Sint16>(t + h + m),
 		static_cast<Sint16>(t + h - m)
 	    };
-            filledPolygonRGBA(SDL_GetVideoSurface(), poly_x, poly_y, 8, 0xFF, 0xFF, 0x00, 0x80);
+            filledPolygonRGBA(SDL_GetVideoSurface(),
+			      poly_x, poly_y, 8, 0xFF, 0xFF, 0x00, 0x80);
 
-//			boxRGBA(SDL_GetVideoSurface(), x_start, it->getTop() - 1, x_start + it->getWidth() + 1,
-//				it->getTop() + it->getWidth() + 1, 0xFF, 0x80, 0x40, 0xB0);
         }
 
         it->draw();
@@ -120,19 +119,19 @@ void CardImageSet::draw() {
 
         }
 
-        x_start += static_cast<int>(static_cast<float>(it->getWidth()) / 1.33);
+        x_start += static_cast<int>(static_cast<float>(it->Width()) / 1.33);
 
       } // if(it)
     }	// it
 
     if ((card_images.end() > c_sel) && use_selection) {
-        c_sel->setLeft(x_sel);
-        if (c_sel->getCard()->hold) {
-            rectangleRGBA(SDL_GetVideoSurface(), x_sel - 1, c_sel->getTop() - 1, x_sel + c_sel->getWidth() + 1,
-                          c_sel->getTop() + c_sel->getWidth() + 1, 0xFF, 0xFF, 0x88	, 0xFF);
+        c_sel->Left(x_sel);
+	if (c_sel->getCard()->Hold()) {
+            rectangleRGBA(SDL_GetVideoSurface(), x_sel - 1, c_sel->Top() - 1, x_sel + c_sel->Width() + 1,
+                          c_sel->Top() + c_sel->Width() + 1, 0xFF, 0xFF, 0x88	, 0xFF);
         } else {
-            rectangleRGBA(SDL_GetVideoSurface(), x_sel - 1, c_sel->getTop() - 1, x_sel + c_sel->getWidth() + 1,
-                          c_sel->getTop() + c_sel->getWidth() + 1, 0x00, 0xCC, 0xFF, 0xFF);
+            rectangleRGBA(SDL_GetVideoSurface(), x_sel - 1, c_sel->Top() - 1, x_sel + c_sel->Width() + 1,
+                          c_sel->Top() + c_sel->Width() + 1, 0x00, 0xCC, 0xFF, 0xFF);
         }
 
         c_sel->draw();

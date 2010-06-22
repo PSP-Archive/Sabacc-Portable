@@ -70,11 +70,15 @@ GameBoot::GameBoot() :
   logo(main_logo_image, size_main_logo_image, Rect(0, 0, 480, 272), "autosize: true; pixelformat: displayalpha"),
   copyright("2008, goumba", Rect(380, 252), "autosize: true; anchor: bottom right"),
   version("version 0.8.0", Rect(5, 252), "autosize: true; anchor: bottom left"),
-  main_menu("Main Menu", Rect(15, 120,
-	    const_cast<Rect&>(getSystemManager().getVideo().getResolution()).getWidth() - 15,
-	    const_cast<Rect&>(getSystemManager().getVideo().getResolution()).getHeight() - 
-	    copyright.getHeight() - 135), "justify: center; autosize: false;"),
-  allow_continue(false), menu_music(0), player_name("Player") {
+  main_menu("Main Menu", default_rect, "justify: center; autosize: false;"),
+  allow_continue(false), menu_music(0), player_name("Player")
+{
+
+    main_menu.Position(
+	Rect(15, 120,
+	     getSystemManager().getVideo().getResolution().Width() - 15,
+	     getSystemManager().getVideo().getResolution().Height() -
+	     copyright.Height() - 135));
 
     main_menu.add("Four Cards", "Starts a new game of Sabacc at the\nMos Eisley Cantina, with casual four card play.");
     main_menu.add("Options", "Personalize the game and change rules to play by.");
@@ -253,7 +257,7 @@ void GameBoot::eventLoop() {
 
 		sabacc_game->start();
 
-		main_menu.insert("Four Cards", "Continue", "Resume a game\\ialready in progress\\i.");
+		main_menu.insert("Four Cards", "Continue", "Resume a game \\ialready in progress\\i.");
 	      } else {
 
 		throw(Exceptions::Game::CouldNotCreateGameObject(__FILE__, "Game pointer is invalid."));

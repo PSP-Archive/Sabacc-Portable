@@ -89,7 +89,7 @@ void SurfaceWidget::draw() {
 
 #if defined(_DEBUG) || defined(_DEBUGSURFACEWIDGET)
     char debug_string[128];
-    sprintf(debug_string, "Drawing 0x%x @ %d,%d %dw %dh", this, getLeft(), getTop(), getWidth(), getHeight());
+    sprintf(debug_string, "Drawing 0x%x @ %d,%d %dw %dh", this, Left(), Top(), Width(), Height());
     logAppend(debug_string);
 #endif
 
@@ -101,7 +101,7 @@ void SurfaceWidget::draw() {
 
         throw(Exceptions::Widget::BlitError("SDL_Blit failed for Widget.",
                                             "SurfaceWidget could not blit the internal widget surface to the screen. See additional data for the error returned by SDL, if any.",
-                                            SDL_GetError(), __FILE__, __LINE__));
+					    SDL_GetError(), __FILE__, __LINE__));
     }	// Blit
 
 #if defined(_DEBUG) || defined(_DEBUGWIDGETBOUNDARY)

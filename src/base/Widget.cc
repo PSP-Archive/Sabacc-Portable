@@ -59,10 +59,10 @@ void Widget::resize() { }
 #if defined(_DEBUG) || defined(_DEBUGWIDGETBOUNDARY)
 void
 Widget::draw() {
-  rectangleColor(SDL_GetVideoSurface(), getLeft(), getTop(), getRight(), getBottom(), 0xFFFFFFFF);
+  rectangleColor(SDL_GetVideoSurface(), Left(), Top(), Right(), Bottom(), 0xFFFFFFFF);
 
   char debug_string[128];
-  sprintf(debug_string, "Boundary: %d,%dx%dw,%dh", getLeft(), getTop(), getWidth(), getHeight());
+  sprintf(debug_string, "Boundary: %d,%dx%dw,%dh", Left(), Top(), Width(), Height());
   logAppend(debug_string);
 }
 #endif

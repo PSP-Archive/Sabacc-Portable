@@ -161,8 +161,8 @@ void StaticImage::draw() {
 
 #if defined(_DEBUG) || defined(_DEBUGSTATICIMAGE)
   char img_debug[256];
-  if(!getFileName().empty()) sprintf(img_debug, "Drawing '%s' @ %d %d %d %d (%s)", getFileName().c_str(), getLeft(), getTop(), getWidth(), getHeight(), getProperties().c_str());
-  else sprintf(img_debug, "Drawing internal buffer of size %u @ %d %d %d %d (%s)", image_buffer_size, getLeft(), getTop(), getWidth(), getHeight(), getProperties().c_str());
+  if(!getFileName().empty()) sprintf(img_debug, "Drawing '%s' @ %d %d %d %d (%s)", getFileName().c_str(), Left(), Top(), Width(), Height(), getProperties().c_str());
+  else sprintf(img_debug, "Drawing internal buffer of size %u @ %d %d %d %d (%s)", image_buffer_size, Left(), Top(), Width(), Height(), getProperties().c_str());
     logAppend(img_debug);
 #endif
 

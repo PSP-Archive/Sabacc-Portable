@@ -83,17 +83,17 @@ void CardImage::init() {
 
 #if defined(_DEBUG) || defined(_DEBUGCARDIMAGE)
     char debug_string[128];
-    sprintf(debug_string, "Drawing card v: %d, s: %d.", card_data->value,
-	    card_data->suite);
+    sprintf(debug_string, "Drawing card v: %d, s: %d.", card_data->Value(),
+	    card_data->Suite());
     logAppend(debug_string);
 #endif
 
     // draw the suite
-    if ((0 < card_data->suite) && (5 > card_data->suite)) {
+    if ((0 < card_data->Suite()) && (5 > card_data->Suite())) {
 
       SDL_RWops* image_stream = 0;
       
-      switch(card_data->suite)
+      switch(card_data->Suite())
 	{
 	case 1:
 	  image_stream = SDL_RWFromMem(coins_image, size_coins_image);
@@ -123,9 +123,9 @@ void CardImage::init() {
 
         }	// (!suite_surf)
 
-	SDL_Rect dest = { static_cast<Sint16>((getWidth() - suite_surf->w) 
+	SDL_Rect dest = { static_cast<Sint16>((Width() - suite_surf->w) 
 					      / 2),
-			  static_cast<Sint16>((getHeight() - suite_surf->w) 
+			  static_cast<Sint16>((Height() - suite_surf->w) 
 					      / 2),
 			  static_cast<Sint16>(suite_surf->w),
 			  static_cast<Sint16>(suite_surf->h) };
@@ -152,18 +152,18 @@ void CardImage::init() {
 
         }	// (!suite_surf)
 
-    }	// if(card_data->suite)
+    }	// if(card_data->Suite())
 
     card_renderer.pushState();
 
-    if (1 > card_data->value) {
+    if (1 > card_data->Value()) {
       //      getCardFont().setColor(default_card_name_color);
-      getCardFont().render(face_names_neg[card_data->value + face_neg_offset],
+      getCardFont().render(face_names_neg[card_data->Value() + face_neg_offset],
                              getSurface(),
-			   (getWidth() - getCardFont().lineWidth(face_names_neg[card_data->value + face_neg_offset])) / 2, getCardFont().getLineHeight() + 1);
-    } else if (11 < card_data->value) {
+			   (Width() - getCardFont().lineWidth(face_names_neg[card_data->Value() + face_neg_offset])) / 2, getCardFont().getLineHeight() + 1);
+    } else if (11 < card_data->Value()) {
       //      card_renderer.setColor(default_card_name_color);
-      getCardFont().render(face_names_pos[card_data->value + face_pos_offset], getSurface(), (getWidth() - getCardFont().lineWidth(face_names_pos[card_data->value + face_pos_offset])) / 2, getCardFont().getLineHeight() + 1);
+      getCardFont().render(face_names_pos[card_data->Value() + face_pos_offset], getSurface(), (Width() - getCardFont().lineWidth(face_names_pos[card_data->Value() + face_pos_offset])) / 2, getCardFont().getLineHeight() + 1);
     } else {
 
 #if !defined(__PSP__)
@@ -178,27 +178,15 @@ void CardImage::init() {
 
 
         std::stringstream card_value;
-        card_value << card_data->value;
+        card_value << card_data->Value();
 
         card_renderer.render(card_value.str(), getSurface(),
-                             (getWidth() - card_renderer.lineWidth(card_value.str())) / 2,
-                             (getHeight() - card_renderer.textHeight(card_value.str())) / 2);
+                             (Width() - card_renderer.lineWidth(card_value.str())) / 2,
+                             (Height() - card_renderer.textHeight(card_value.str())) / 2);
 
     } // if(face card)
 
     card_renderer.popState();
-
-    // Suite name rendering removed. Its not really necessary with the suite icons
-    // and help line.
-
-    //    card_renderer.pushState();
-
-    //    card_renderer.setColor(default_card_suite_color);
-    //    card_renderer.setSize(card_renderer.getSize() * .75);
-
-    //    getCardFont().render(suite_names[card_data->suite], getSurface(), (getWidth() - getCardFont().lineWidth(suite_names[card_data->suite])) / 2, getHeight() - getCardFont().getLineHeight() * 2.25);
-
-    //    card_renderer.popState();
 
     setInitialized();
 

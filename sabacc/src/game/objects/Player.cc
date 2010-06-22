@@ -37,25 +37,32 @@ Player::Player(const Player& p) : name(p.name), credits(p.credits), hand(p.hand)
         wins(p.wins), losses(p.losses), streak(p.streak), total_winnings(p.total_winnings),
         avg_winnings(p.avg_winnings), rank(p.rank) {}
 
-Player& Player::operator=(const Player& p) {
-    name = p.name;
-    credits = p.credits;
-    hand = p.hand;
-    selected_card = p.selected_card;
-    race = p.race;
-    occupation = p.occupation;
-    wins = p.wins;
-    losses = p.losses;
-    streak = p.streak;
-    total_winnings = p.total_winnings;
-    avg_winnings = p.avg_winnings;
-    rank = p.rank;
-
+Player
+&Player::operator=(Player const &other)
+{
+    if (&other != this)
+    {
+	name = other.name;
+	credits = other.credits;
+	hand = other.hand;
+	selected_card = other.selected_card;
+	race = other.race;
+	occupation = other.occupation;
+	wins = other.wins;
+	losses = other.losses;
+	streak = other.streak;
+	total_winnings = other.total_winnings;
+	avg_winnings = other.avg_winnings;
+	rank = other.rank;
+    }
     return(*this);
 }	// operator=
-bool Player::operator==(const Player& lhs) {
+bool
+Player::operator==(Player const &lhs)
+{
     // Check each attribute possible, and return if any are false
-    // In multiplayer game, names mus be unique, so this should be all necessary
+    // In multiplayer game, names must be unique,
+    // so this should be all necessary
     // but we'll be safe here
     if (lhs.name != this->name) return(false);
     if (lhs.credits != this->credits) return(false);
@@ -64,17 +71,24 @@ bool Player::operator==(const Player& lhs) {
     return(true);
 }	// operator==
 
-std::string Player::getName() {
+std::string
+Player::getName() {
     return(name);
 }
-void Player::setName(std::string name) {
+Player
+&Player::setName(std::string name)
+{
     this->name = name;
+    return *this;
 }
-long Player::getCredits() {
+long
+Player::getCredits() {
     return(credits);
 }
-void Player::setCredits(long credits) {
+Player
+&Player::setCredits(long credits) {
     this->credits = credits;
+    return *this;
 }
 void Player::decCredits(long dec) {
     credits -= dec;
@@ -175,22 +189,18 @@ std::vector<Card>::iterator Player::getSelectedCardIterator() {
     return(selected_card);
 }
 void Player::holdCard() {
-    if (!selected_card->hold) {
+    if (!selected_card->Hold()) {
         // Check before allowing card to be held
         if (2 > getHoldCount()) {
-            selected_card->hold = true;
-        } else {
-            throw(Exceptions::GamePlay::CannotHoldMore(__FILE__, "Only two cards may be held."));
-        }
-    } else {
-        selected_card->hold = false;
+            selected_card->Hold(true);
+        } 
     }
 }	// holdCard()
 int Player::getHoldCount() {
     int hold_counter = 0;
 
     for (std::vector<Card>::iterator it = hand.begin(); hand.end() > it; ++it) {
-        if (it->hold) ++hold_counter;
+        if (it->Hold()) ++hold_counter;
     }
 
     return(hold_counter);
@@ -237,11 +247,11 @@ short Player::getHandTotal() {
 
     // A lambda for the hell of it, for testing GCC 4.5.0.
     for_each (hand.begin(), hand.end(),
-	      [&sum](Card &c) { sum += c.value; });
+	      [&sum](Card &c) { sum += c.Value(); });
 
     // for (std::vector<Card>::iterator i = hand.begin();
     // 	 hand.end() != i; ++i) {
-    // 	sum += i->value;
+    // 	sum += i->Value();
     // }
     
     return(sum);
@@ -266,11 +276,11 @@ bool Player::idiotArray() {
     bool has_three = false;
 
     for (std::vector<Card>::iterator cd_it = hand.begin(); hand.end() > cd_it; ++cd_it) {
-      if ((0 == cd_it->value) && (SUITE_BLANK != cd_it->suite)) {
+	if ((0 == cd_it->Value()) && (SUITE_BLANK != cd_it->Suite())) {
 	has_zero = true;
-      } else if (2 == cd_it->value) {
+      } else if (2 == cd_it->Value()) {
 	has_two = true;
-      } else if (3 == cd_it->value) {
+      } else if (3 == cd_it->Value()) {
 	has_three = true;
       }// if(0, 2, 3)
     }	// for (card)
@@ -282,7 +292,7 @@ bool Player::bomb() {
     /* A bomb  is dependent on the rules being used to play. Zero is always a
      * bomb, however in some variants, outside of the Sabacc range is as well. */
 
-  return((0 == getHandTotal()) 
-	 || (-23 > getHandTotal())
-	 || (23 < getHandTotal()));
+    return((0 == getHandTotal())
+	   || (-23 > getHandTotal())
+	   || (23 < getHandTotal()));
 } // bomb
