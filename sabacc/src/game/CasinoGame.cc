@@ -4,10 +4,6 @@
 #include <functional>
 #include <string>
 #include <vector>
-using std::for_each;
-using std::mem_fun;
-using std::string;
-using std::vector;
 
 // Standard library headers
 #include <iostream>
@@ -63,98 +59,87 @@ using std::stringstream;
 CasinoGame::CasinoGame() : 
     GameBase(),
     dealer_caption("Dealer", Rect(10, 0), "autosize: true"),
-    player_caption("Player", Rect(10, 252), "autosize: true; anchor: bottom left"),
-    selected_info("No card selected", Rect(32, 128), "autosize: true; anchor: left center"),
-    rules_text("", Rect(350, 50), "autosize: true; anchor: top right; justify: top left"),
-    round_caption("\\bRound 1\\b", Rect(340, 56), "autosize: true; anchor: bottom center"),
-    round_info("Hand pot: 0cr\nSabacc Pot: 0cr", Rect(340, 178), "autosize: true; anchor: right center"),
-#if defined(__PSP__) || defined(__PSPTEST__)
-    dealer_cimages(Rect(20, 20, 288, 96)),
-    player_cimages(Rect(20, player_caption.Top() - 96, 448, 96)),
-#else
-    dealer_cimages(Rect(20, 20, 0, 0)),
-    player_cimages(Rect(20, player_caption.Top() - 96, 0, 0)),
-#endif
-    table_image(table_image_data, size_table_image_data) 
+    player_caption("Player", Rect(10, 252), 
+		   "autosize: true; anchor: bottom left"),
+    selected_info("No card selected", Rect(32, 128),
+		  "autosize: true; anchor: left center"),
+    rules_text("", Rect(350, 50),
+	       "autosize: true; anchor: top right; justify: top left"),
+    round_caption("\\bRound 1\\b", Rect(340, 56),
+		  "autosize: true; anchor: bottom center"),
+    round_info("Hand pot: 0cr\nSabacc Pot: 0cr", Rect(340, 178),
+	       "autosize: true; anchor: right center"),
+    dealer_cimages(),
+    player_cimages(),
+    table_image(table_image_data, size_table_image_data),
+    shift_timer()
 {
-    
-    round_caption.setTextStyle(font_style_bold | font_style_underline);
-    round_caption.setTextColor(0xFF, 0xD0, 0x40, 0xFF);
-
-    createDeck();
-    shuffleDeck();
+    InitCasinoGame();
 }	// CasinoGame
 CasinoGame::CasinoGame(vector<Player> players) : 
     GameBase(players),
     dealer_caption("Dealer", Rect(), "autosize: true"),
     player_caption("Player", Rect(), "autosize: true; anchor: bottom left"),
-    selected_info("No card selected", Rect(), "autosize: true; anchor: left center"),
-    rules_text("", Rect(), "autosize: true; anchor: top right; justify: top left"),
-    round_caption("\\bRound 1\\b", Rect(), "autosize: true; anchor: bottom center"),
-    round_info("Hand pot: 0cr\nSabacc Pot: 0cr", Rect(400, 200, 79, 100), "anchor: left center"),
-    dealer_cimages(Rect(10, 20, 0, 0)),
-#if defined(__PSP__) || defined(__PSPTEST__)
-    player_cimages(Rect(10, player_caption.Top() - 96, 380, 96)),
-#else
-    player_cimages(Rect(10, player_caption.Top() - 128, 0, 0)),
-#endif
-    table_image("table_top.png") {
-    
-    round_caption.setTextStyle(font_style_bold | font_style_underline);
-    round_caption.setTextColor(0xFF, 0xD0, 0x40, 0xFF);
-
-    createDeck();
-    shuffleDeck();
+    selected_info("No card selected", Rect(),
+		  "autosize: true; anchor: left center"),
+    rules_text("", Rect(),
+	       "autosize: true; anchor: top right; justify: top left"),
+    round_caption("\\bRound 1\\b", Rect(),
+		  "autosize: true; anchor: bottom center"),
+    round_info("Hand pot: 0cr\nSabacc Pot: 0cr",
+	       Rect(400, 200, 79, 100), "anchor: left center"),
+    dealer_cimages(),
+    player_cimages(),
+    table_image("table_top.png"),
+    shift_timer()
+{
+    InitCasinoGame();
 }	// CasinoGame(players)
-CasinoGame::CasinoGame(vector<Player> players, long starting_creds) :
-        GameBase(players, starting_creds), dealer_caption("Dealer", Rect(), "autosize: true"),
-        player_caption("Player", Rect(), "autosize: true; anchor: bottom left"),
-        selected_info("No card selected", Rect(), "autosize: true; anchor: left center"),
-        rules_text("<U>Rules<U>\n- Player pays penalty\nequivalent to\nhand pot on bomb.", Rect(), "autosize: true; anchor: top right; justify: top left"),
-        round_caption("Round 1", Rect(), "autosize: true; anchor: bottom center"),
-        round_info("Hand pot: 0cr\nSabacc Pot: 0cr", Rect(), "autosize: true; anchor: right center"),
-        dealer_cimages(Rect(10, 20, 0, 0)),
-#if defined(__PSP__) || defined(__PSPTEST__)
-        player_cimages(Rect(10, player_caption.Top() - 96, 380, 96)),
-#else
-        player_cimages(Rect(10, player_caption.Top() - 128, 0, 0)),
-#endif
-        table_image("table_top.png") {
 
-    round_caption.setTextStyle(font_style_bold | font_style_underline);
-    round_caption.setTextColor(0xFF, 0xD0, 0x40, 0xFF);
-
-    createDeck();
-    shuffleDeck();
+CasinoGame::CasinoGame(vector<Player> players, long starting_credits) :
+    GameBase(players, starting_credits),
+    dealer_caption("Dealer", Rect(), "autosize: true"),
+    player_caption("Player", Rect(), "autosize: true; anchor: bottom left"),
+    selected_info("No card selected", Rect(),
+		  "autosize: true; anchor: left center"),
+    rules_text("", Rect(),
+	       "autosize: true; anchor: top right; justify: top left"),
+    round_caption("\\bRound 1\\b", Rect(),
+		  "autosize: true; anchor: bottom center"),
+    round_info("Hand pot: 0cr\nSabacc Pot: 0cr",
+	       Rect(400, 200, 79, 100), "anchor: left center"),
+    dealer_cimages(),
+    player_cimages(),
+    table_image("table_top.png"),
+    shift_timer()
+{
+    InitCasinoGame();
 }	// CasinoGame(players, credits)
+
 CasinoGame::~CasinoGame() {
-
-    getSystemManager().getRenderer().clear();
-
+    DestroyCasinoGame();
 }
 
-void CasinoGame::start() {
+void CasinoGame::Start() {
 
-#ifdef _DEBUGCASINOGAME
-    char debug_string[64];
-#endif
+    if (2 != Players().size())
+	throw Exceptions::GamePlay::TooManyPlayers(__FILE__);
 
-    if (2 != getPlayers().size()) throw(Exceptions::GamePlay::TooManyPlayers(__FILE__));
-
-    dealer_cimages.setPlayer(&getPlayer(DEALER));
-    player_cimages.setPlayer(&getPlayer(HUMAN));
+    dealer_cimages.setPlayer(&PlayersFront());
+    player_cimages.setPlayer(&PlayersBack());
     player_cimages.use_selection = true;
 
     dealer_cimages.setHideCards(true);
 
     // Do initial deal
-    startNewRound();
+    NewRound();
 
-    game();
+    StartGame();
 
     return;
 }//start
-void CasinoGame::game() {
+
+void CasinoGame::StartGame() {
     bool		done = false;
     SDL_Event	event;
 
@@ -184,42 +169,58 @@ void CasinoGame::game() {
 	      (psp_triangle == event.jbutton.button)) ||
 	     ((SDL_KEYDOWN == event.type) && 
 	      (SDLK_h == event.key.keysym.sym))) {
+
+#if _DEBUG || _DEBUGCASINOGAME
+			char holdc[128];
+			sprintf(holdc, "Player holds %d cards",
+				PlayersBack().getHoldCount());
+			logAppend(holdc);
+#endif
 	    
-                    playHoldSound();
-
-                    try {
-			getPlayer(HUMAN).holdCard();
-                    } catch (Exceptions::GamePlay::CannotHoldMore) {
-
-                        // Display error dialog
-                        SingleButtonDialog toomany("Unable to hold another card.", "You can hold a maximum of two cards.");
-                        getSystemManager().getRenderer().push(&toomany);
-                        getSystemManager().getEventManager().push(&toomany);
-
-                        while (event_dialog_dismiss != getSystemManager().getEventManager().doEvents()) {
-                            getSystemManager().getRenderer().draw();
-                        }
-
-                            getSystemManager().getEventManager().pop();
-                            getSystemManager().getRenderer().pop();
-
-
+		    if (2 > PlayersBack().getHoldCount())
+		    {
+			PlayHoldSound();
+			PlayersBack().holdCard();
+		    }
+		    else
+		    {
+			// Display error dialog
+			SingleButtonDialog
+			    toomany("Unable to hold another card.",
+				    "You can hold a maximum of two cards.");
+			
+			getSystemManager().getRenderer().push(&toomany);
+			getSystemManager().getEventManager().push(&toomany);
+			
+			while (event_dialog_dismiss
+			       != getSystemManager().getEventManager().doEvents())
+			{
+			    getSystemManager().getRenderer().draw();
+			}
+			
+			getSystemManager().getEventManager().pop();
+			getSystemManager().getRenderer().pop();
+			
 		    }// try...
 	  }// if(PSP Triangle || Keyb "h")
 
 	  if(((SDL_JOYBUTTONDOWN == event.type) &&
 	      (psp_dpad_up == event.jbutton.button)) ||
 	     ((SDL_KEYDOWN == event.type) && 
-	      (SDLK_UP == event.key.keysym.sym))) {
+	      (SDLK_UP == event.key.keysym.sym)))
+	  {
+		  long bet_amount =
+		      getRules().getMinBet() * getRules().getChipSize();
+		  long max_bet =
+		      (getRules().getMaxBet() * getRules().getChipSize());
 
-		  long bet_amount = getRules().getMinBet() * getRules().getChipSize();
-		  long max_bet = (getRules().getMaxBet() * getRules().getChipSize());
-		  if(max_bet >= (getCurrentBet() + bet_amount)) {
-                    raiseCurrentBet(bet_amount);
-                    getPlayer(HUMAN).decCredits(bet_amount);
+		  if(max_bet >= (CurrentBet() + bet_amount))
+		  {
+		      RaiseCurrentBet(bet_amount);
+		      PlayersBack().decCredits(bet_amount);
 		  }
-
-                    updateUI();
+		  
+		  UpdateUI();
 
 	  }//if(PSP D-Pad up || Keyb CurUp)
 
@@ -230,12 +231,12 @@ void CasinoGame::game() {
 	      (SDLK_DOWN == event.key.keysym.sym))) {
 
 		  long bet_amount = getRules().getMinBet() * getRules().getChipSize();
-		  if(0 <= (getCurrentBet() - bet_amount)) {
-                    lowerCurrentBet(bet_amount);
-		    getPlayer(HUMAN).incCredits(bet_amount);
+		  if(0 <= (CurrentBet() - bet_amount)) {
+                    LowerCurrentBet(bet_amount);
+		    PlayersBack().incCredits(bet_amount);
 		  }
 
-                    updateUI();
+		  UpdateUI();
 
 	  }//if(PSP D-Pad down || Keyb CurDn)
 
@@ -244,17 +245,20 @@ void CasinoGame::game() {
 	     ((SDL_KEYDOWN == event.type) &&
 	      (SDLK_RETURN == event.key.keysym.sym))) {
 
-                    if (0 < getCurrentBet()) {
+                    if (0 < CurrentBet()) {
 
-                        if (getLastBet() > getCurrentBet()) {
+                        if (LastBet() > CurrentBet()) {
 
                             char bet_too_low[256];
-                            sprintf(bet_too_low, "Your bet must be at least as much as the last highest bet,\nwhich was %d credits.", getLastBet());
+                            sprintf(bet_too_low,
+				    "Your bet must be at least as much as the last highest bet,\nwhich was %d credits.",
+				    LastBet());
                             SingleButtonDialog bet_error(bet_too_low);
                             getSystemManager().getRenderer().push(&bet_error);
                             getSystemManager().getEventManager().push(&bet_error);
 
-                            while (event_dialog_dismiss != getSystemManager().getEventManager().doEvents()) {
+                            while (event_dialog_dismiss
+				   != getSystemManager().getEventManager().doEvents()) {
                                 getSystemManager().getRenderer().draw();
                             }
 
@@ -266,28 +270,28 @@ void CasinoGame::game() {
 
 			  // Fixed: The dealer should call before moving on
 			  // to the next round.
-			  dealerCall();
+			  DealerCall();
 
                             // Uncomment to follow fourth round shift rule
                             // if(4 <= ++getRound()) shift();
-                            nextRound();
-                            shift();
+                            NextRound();
+                            Shift();
 
-                            setLastBet(getCurrentBet());
-			    getPlayer(HUMAN).decCredits(getCurrentBet());
-                            addToHandPot(getCurrentBet());
+                            LastBet(CurrentBet());
+			    PlayersBack().decCredits(CurrentBet());
+                            AddToHandPot(CurrentBet());
 
-                            // To reset the current bet to zero when continuing
+                            // To Reset the current bet to zero when continuing
 			    // to the next round, uncomment the following
 			    // function call, otherwise the bet will not be
-			    // reset, which makes sense when the next bet can
+			    // Reset, which makes sense when the next bet can
 			    // not be lower than this one.
-			    // resetCurrentBet();
+			    // ResetCurrentBet();
 
 			    // Hack alert: rehide dealer cards
 			    dealer_cimages.setHideCards(true);
 
-                            updateUI();
+                            UpdateUI();
                         }
 
                     } else {
@@ -313,13 +317,16 @@ void CasinoGame::game() {
 	      (SDLK_c == event.key.keysym.sym))) {
 
                     // Call can only happen after the third round
-                    if (4 > getRound()) {
+                    if (4 > Round()) {
 
-                        SingleButtonDialog call_error("You may not call before the fourth round.");
+                        SingleButtonDialog
+			    call_error("You may not call before the fourth round.");
                         getSystemManager().getRenderer().push(&call_error);
                         getSystemManager().getEventManager().push(&call_error);
 
-                        while (event_dialog_dismiss != getSystemManager().getEventManager().doEvents()) {
+                        while (event_dialog_dismiss
+			       != getSystemManager().getEventManager().doEvents())
+			{
                             getSystemManager().getRenderer().draw();
                         }
 
@@ -327,7 +334,7 @@ void CasinoGame::game() {
                         getSystemManager().getRenderer().pop();
 
                     } else {
-                        call();
+                        Call();
                     }
 
 	  }//if(PSP Square || Keyb "C")
@@ -337,11 +344,11 @@ void CasinoGame::game() {
 	     ((SDL_KEYDOWN == event.type) && 
 	      (SDLK_LEFT == event.key.keysym.sym))) {
                     // Move card iterator left
-                    getPlayer(HUMAN).moveSelectedLeft();
+                    PlayersBack().moveSelectedLeft();
 
-                    updateUI();
+                    UpdateUI();
 
-                    playSelectSound();
+                    PlaySelectSound();
 
 	  }//if(PSP D-Pad Left || Keyb CurLt)
 
@@ -351,11 +358,11 @@ void CasinoGame::game() {
 	      (SDLK_RIGHT == event.key.keysym.sym))) {
 
                     // Move card iterator right
-                    getPlayer(HUMAN).moveSelectedRight();
+                    PlayersBack().moveSelectedRight();
 
-                    updateUI();
+                    UpdateUI();
 
-                    playSelectSound();
+                    PlaySelectSound();
 	  }//if(PSP D-Pad Right || Keyb CurRt)
 
 	  if(((SDL_JOYBUTTONDOWN == event.type) &&
@@ -371,7 +378,7 @@ void CasinoGame::game() {
 
         } // if(SDL_WaitEvent)
 
-	if(0 > getPlayer(HUMAN).getCredits()) {
+	if(0 > PlayersBack().getCredits()) {
 
 	  SingleButtonDialog out_of_luck("No credits, no play.", "Get out of here!");
 
@@ -397,84 +404,88 @@ void CasinoGame::game() {
     return;
 }
 
-void CasinoGame::updateUI() {
+void CasinoGame::UpdateUI() {
 
     char ui_output[128];
 
 #if defined(_DEBUG) || defined(_DEBUGDEALERHAND)
-    sprintf(ui_output, "\\b\\i%s\\i\\b     %d total in hand", getPlayer(DEALER).getName().c_str(), getPlayer(DEALER).getHandTotal());
+    sprintf(ui_output, "\\b\\i%s\\i\\b     %d total in hand", PlayersFront().getName().c_str(), PlayersFront().getHandTotal());
     dealer_caption.setText(ui_output);
 #endif// debug dealer
 
-    sprintf(ui_output, "\\b\\i%s\\i\\b     %d credits, %d total in hand", getPlayer(HUMAN).getName().c_str(), getPlayer(HUMAN).getCredits(), getPlayer(HUMAN).getHandTotal());
+    sprintf(ui_output, "\\b\\i%s\\i\\b     %d credits, %d total in hand", PlayersBack().getName().c_str(), PlayersBack().getCredits(), PlayersBack().getHandTotal());
     player_caption.setText(ui_output);
 
-    sprintf(ui_output, "\\bCurrent bet:\\b %dcr\n\\bHand pot:\\b %dcr\n\\bSabacc pot:\\b %dcr", getCurrentBet(), getHandPot(), getSabaccPot());
+    sprintf(ui_output, 
+	    "\\bCurrent bet:\\b %dcr\n\\bHand pot:\\b %dcr\n\\bSabacc pot:\\b %dcr",
+	    CurrentBet(),
+	    HandPot(),
+	    SabaccPot());
     round_info.setText(ui_output);
 
-    selected_info.setText(getPlayer(HUMAN).getSelectedCard().DescriptiveName());
+    selected_info.setText(PlayersBack().getSelectedCard().DescriptiveName());
 
-    sprintf(ui_output, "\\bRound %d\\b", getRound());
+    sprintf(ui_output, "\\bRound %d\\b", Round());
     round_caption.setText(ui_output);
 
     dealer_cimages.setHideCards(true);
 
-}	// updateUI
+}	// UpdateUI
 
-void CasinoGame::startNewRound() {
+void
+CasinoGame::NewRound()
+{
+  for (vector<Player>::iterator it = Players().begin();
+       Players().end() > it;
+       ++it)
+  {
+      (*it).getHand().clear();
+  }
 
-  for (vector<Player>::iterator it = getPlayers().begin(); getPlayers().end() > it; ++it) {
-
-        it->getHand().clear();
-
-    }
-
-  // for_each(getPlayers().begin(), getPlayers().end(), mem_fun(&Player::emptyHand));
-
-    /* Once upon a time (pre 0.41), a round ended but the deck continued to be used.
-     * This meant that when cards ran out, bad things happened (usually a crash).
-     * Also, the waste deck wasn't emptied, so the deck continued to grow with each round...
+    /* Once upon a time (pre 0.41), a round ended but the deck
+     * continued to be used.
+     * This meant that when cards ran out, bad things happened
+     * (usually a crash).
+     * Also, the waste deck wasn't emptied, so the deck continued to grow
+     * with each round...
      * (WTF? The deck has 100 cards? Now 130!!).
      *
      * This comment is only here to serve as a reminder. */
-    getWaste().clear();
-    createDeck();
+    WasteClear();
+    CreateDeck();
 
     // v0.41 forgot to shuffle oops hahaha.
-    shuffleDeck();
+    ShuffleDeck();
 
-    deal();
+    Deal();
 
     dealer_cimages.init();
     player_cimages.init();
 
     dealer_cimages.setHideCards(true);
 
-    firstRound();
+    FirstRound();
 
     dealer_cimages.setHideCards(true);
 
-    updateUI();
-
+    UpdateUI();
 }	// startNewRound
 
 // Card operations
-void CasinoGame:: deal() {
-
+void
+CasinoGame::Deal()
+{
+    
 #ifdef _DEBUGCASINOGAME
     logAppend("Deal in CasinoGame.");
 #endif
 
-    if (2 != getPlayers().size()) throw(Exceptions::GamePlay::TooManyPlayers(__FILE__));
+    if (2 != PlayerCount())
+	throw Exceptions::GamePlay::TooManyPlayers(__FILE__);
 
     for (int card_cnt = 0; 4 > card_cnt; ++card_cnt) {
-        if (getPlayers()[0].takeCard(getDeck().back())) {
-            getDeck().pop_back();
-        }
-
-        if (getPlayers()[1].takeCard(getDeck().back())) {
-            getDeck().pop_back();
-        }
+	PlayersFront().takeCard(DeckLast());
+	PlayersBack().takeCard(DeckLast());
     }	// for(int card)
 
     dealer_cimages.init();
@@ -492,78 +503,79 @@ void CasinoGame:: deal() {
 //
 // Uncomment lines for random shift, otherwise cards not held are always shifted,
 // as in Casino Sabacc
-void CasinoGame::shift() {
-//	Random shift_gen;
-
-//	int shift_probability = shift_gen(6);
-
-//	if(shift_probability % 2) return;	// Shift only on even roll
+void
+CasinoGame::Shift() {
 
 #ifdef _DEBUGCASINOGAME
     char debug_string[64];
-    sprintf(debug_string, "Shift is in effect for round %d, in CasinoGame.", getRound());
+    sprintf(debug_string, "Shift is in effect for round %d, in CasinoGame.",
+	    Round());
     logAppend(debug_string);
 #endif
 
-    // Each player's cards get shifted in turn
-    for (vector<Player>::iterator pl_it = getPlayers().begin(); getPlayers().end() > pl_it; ++pl_it) {
-        // Go through cards, determine which cards get shifted
-        for (vector<Card>::iterator cd_it = pl_it->getHand().begin(); pl_it->getHand().end() > cd_it; ++cd_it) {
-
-            /* Early versions (pre 0.41) never moved waste cards 
-	     * back to the deck, so at some
-             * point when the deck no longer had any cards to deal, 
-	     * a bad pointer would be passed to
-             * the CardImage widget, and well, things were bad. 
-	     * Ooops! Led to hours of fruitless debugging.
-             *
-             * This is only here as a reminder. */
-#ifdef _DEBUGCASINOGAME
-		logAppend("Checking empty deck");
-#endif
-
-            if (getDeck().empty()) {
+    // Once upon a time, the deck would be checked on each card shifted
+    // for empty, and the waste emptied. This was done for every card in 
+    // play. Now, just check for a sufficient number of cards before starting
+    // shift, hoping to minimize performance lost.
+    // Eight seems reasonable as at most only eight cards are in play at any
+    // given time in a "four cards" game.
+    if (8 > Deck().size()) {
 		
 #if _DEBUGCASINOGAME
-		logAppend("Replacing empty deck");
-		sprintf(debug_string, "Waste size %d", getWaste().size());
-		logAppend(debug_string);
+	logAppend("Replacing empty deck");
+	sprintf(debug_string, "Waste size %u", Waste().size());
+	logAppend(debug_string);
 #endif
 		
-		copy(getWaste().begin(), getWaste().end(),
-		     back_inserter(getDeck()));
+	copy(WasteBegin(), WasteEnd(),
+	     back_inserter(Deck()));
 
-                getWaste().clear();
-                shuffleDeck();
-		
-            }	// if(1 > getDeck().size())
+	WasteClear();
+	ShuffleDeck();
+    }	// if(1 > getDeck().size())
 
+
+    // Each player's cards get shifted in turn
+    for (vector<Player>::iterator pl_it = PlayersBegin();
+	 PlayersEnd() != pl_it;
+	 ++pl_it)
+    {
+	// Go through cards, determine which cards get shifted
+	for (vector<Card>::iterator cd_it = (*pl_it).getHand().begin();
+	     (*pl_it).getHand().end() > cd_it;
+	     ++cd_it)
+	{
+	    /* Early versions (pre 0.41) never moved waste cards
+	     * back to the deck, so at some
+	     * point when the deck no longer had any cards to deal,
+	     * a bad pointer would be passed to
+	     * the CardImage widget, and well, things were bad.
+	     * Ooops! Led to hours of fruitless debugging.
+	     *
+	     * This is only here as a reminder. */
 #ifdef _DEBUGCASINOGAME
-		logAppend("Good");
+	    logAppend("Checking empty deck");
 #endif
 
 #ifdef _DEBUGCASINOGAME
-		sprintf(debug_string, "Deck size %d", getDeck().size());
-    logAppend(debug_string);
+	    logAppend("Good");
+#endif
+
+#ifdef _DEBUGCASINOGAME
+	    sprintf(debug_string, "Deck size %u", Deck().size());
+	    logAppend(debug_string);
 #endif
 	    
-    if (!cd_it->Hold()) {
-
-		shuffleDeck();
-
-                pl_it->dropCard(cd_it);
-                getWaste().push_back(*cd_it);
-
-		// Make sure the new card is not held
-                pl_it->takeCard(getDeck().back());
-                getDeck().pop_back();
-
-//				} // if shift card
-
-            }	// cd_it
-
-        } // for(cd_it)
-
+	    if (!(*cd_it).Hold()) {
+	
+		(*pl_it).dropCard(cd_it);
+		Waste().push_back(*cd_it);
+	
+		(*pl_it).takeCard(DeckLast());
+	    }	// cd_it
+    
+	} // for(cd_it)
+	
     } // for(pl_it)
 
     dealer_cimages.init();
@@ -574,13 +586,13 @@ void CasinoGame::shift() {
 } // shift
 
 // Hand operations
-void CasinoGame::dealerCall() {
+void CasinoGame::DealerCall() {
 
 #ifdef _DEBUGCASINOGAME
     char dealer_call[64];
     logAppend("Dealer thinking about calling in CasinoGame.");
 
-    sprintf(dealer_call, "Player total %d, dealer %d.", getPlayer(HUMAN).getHandTotal(), getPlayer(DEALER).getHandTotal());
+    sprintf(dealer_call, "Player total %d, dealer %d.", PlayersBack().getHandTotal(), PlayersFront().getHandTotal());
     logAppend(dealer_call);
 #endif
 
@@ -590,36 +602,40 @@ void CasinoGame::dealerCall() {
     Random call_indicision_gen;
 
     // Idiot array or sabacc is a definite time to call
-    if (getPlayer(DEALER).idiotArray() 
-	|| getPlayer(DEALER).pureSabacc() || getPlayer(DEALER).sabacc()) 
-	call();
+    if (PlayersFront().idiotArray() 
+	|| PlayersFront().pureSabacc() || PlayersFront().sabacc()) 
+	Call();
 
-    if ((23 > getPlayer(DEALER).getHandTotal()) 
-	&& (21 < getPlayer(DEALER).getHandTotal())) {
+    if ((23 > PlayersFront().getHandTotal()) 
+	&& (21 < PlayersFront().getHandTotal())) {
 
 #ifdef _DEBUGCASINOGAME
         logAppend("Between 22 and 23");
 #endif
 
         // No brainer.
-        call();
+        Call();
 
-    } else if ((22 > getPlayer(DEALER).getHandTotal()) && (18 < getPlayer(DEALER).getHandTotal())) {
+    }
+    else if ((22 > PlayersFront().getHandTotal())
+	     && (18 < PlayersFront().getHandTotal()))
+    {
 
 #ifdef _DEBUGCASINOGAME
         logAppend("Between 19 and 23");
 #endif
 
         // I need a four or less, "should I or shouldn't I?"
-        if (1 == call_indicision_gen(2)) call();	//	"I should"
+        if (1 == call_indicision_gen(2)) Call();	//	"I should"
 
-    } else if ((19 > getPlayer(DEALER).getHandTotal()) && (15 < getPlayer(DEALER).getHandTotal())) {
+    } else if ((19 > PlayersFront().getHandTotal())
+	       && (15 < PlayersFront().getHandTotal())) {
 
 #ifdef _DEBUGCASINOGAME
-        logAppend("Between 16 and 18");
+	logAppend("Between 16 and 18");
 #endif
-
-        // I need between five and seven
+	
+	// I need between five and seven
 
         int balls_factor = call_indicision_gen(23);
         float likelihood_5_7 = call_indicision_gen(23) / 12;	// 1.94 greatest
@@ -634,11 +650,12 @@ void CasinoGame::dealerCall() {
         dealer_caption.setText(dealer_call);
 #endif
 
-        if (0.85f < call_likeliness) call();	// All that fancy math for one function call hahahaha
+        if (0.85f < call_likeliness)
+	    Call();	// All that fancy math for one function call hahahaha
 
     } else {	// Probably need more cards
-
-        return;
+	
+	return;
 
     }	// if(need card)
 
@@ -650,7 +667,7 @@ void CasinoGame::dealerCall() {
 }	// dealerCall
 
 // Calls the hand, ends play for this hand
-void CasinoGame::call() {
+void CasinoGame::Call() {
 
 #ifdef _DEBUGCASINOGAME
     char debug_string[64];
@@ -658,127 +675,134 @@ void CasinoGame::call() {
 #endif
 
     // Call can only happen after the third round
-    if (4 > getRound()) return;
+    if (4 > Round()) return;
 
 #ifdef _DEBUGCASINOGAME
-    sprintf(debug_string, "Player total %d, dealer %d.", getPlayer(HUMAN).getHandTotal(), getPlayer(DEALER).getHandTotal());
+    sprintf(debug_string, "Player total %d, dealer %d.",
+	    PlayersBack().getHandTotal(),
+	    PlayersFront().getHandTotal());
     logAppend(debug_string);
 #endif
 
     // Update the UI. Sometimes the displayed total and the final don't match
     // maybe we're not updating UI before call.
-    updateUI();
+    UpdateUI();
 
     SingleButtonDialog call_dialog("", "Call", "Continue", Rect(30, 85 , 420, 102));
 
-    if ((getPlayer(HUMAN).idiotArray() && !getPlayer(DEALER).idiotArray()) ||
-            (getPlayer(HUMAN).pureSabacc() && !getPlayer(DEALER).idiotArray() && !getPlayer(DEALER).pureSabacc()) ||
-            (getPlayer(HUMAN).sabacc() && !getPlayer(DEALER).idiotArray() && !getPlayer(DEALER).pureSabacc() && !getPlayer(DEALER).sabacc())) {
+    if ((PlayersBack().idiotArray() && !PlayersFront().idiotArray()) ||
+            (PlayersBack().pureSabacc() && !PlayersFront().idiotArray() && !PlayersFront().pureSabacc()) ||
+            (PlayersBack().sabacc() && !PlayersFront().idiotArray() && !PlayersFront().pureSabacc() && !PlayersFront().sabacc())) {
 
 #ifdef _DEBUGCASINOGAME
         logAppend("Player wins: Idiot or Sabacc");
 #endif
 
-        getPlayer(HUMAN).incCredits(getHandPot() + getSabaccPot());
-        emptySabaccPot();
+	PlayersBack().incCredits(HandPot() + SabaccPot());
+        EmptySabaccPot();
 
-        if(getPlayer(HUMAN).idiotArray()) {
-	  call_dialog.setDialogText(getPlayer(HUMAN).getName() + " is holding an Idiot array.");
+        if(PlayersBack().idiotArray()) {
+	  call_dialog.setDialogText(PlayersBack().getName()
+				    + " is holding an Idiot array.");
 	} else {
-	  call_dialog.setDialogText(getPlayer(HUMAN).getName() + " is holding Sabacc.");
+	  call_dialog.setDialogText(PlayersBack().getName()
+				    + " is holding Sabacc.");
 	}
 
-        call_dialog.setDialogTitle(getPlayer(HUMAN).getName() + " wins.");
+        call_dialog.setDialogTitle(PlayersBack().getName() + " wins.");
 
-    } else if ((getPlayer(DEALER).idiotArray() && !getPlayer(HUMAN).idiotArray()) ||
-               (getPlayer(DEALER).pureSabacc() && !getPlayer(HUMAN).idiotArray() && !getPlayer(HUMAN).pureSabacc()) ||
-               (getPlayer(DEALER).sabacc() && !getPlayer(HUMAN).idiotArray() && !getPlayer(HUMAN).pureSabacc() && !getPlayer(HUMAN).sabacc())) {
+    } else if ((PlayersFront().idiotArray() && !PlayersBack().idiotArray()) ||
+               (PlayersFront().pureSabacc() && !PlayersBack().idiotArray() && !PlayersBack().pureSabacc()) ||
+               (PlayersFront().sabacc() && !PlayersBack().idiotArray() && !PlayersBack().pureSabacc() && !PlayersBack().sabacc())) {
 
 #ifdef _DEBUGCASINOGAME
         logAppend("Dealer wins: Idiot or Sabacc");
 #endif
 
-        emptySabaccPot();
+        EmptySabaccPot();
 
-        if(getPlayer(DEALER).idiotArray()) {
+        if(PlayersFront().idiotArray()) {
 #if defined(_DEBUG) || defined(_DEBUGDEALERHAND)
 	  stringstream total;
-	  total << "Dealer's total: " << getPlayer(DEALER).getHandTotal();
-	  call_dialog.setDialogText(getPlayer(DEALER).getName() + " is holding an Idiot array.\n" + total.str());
+	  total << "Dealer's total: " << PlayersFront().getHandTotal();
+	  call_dialog.setDialogText(PlayersFront().getName() + " is holding an Idiot array.\n" + total.str());
 #else
-	  call_dialog.setDialogText(getPlayer(DEALER).getName() + " is holding an Idiot array.");
+	  call_dialog.setDialogText(PlayersFront().getName() + " is holding an Idiot array.");
 #endif
 	} else {
 #if defined(_DEBUG) || defined(_DEBUGDEALERHAND)
 	  stringstream total;
-	  total << "Dealer's total: " << getPlayer(DEALER).getHandTotal();
-	  call_dialog.setDialogText(getPlayer(DEALER).getName() + " is holding Sabacc.\n" + total.str());
+	  total << "Dealer's total: " << PlayersFront().getHandTotal();
+	  call_dialog.setDialogText(PlayersFront().getName() + " is holding Sabacc.\n" + total.str());
 #else
-	  call_dialog.setDialogText(getPlayer(DEALER).getName() + " is holding Sabacc.");
+	  call_dialog.setDialogText(PlayersFront().getName() + " is holding Sabacc.");
 #endif
 	}
 
-        call_dialog.setDialogTitle(getPlayer(DEALER).getName() + " wins.");
+        call_dialog.setDialogTitle(PlayersFront().getName() + " wins.");
 
-    } else if (getPlayer(HUMAN).bomb() && getPlayer(DEALER).bomb()) {
+    } else if (PlayersBack().bomb() && PlayersFront().bomb()) {
 
 #ifdef _DEBUGCASINOGAME
         logAppend("Both sides bomb.");
 #endif
 
-        getPlayer(HUMAN).decCredits(getHandPot());	// Player pays bomb penalty
-        addToSabaccPot(getHandPot());
+        PlayersBack().decCredits(HandPot());
+// Player pays bomb penalty
+        AddToSabaccPot(HandPot());
 
-        call_dialog.setDialogText(getPlayer(HUMAN).getName() + " and Dealer bomb,\nand " + getPlayer(HUMAN).getName() + "pays a penalty to the Sabacc pot\nequal to the hand pot.");
+        call_dialog.setDialogText(PlayersBack().getName() + " and Dealer bomb,\nand " + PlayersBack().getName() + "pays a penalty to the Sabacc pot\nequal to the hand pot.");
         call_dialog.setDialogTitle("All players lose.");
 
-    } else if (!getPlayer(DEALER).bomb() && getPlayer(HUMAN).bomb()) {
+    } else if (!PlayersFront().bomb() && PlayersBack().bomb()) {
 
 #ifdef _DEBUGCASINOGAME
         logAppend("Dealer wins: Player bombs");
 #endif
 
-        getPlayer(HUMAN).decCredits(getHandPot());
-        addToSabaccPot(getHandPot());
+        PlayersBack().decCredits(HandPot());
+        AddToSabaccPot(HandPot());
 
-        call_dialog.setDialogText(getPlayer(HUMAN).getName() + " bombed out,\nand pays a penalty to the Sabacc pot\nequal to the hand pot.");
-        call_dialog.setDialogTitle(getPlayer(DEALER).getName() + " wins.");
+        call_dialog.setDialogText(PlayersBack().getName() + " bombed out,\nand pays a penalty to the Sabacc pot\nequal to the hand pot.");
+        call_dialog.setDialogTitle(PlayersFront().getName() + " wins.");
 
-    } else if (getPlayer(DEALER).bomb() && !getPlayer(HUMAN).bomb()) {
+    } else if (PlayersFront().bomb() && !PlayersBack().bomb()) {
 
 #ifdef _DEBUGCASINOGAME
         logAppend("Player wins: Dealer bombs");
 #endif
 
-        addToSabaccPot(getHandPot() / 2);
+        AddToSabaccPot(HandPot() / 2);
 
-        call_dialog.setDialogText(getPlayer(HUMAN).getName() + " wins,\n" + getPlayer(DEALER).getName() + " bombed out.");
-        call_dialog.setDialogTitle(getPlayer(HUMAN).getName() + " wins.");
+        call_dialog.setDialogText(PlayersBack().getName() + " wins,\n" + PlayersFront().getName() + " bombed out.");
+        call_dialog.setDialogTitle(PlayersBack().getName() + " wins.");
 
-    } else if ((getPlayer(DEALER).idiotArray() && getPlayer(HUMAN).idiotArray()) ||
-               (getPlayer(DEALER).getHandTotal() == getPlayer(HUMAN).getHandTotal())) {
+    } else if ((PlayersFront().idiotArray() && PlayersBack().idiotArray()) ||
+               (PlayersFront().getHandTotal() == PlayersBack().getHandTotal())) {
 
 #ifdef _DEBUGCASINOGAME
         logAppend("Draw");
 #endif
 
-        getPlayer(HUMAN).incCredits(getHandPot() / 2);
+        PlayersBack().incCredits(HandPot() / 2);
 
-        call_dialog.setDialogText("Hand is a draw.\n" + getPlayer(HUMAN).getName() + " wins half of the hand pot.");
+        call_dialog.setDialogText("Hand is a draw.\n" + PlayersBack().getName() + " wins half of the hand pot.");
         call_dialog.setDialogTitle("Draw.");
 
-    } else if ((getPlayer(DEALER).getHandTotal() < getPlayer(HUMAN).getHandTotal()) &&
-               (24 > getPlayer(HUMAN).getHandTotal()) && (-24 < getPlayer(HUMAN).getHandTotal())) {
+    } else if ((PlayersFront().getHandTotal() < PlayersBack().getHandTotal()) &&
+               (24 > PlayersBack().getHandTotal()) && (-24 < PlayersBack().getHandTotal())) {
 
 #ifdef _DEBUGCASINOGAME
         logAppend("Player wins: Higher hand");
 #endif
 
-        getPlayer(HUMAN).incCredits(getHandPot());
-        addToSabaccPot(getHandPot() / 2);
+        PlayersBack().incCredits(HandPot());
+        AddToSabaccPot(HandPot() / 2);
 
-        call_dialog.setDialogText(getPlayer(HUMAN).getName() + " holds the hand with the\nhighest total.");
-        call_dialog.setDialogTitle(getPlayer(HUMAN).getName() + " wins.");
+        call_dialog.setDialogText(PlayersBack().getName()
+				  + " holds the hand with the\nhighest total.");
+        call_dialog.setDialogTitle(PlayersBack().getName()
+				   + " wins.");
 
     } else {
 
@@ -786,17 +810,19 @@ void CasinoGame::call() {
         logAppend("Dealer wins");
 #endif
 
-        getPlayer(HUMAN).decCredits(getHandPot() / 2);
-        addToSabaccPot(getHandPot() / 2);
+        PlayersBack().decCredits(HandPot() / 2);
+        AddToSabaccPot(HandPot() / 2);
 
-        call_dialog.setDialogText(getPlayer(DEALER).getName() + " holds the hand with the\nhighest total.");
-        call_dialog.setDialogTitle(getPlayer(DEALER).getName() + " wins.");
+        call_dialog.setDialogText(PlayersFront().getName()
+				  + " holds the hand with the\nhighest total.");
+        call_dialog.setDialogTitle(PlayersFront().getName()
+				   + " wins.");
 
     }
 
-    emptyHandPot();
-    resetCurrentBet();
-    resetLastBet();
+    EmptyHandPot();
+    ResetCurrentBet();
+    ResetLastBet();
 
     dealer_cimages.setHideCards(false);
 
@@ -810,19 +836,66 @@ void CasinoGame::call() {
     getSystemManager().getEventManager().pop();
     getSystemManager().getRenderer().pop();
 
-    startNewRound();
+    NewRound();
 
 } // call
 
 // Hold offers to hold, then places hold
 // void CasinoGame::hold(Card&);	// Card
-void CasinoGame::hold(vector<Card>::iterator card_iter)
+GameBase
+&CasinoGame::HoldCard(vector<Card>::iterator card_iter)
 {	// Card iterator
-    card_iter->Hold(true);
+    (*card_iter).Hold(true);
+    return *this;
 }
 
-void CasinoGame::hold(vector<Card>::size_type card_number) {	// Card #
+GameBase
+&CasinoGame::HoldCard(vector<Card>::size_type card_number)
+{	// Card #
     /* if(pl.getHand().size() < card_number) throw(Exceptions::InvalidHold("Fatal Error: Card not found."));
 
     pl.getHand()[card_number].hold = true; */
+    return *this;
 } // hold(Player, int)
+
+void
+CasinoGame::InitCasinoGame()
+{
+    round_caption.setTextStyle(font_style_bold | font_style_underline);
+    round_caption.setTextColor(0xFF, 0xD0, 0x40, 0xFF);
+
+#if defined(__PSP__) || defined(__PSPTEST__)
+    dealer_cimages.Position(Rect(20, 20, 288, 96));
+    player_cimages.Position(Rect(20, player_caption.Top() - 96, 448, 96));
+#else
+    dealer_cimages.Position(Rect(20, 20, 0, 0));
+    player_cimages.Position(Rect(20, player_caption.Top() - 96, 0, 0));
+#endif
+
+}
+
+void
+CasinoGame::DestroyCasinoGame()
+{
+    getSystemManager().getRenderer().clear();
+}
+
+Uint32
+CasinoGame::TimedShiftCallback(Uint32 interval, void *data)
+{
+	    
+#ifdef _DEBUGSHIFTTIMER
+    logAppend("Shifting via timer.");
+#endif
+
+    static_cast<CasinoGame*>(data)->Shift();
+
+    //static_cast<CasinoGame*>(data)->setLastBet(inst->getCurrentBet());
+    //static_cast<CasinoGame*>(data)->getPlayers().back().decCredits(inst->getCurrentBet());
+    //static_cast<CasinoGame*>(data)->addToHandPot(inst->getCurrentBet());
+    static_cast<CasinoGame*>(data)->dealer_cimages.setHideCards(true);
+    
+    static_cast<CasinoGame*>(data)->UpdateUI();
+
+    return interval;
+}

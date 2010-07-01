@@ -28,7 +28,8 @@ using std::string;
 #include "base/SmartSurface.hh"
 #include "geometry/Rect.hh"
 
-class SurfaceWidget : public Widget {
+class SurfaceWidget : public Widget
+{
 public:
     /** Constructors @{ */
     SurfaceWidget(const Rect& = default_rect, string = "");
@@ -37,11 +38,12 @@ public:
     virtual ~SurfaceWidget();
     /** @} */
 
-    virtual SurfaceWidget& operator=(const SurfaceWidget&);	/// Gives this SurfaceWidget's members the values of another SurfaceWidget.
+    virtual SurfaceWidget& operator=(const SurfaceWidget&);
+// Gives this SurfaceWidget's members the values of another SurfaceWidget.
 
     /** Surface operations. @{ */
-    SDL_Surface* getSurface();
-    void setSurface(SDL_Surface*);
+    SDL_Surface *getSurface();
+    SurfaceWidget &setSurface(SDL_Surface*);
     /** @} */
 
     /** Draw the widget to screen. */

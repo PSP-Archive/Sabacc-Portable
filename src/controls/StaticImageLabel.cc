@@ -50,12 +50,28 @@ using std::string;
 #include "utility/Log.hh"
 #endif
 
-ImageLabel::ImageLabel(const string& text, const string& file, const Rect& position, string property_string) :
-	FreeTypeControl(position, property_string), label_text(text), image_file(file) { }
-ImageLabel::ImageLabel(Widget* guardian, const string& text, const string& file, const Rect& position, string property_string) :
-	FreeTypeControl(guardian, position, property_string), label_text(text), image_file(file) { }
+ImageLabel::ImageLabel(const string& text,
+		       const string& file,
+		       const Rect& position,
+		       string property_string) :
+    FreeTypeControl(position, property_string),
+    label_text(text),
+    image_file(file) { }
+
+ImageLabel::ImageLabel(Widget* guardian,
+		       const string& text,
+		       const string& file,
+		       const Rect& position,
+		       string property_string) :
+	FreeTypeControl(guardian, position, property_string),
+	label_text(text),
+	image_file(file) { }
+
 ImageLabel::ImageLabel(const ImageLabel& src) :
-	FreeTypeControl(src), label_text(src.label_text), image_file(src.image_file) { }
+	FreeTypeControl(src),
+	label_text(src.label_text),
+	image_file(src.image_file) { }
+
 ImageLabel::~ImageLabel() {
 
     if (isInitialized()) cleanup();
@@ -105,13 +121,18 @@ void ImageLabel::init() {
     logAppend("Setting up image label: " + label_text + ", " + image_file);
 #endif
 
-	// Load image into a temporary surface first.
-	SDL_RWops* image_ops = SDL_RWFromFile(getSystemManager().getImagePath(image_file).c_str(), "r");
+    // Load image into a temporary surface first.
+    SDL_RWops* image_ops =
+	SDL_RWFromFile(getSystemManager().getImagePath(image_file).c_str(),
+		       "r");
     SDL_Surface* image_surface = IMG_Load_RW(image_ops, true);
 
-    if(!image_surface) throw(Exceptions::Image::LoadError("The loaded image seems invalid.",
-		"Perhaps you did not specify an image and meant to use StaticTextLabel.hh which is a plain TextLabel",
-		SDL_GetError(), __FILE__, __LINE__));
+    if(!image_surface)
+	throw Exceptions::Image::LoadError("The loaded image seems invalid.",
+					   "Bad Image",
+					   SDL_GetError(),
+					   __FILE__,
+					   __LINE__);
 
     // Store the previous state
     pushState();
@@ -119,15 +140,17 @@ void ImageLabel::init() {
     // Propogate widget properties to text renderer
     setFontProperties(getProperties());
 
-	int text_width = textWidth(label_text) + 3;
-    int surface_width = textWidth(label_text) + image_surface->w;
-
 #if defined(_DEBUG) || defined(_DEBUGSTATICIMAGELABEL)
     logAppend("Got width.");
 #endif
 
-	int text_height = textHeight(label_text);
-    int surface_height = textHeight(label_text) + image_surface->h;
+    int text_width = textWidth(label_text);
+    int text_height = textHeight(label_text);
+
+    int surface_width = (text_width < image_surface->w)
+	? image_surface->w
+	: text_width;
+    int surface_height = text_height + image_surface->h;
 
 #if defined(_DEBUG) || defined(_DEBUGSTATICIMAGELABEL)
     logAppend("Got height.");
@@ -139,80 +162,79 @@ void ImageLabel::init() {
 
 	string image_anchor = getProperty("image-anchor");
 
-	if(string::npos != image_anchor.find("center")) {
-
-		/* If image is anchored at center, text will overlay it, so adjust accordingly
-		 * so surface is not too large. */
-		// if(text_width > surface_width) surface_width = text_width;
-		// if(text_height > surface_height) surface_height = text_height;
-
-		image_start_x = (surface_width - image_surface->w) / 2;
-		image_start_y = (surface_height - image_surface->h) / 2;
-
+	if(string::npos != image_anchor.find("center"))
+	{
+	    image_start_x = (surface_width - image_surface->w) / 2;
+	    image_start_y = (surface_height - image_surface->h) / 2;
 	}
-	if(string::npos != image_anchor.find("left")) image_start_x = 0;
-	if(string::npos != image_anchor.find("right")) image_start_x = surface_width - image_surface->w;
-	if(string::npos != image_anchor.find("top")) image_start_y = 0;
-	if(string::npos != image_anchor.find("bottom")) image_start_y = surface_height - image_surface->h;
 
-    SDL_Surface* text_surface = SDL_AllocSurface(SDL_SWSURFACE, surface_width, surface_height,
-                                32, 0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000);
+	if(string::npos != image_anchor.find("left"))
+	    image_start_x = 0;
+	if(string::npos != image_anchor.find("right"))
+	    image_start_x = surface_width - image_surface->w;
+	if(string::npos != image_anchor.find("top"))
+	    image_start_y = 0;
+	if(string::npos != image_anchor.find("bottom"))
+	    image_start_y = surface_height - image_surface->h;
+
+    SDL_Surface* text_surface =
+	SDL_AllocSurface(SDL_SWSURFACE, surface_width, surface_height,
+			 32, 0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000);
 
 #if defined(_DEBUG) || defined(_DEBUGSTATICIMAGELABEL)
 	char image_label_debug[256];
-	sprintf(image_label_debug, "Created a surface of dimsensions %dx%d", surface_width, surface_height);
+	sprintf(image_label_debug,
+		"Created a surface of dimsensions %dx%d",
+		surface_width,
+		surface_height);
 	logAppend(image_label_debug);
 #endif
 
 	// Copy image to same surface as text.
 
 #if defined(_DEBUG) || defined(_DEBUGSTATICIMAGELABEL)
-	sprintf(image_label_debug, "Blitting image (%dwx%dh) to surface @ %d,%d (%dwx%dh)", image_surface->w, image_surface->h, image_start_x, image_start_y, surface_width, surface_height);
+	sprintf(image_label_debug,
+		"Blitting image (%dwx%dh) to surface @ %d,%d (%dwx%dh)",
+		image_surface->w,
+		image_surface->h,
+		image_start_x,
+		image_start_y,
+		surface_width,
+		surface_height);
 	logAppend(image_label_debug);
 #endif
 
-//	SDL_Rect image_anchor_rect = { image_start_x, image_start_y, 0, 0 };
-//	if(-1 == SDL_BlitSurface(image_surface, NULL, text_surface, &image_anchor_rect)) {
 	copySurface(image_surface, text_surface, image_start_x, image_start_y);
 
-//#if defined(_DEBUG) || defined(_DEBUGSTATICIMAGELABEL)
-//		sprintf(image_label_debug, "Could not Blit image to label surface: %s.", SDL_GetError());
-//		logAppend(image_label_debug);
-//#endif
-//
-//		throw(Exceptions::Widget::BlitError("Blit failed.", "Could not blit image to label surface.", SDL_GetError(), __FILE__, __LINE__));
-//
-//	}
-
 	// Text is rendered last in case it needs to overlay image.
-    render(label_text, text_surface, 0, 0);
-
-    // After redering, restore previous state
-    popState();
-
+	render(label_text, text_surface, 0, 0);
+	
+	// After redering, restore previous state
+	popState();
+	
 #if defined(_DEBUG) || defined(_DEBUGSTATICIMAGELABEL)
-    logAppend("Rendered.");
+	logAppend("Rendered.");
 #endif
-
+	
 #if defined(_DEBUG) || defined(_DEBUGSTATICIMAGELABEL)
-    logAppend("Converting rendered surface to display alpha format.");
+	logAppend("Converting rendered surface to display alpha format.");
 #endif
+	
+	setSurface(SDL_DisplayFormatAlpha(text_surface));
 
-    setSurface(SDL_DisplayFormatAlpha(text_surface));
-
-    // Adjust size
-    // Automatic adjustment of Widget size
-    if (string::npos != getProperty("autosize").find("true")) {
-        Width(surface_width);
-        Height(surface_height);
-    }	// getProperty("all")
-
-    setInitialized();
-
+	// Adjust size
+	// Automatic adjustment of Widget size
+	if (string::npos != getProperty("autosize").find("true")) {
+	    Width(surface_width);
+	    Height(surface_height);
+	}	// getProperty("all")
+	
+	setInitialized();
+	
 }	// init
+
 void ImageLabel::cleanup() {
     setSurface(0);
-
     setNotInitialized();
 
 }	// cleanup

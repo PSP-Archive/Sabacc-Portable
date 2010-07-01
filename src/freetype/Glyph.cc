@@ -70,7 +70,9 @@ CachedGlyphImpl& CachedGlyphImpl::operator=(const CachedGlyphImpl& src) {
 }
 bool CachedGlyphImpl::operator==(const CachedGlyphImpl& rhs) {
 
-    if ((rhs.index == this->index) && (rhs.bitmap.buffer == this->bitmap.buffer)) {
+    if ((rhs.index == this->index)
+	&& (rhs.bitmap.buffer == this->bitmap.buffer))
+    {
         return(true);
     }
 
@@ -80,23 +82,30 @@ bool CachedGlyphImpl::operator==(const CachedGlyphImpl& rhs) {
 
 bool CachedGlyphImpl::operator!=(const CachedGlyphImpl& rhs) {
 
-    return(!operator==(rhs));
+
+    if ((rhs.index != this->index)
+	&& (rhs.bitmap.buffer == this->bitmap.buffer))
+    {
+        return(true);
+    }
+
+    return(false);
 
 }	// operator!=
 
 unsigned char* CachedGlyphImpl::allocGlyph(size_t size) {
 
-  try {
+  try
+  {
     bitmap.buffer = new unsigned char[size];
-  } catch(bad_alloc& a) {
-
-    cout << "bad_alloc thrown while allocating glyph memory." << endl;
-    cerr << "bad_alloc thrown while allocating glyph memory." << endl;
-
+  }
+  catch(bad_alloc& a)
+  {
 #if defined(_DEBUG) || defined(_DEBUGCACHEDGLYPH)
-    logAppend("bad_alloc thrown while allocating glyph memory.");
+    logAppend("Unable to allocate memory for font glyph.");
+    logAppend("Continuing... some glyphs may be unavailable.");
 #endif
-
+    
   }
 
 #if defined(_DEBUGCACHEDGLYPH)

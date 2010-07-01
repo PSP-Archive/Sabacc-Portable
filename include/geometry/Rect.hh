@@ -166,7 +166,7 @@ static const Rectf default_rectf;
 
 /** A helper function for getting an SDL compatible Rect from a BasicRect<int>. */
 template <typename RectType>
-SDL_Rect getSDLRect(BasicRect<RectType> const &src_rect)
+SDL_Rect SDLRect(BasicRect<RectType> const &src_rect)
 {
     SDL_Rect temp_rect =
 	{

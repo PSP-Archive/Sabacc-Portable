@@ -34,10 +34,9 @@ static const std::string default_card_image = "card_small.png";
 class CardImage : public StaticImage {
 
     Card*	card_data;
-
-  static FreeTypeRenderer card_renderer;
-
     bool	hide_face;
+
+    static FreeTypeRenderer card_renderer;
 
 public:
 
@@ -50,11 +49,12 @@ public:
     CardImage& operator=(const CardImage&);
 
     // Card Values
-    Card* getCard() const;
-    virtual void setCard(Card*);
+    Card* CardData() const;
+    void CardData(Card*);
 
-  // Face display
-  virtual void setHiddenFace(bool);
+    // Face display
+    bool HideFace();
+    void HideFace(bool);
 
     // Set up the card image
     virtual void init();

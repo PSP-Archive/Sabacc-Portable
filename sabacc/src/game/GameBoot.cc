@@ -128,13 +128,14 @@ void GameBoot::eventLoop() {
     while (!done) {
         // Draw everything
 
-        try {
-            if (renderer.empty()) {
-
-	      // createControls();
-
+	try
+	{
+	    if (renderer.empty()) {
+		
+		// createControls();
+		
 #if defined(_DEBUG) || defined(_DEBUGGAMEBOOT)
-                logAppend("GameBoot: Recreate objects.");
+		logAppend("GameBoot: Recreate objects.");
 #endif
 
 #if defined(_DEBUG) || defined(_DEBUGGAMEBOOT)
@@ -153,7 +154,9 @@ void GameBoot::eventLoop() {
 
             renderer.draw();
 
-        } catch (Exceptions::ExceptionBase& e) {
+        }
+	catch (Exceptions::ExceptionBase &e)
+	{
 #if defined(_DEBUG) || defined(_DEBUGGAMEBOOT)
             logAppend("An error occurred while drawing the render queue.");
             logAppend(e.getFile());
@@ -180,15 +183,17 @@ void GameBoot::eventLoop() {
 
 	    // destroyControls();
 
-	    if(allow_continue) {
+	    if (allow_continue) {
 
-	      smf_event_t dialog_result = event_none;
-
+		smf_event_t dialog_result = event_none;
+		
 #if (_PSP_FW_VERSION >= 200)
-	      PSPUtility::
+		PSPUtility::
 #endif
-	      OKCancelDialog confirm("Do you wish to continue? All winnings will be lost.", "A game is already in progress.");
-
+		    OKCancelDialog confirm("Do you wish to continue?	\
+					   All winnings will be lost.",
+					   "A game is already in progress.");
+		
 	      renderer.push(&confirm);
 	      events.push(&confirm);
 
@@ -220,10 +225,10 @@ void GameBoot::eventLoop() {
 
 		if (sabacc_game) {
 
-		  sabacc_game->addPlayer(Player("Dealer"));
-		  sabacc_game->addPlayer(Player(player_name));
+		  sabacc_game->AddPlayer(Player("Dealer"));
+		  sabacc_game->AddPlayer(Player(player_name));
 
-		  sabacc_game->start();
+		  sabacc_game->Start();
 
 		} else {
 
@@ -242,7 +247,8 @@ void GameBoot::eventLoop() {
 	      // There was no previous game so start a new one,
 	      // if sabacc_game exists here, there is a problem
 	      if(sabacc_game) {
-		throw(Exceptions::Game::CouldNotCreateGameObject(__FILE__, "Game object already exists!"));
+		throw
+		    Exceptions::Game::CouldNotCreateGameObject(__FILE__, "Game object already exists!");
 
 #if defined(_DEBUG) || defined(_DEBUGGAMEBOOT)
 		logAppend("A game object already exists, please check code!");
@@ -252,10 +258,10 @@ void GameBoot::eventLoop() {
 	      sabacc_game = new CasinoGame;
 
 	      if (sabacc_game) {
-		sabacc_game->addPlayer(Player("Dealer"));
-		sabacc_game->addPlayer(Player("Player"));
+		sabacc_game->AddPlayer(Player("Dealer"));
+		sabacc_game->AddPlayer(Player("Player"));
 
-		sabacc_game->start();
+		sabacc_game->Start();
 
 		main_menu.insert("Four Cards", "Continue", "Resume a game \\ialready in progress\\i.");
 	      } else {
@@ -289,7 +295,7 @@ void GameBoot::eventLoop() {
 
 	  // destroyControls();
 
-	  if(sabacc_game) sabacc_game->game();
+	  if(sabacc_game) sabacc_game->StartGame();
 
 	  if (-1 == Mix_PlayChannel(-1, menu_music, 0)) {
 
@@ -404,10 +410,10 @@ void GameBoot::eventLoop() {
 
 		  if (sabacc_game) 
 		    {
-		      sabacc_game->addPlayer(Player("Dealer"));
-		      sabacc_game->addPlayer(Player("Player"));
+		      sabacc_game->AddPlayer(Player("Dealer"));
+		      sabacc_game->AddPlayer(Player("Player"));
 		      
-		      sabacc_game->start();
+		      sabacc_game->Start();
 		      
 		      main_menu.insert("Four Cards", "Continue", "Resume a game\\ialready in progress\\i.");
 		      

@@ -20,10 +20,10 @@ INCLUDEDIR = -I. -Iinclude -Isabacc/include -I/usr/include -I/usr/include/freety
 CFLAGS += $(INCLUDEDIR) $(SDLFLAGS) $(SMFDEBUGFLAGS) $(DEBUGFLAGS) $(PROFILEFLAGS) $(WARNFLAGS)
 CXXFLAGS += $(CFLAGS)
 
-LIBDIR += -L. -L/usr/lib
+LIBDIR += -L. -L/home/anthony/local/lib -L/usr/lib
 LIBS += -lfreetype $(SDLLIBS)
 
-CXX = g++
+CXX = g++-4.5
 
 all: $(LIB) $(BIN)
 

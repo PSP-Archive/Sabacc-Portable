@@ -19,19 +19,42 @@
 #include "utility/Log.hh"
 #endif // _DEBUG
 
-class CasinoGame : public GameBase {
+class CasinoGame :
+    public GameBase
+{
+    
+public:
+
+    CasinoGame();
+    CasinoGame(std::vector<Player>);	// Vector of players with which to start the game
+    CasinoGame(std::vector<Player>, long);	// Vector of players, and a set amount each is to start at
+    virtual ~CasinoGame();
+
+    // Hold a card
+    virtual GameBase &HoldCard(std::vector<Card>::iterator);
+    virtual GameBase &HoldCard(std::vector<Card>::size_type);
+
+    // Start the game, run the event loop, &c.
+    virtual void Start();
+
+    // This is used for resuming a game
+    virtual void StartGame();
+    
+    // Needs to be public for SDL_Timer callback to work
+
+private:
 
     // UI stuff
-    TextLabel				dealer_caption, player_caption, selected_info,
-#if !defined(__PSP__) && !defined(__PSPTEST__)
-    rules_text, round_caption, round_info;
-#else
-    rules_text, round_caption, round_info;
-#endif
+    TextLabel dealer_caption,
+	player_caption,
+	selected_info,
+	rules_text,
+	round_caption,
+	round_info;
 
-    CardImageSet			dealer_cimages, player_cimages;
+    CardImageSet dealer_cimages, player_cimages;
 
-    StaticImage					table_image;
+    StaticImage	table_image;
 
     SDL_TimerID shift_timer;
 
@@ -41,56 +64,25 @@ class CasinoGame : public GameBase {
     static const int HUMAN = 1;
 
     // A game cannot be copied or assigned
-    CasinoGame(const CasinoGame&);
-    CasinoGame& operator=(const CasinoGame&);
+    CasinoGame(CasinoGame const &);
+    CasinoGame &operator=(CasinoGame const &);
 
     // A function to update all labels and possibly other UI elements
-    void updateUI();
+    void UpdateUI();
 
     // The various rounds
-    virtual void startNewRound();
-    virtual void deal();
-    virtual void call();
-    virtual void dealerCall();
+    virtual void NewRound();
+    virtual void Deal();
+    virtual void Call();
+    virtual void DealerCall();
+    virtual void Shift();
 
-  static Uint32 timedShiftCallback(Uint32 interval, void *data) {
+    // Common Initialization and Destruction
+    void InitCasinoGame();
+    void DestroyCasinoGame();
 
-#ifdef _DEBUGSHIFTTIMER
-    logAppend("Shifting via timer.");
-#endif
-
-    static_cast<CasinoGame*>(data)->shift();
-
-    //static_cast<CasinoGame*>(data)->setLastBet(inst->getCurrentBet());
-    //static_cast<CasinoGame*>(data)->getPlayers().back().decCredits(inst->getCurrentBet());
-    //static_cast<CasinoGame*>(data)->addToHandPot(inst->getCurrentBet());
-    static_cast<CasinoGame*>(data)->dealer_cimages.setHideCards(true);
-    
-    static_cast<CasinoGame*>(data)->updateUI();
-
-    return(interval);
-  }
-
-public:
-
-    CasinoGame();
-    CasinoGame(std::vector<Player>);	// Vector of players with which to start the game
-    CasinoGame(std::vector<Player>, long);	// Vector of players, and a set amount each is to start at
-    virtual ~CasinoGame();
-
-    // Hold a card
-    virtual void hold(std::vector<Card>::iterator);
-    virtual void hold(std::vector<Card>::size_type);
-
-    // Start the game, run the event loop, &c.
-    virtual void start();
-
-  // This is used for resuming a game
-  virtual void game();
-
-  // Needs to be public for SDL_Timer callback to work
-  virtual void shift();
-
+    // SDL timer callback
+    static Uint32 TimedShiftCallback(Uint32, void *);
 };	// CasinoBase
 
 #endif // __CASINOGAME_HH

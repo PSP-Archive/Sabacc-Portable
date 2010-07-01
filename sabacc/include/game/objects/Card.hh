@@ -26,6 +26,9 @@ public:
     bool operator<(Card const &);
     bool operator>(Card const &);
 
+    // Swaps the value and suite of this card with another.
+    Card &Swap(Card &);
+
     // Value and suite accessors. The set functions return a reference to
     // this card for chaining of functions.
     short Value();
@@ -40,7 +43,7 @@ public:
     bool Hold();
     Card &Hold(bool);
 
-    // Get the names and alphabetic value of cards. Not inline.
+    // Get the names and values of cards.
 
     std::string Name();
     std::string LongName();

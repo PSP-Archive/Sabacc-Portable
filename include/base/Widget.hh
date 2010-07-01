@@ -35,96 +35,21 @@ public:
     /** @} */
 
     /** position retrieval and modification functions. @{ */
-    Rect const
-    &Position() const
-	{
-	    return position;
-	}
+    Rect const &Position() const;
+    typename Rect::rect_type Left() const;
+    typename Rect::rect_type Right() const;
+    typename Rect::rect_type Width() const;
+    typename Rect::rect_type Top() const;
+    typename Rect::rect_type Bottom() const;
+    typename Rect::rect_type Height() const;
 
-    typename Rect::rect_type
-    Left() const
-	{
-	    return position.Left();
-	}
-
-    typename Rect::rect_type
-    Right() const
-	{
-	    return position.Right();
-	}
-
-    typename Rect::rect_type
-    Width() const
-	{
-	    return position.Width();
-	}
-
-    typename Rect::rect_type
-    Top() const
-	{
-	    return position.Top();
-	}
-
-    typename Rect::rect_type
-    Bottom() const
-	{
-	    return position.Bottom();
-	}
-
-    typename Rect::rect_type
-    Height() const
-	{
-	    return position.Height();
-	}
-
-    Widget
-    &Position(Rect const &val)
-	{
-	    position = val;
-	    return *this;
-	}
-
-    Widget
-    &Left(typename Rect::rect_type val)
-	{
-	    position.Left(val);
-	    return *this;
-	}
-
-    Widget
-    &Right(typename Rect::rect_type val)
-	{
-	    position.Right(val);
-	    return *this;
-	}
-
-    Widget
-    &Width(typename Rect::rect_type val)
-	{
-	    position.Width(val);
-	    return *this;
-	}
-
-    Widget
-    &Top(typename Rect::rect_type val)
-	{
-	    position.Top(val);
-	    return *this;
-	}
-
-    Widget
-    &Bottom(typename Rect::rect_type val)
-	{
-	    position.Bottom(val);
-	    return *this;
-	}
-
-    Widget
-    &Height(typename Rect::rect_type val)
-	{
-	    position.Height(val);
-	    return *this;
-	}
+    Widget &Position(Rect const &);
+    Widget &Left(typename Rect::rect_type);
+    Widget &Right(typename Rect::rect_type);
+    Widget &Width(typename Rect::rect_type);
+    Widget &Top(typename Rect::rect_type);
+    Widget &Bottom(typename Rect::rect_type);
+    Widget &Height(typename Rect::rect_type);
 
     /** Initialization and cleanup functions which must be 
 	overloaded by derived classes. @{ */
@@ -133,15 +58,15 @@ public:
     /** @} */
 
     /** Initialization status functions. @{ */
-    bool
-    isInitialized() { return initialized; }
+    bool Initialized();
 
-    void
-    setInitialized() { initialized = true; }
-    
-    void
-    setNotInitialized() { initialized = false; }
+    Widget &Initialized(bool);
     /** @} */
+
+    // for backwards compat
+    bool isInitialized() { return Initialized(); }
+    void setInitialized() {  Initialized(true); }
+    void setNotInitialized() { Initialized(false); }
 
     /** Resize the widget: changes the dimensions of @c Widget::position 
 	to those of surface in most cases. */

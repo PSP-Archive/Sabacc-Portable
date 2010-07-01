@@ -38,205 +38,395 @@ using namespace std;
 #include "utility/Log.hh"
 #endif // _DEBUG
 
-GameBase::GameBase() : players(), winners(), deck(), waste(), current_round(1),
-        current_bet(0), last_bet(0),
-        hand_pot(0), sabacc_pot(0), select_sound(NULL), hold_sound(NULL) {
-
-  SDL_RWops* select_stream = SDL_RWFromMem(chirp_sound_data, size_chirp_sound_data);
-  SDL_RWops* hold_stream = SDL_RWFromMem(hold_sound_data, size_hold_sound_data);
-  select_sound = Mix_LoadWAV_RW(select_stream, true);
-  hold_sound = Mix_LoadWAV_RW(hold_stream, true);
-
-    createDeck();
-    shuffleDeck();
+GameBase::GameBase() : 
+    players(), winners(), deck(), waste(), current_round(1),
+    current_bet(0), last_bet(0),
+    hand_pot(0), sabacc_pot(0), select_sound(NULL), hold_sound(NULL)
+{
+    InitGameBase();
 }	// GameBase
-GameBase::GameBase(std::vector<Player> pls) : players(pls), winners(), deck(),
-        waste(), current_round(1), current_bet(0), last_bet(0),
-        hand_pot(0), sabacc_pot(0), select_sound(NULL), hold_sound(NULL) {
-
-  SDL_RWops* select_stream = SDL_RWFromMem(chirp_sound_data, size_chirp_sound_data);
-  SDL_RWops* hold_stream = SDL_RWFromMem(hold_sound_data, size_hold_sound_data);
-  select_sound = Mix_LoadWAV_RW(select_stream, true);
-  hold_sound = Mix_LoadWAV_RW(hold_stream, true);
-
-    createDeck();
-    shuffleDeck();
+GameBase::GameBase(std::vector<Player> pls) : 
+    players(pls), winners(), deck(),
+    waste(), current_round(1), current_bet(0), last_bet(0),
+    hand_pot(0), sabacc_pot(0), select_sound(NULL), hold_sound(NULL)
+{
+    InitGameBase();
 }	// GameBase
-GameBase::GameBase(std::vector<Player> pls, long starting_creds) : players(pls),
-        winners(), deck(), waste(), current_round(1), current_bet(0), last_bet(0),
-        hand_pot(0), sabacc_pot(0), select_sound(NULL), hold_sound(NULL) {
-
+GameBase::GameBase(std::vector<Player> pls, long starting_creds) :
+    players(pls),
+    winners(), deck(), waste(), current_round(1), current_bet(0), last_bet(0),
+    hand_pot(0), sabacc_pot(0), select_sound(NULL), hold_sound(NULL)
+{
     // Give everyone their starting credits
-    for (std::vector<Player>::iterator it = players.begin(); players.end() > it; ++it) {
-        it->setCredits(starting_creds);
+    for (std::vector<Player>::iterator it = players.begin();
+	 players.end() > it;
+	 ++it) {
+	(*it).setCredits(starting_creds);
     }	// for(it)
 
-   SDL_RWops* select_stream = SDL_RWFromMem(chirp_sound_data, size_chirp_sound_data);
-  SDL_RWops* hold_stream = SDL_RWFromMem(hold_sound_data, size_hold_sound_data);
-  select_sound = Mix_LoadWAV_RW(select_stream, true);
-  hold_sound = Mix_LoadWAV_RW(hold_stream, true);
-
-    createDeck();
-    shuffleDeck();
+    InitGameBase();
 }	// GameBase(p, int)
-GameBase::~GameBase() {
 
-    if (hold_sound) Mix_FreeChunk(hold_sound);
-    if (select_sound) Mix_FreeChunk(select_sound);
-
+GameBase::~GameBase()
+{
+    DestroyGameBase();
 }
 
-void GameBase::createDeck() {
+void
+GameBase::CreateDeck()
+{
     deck.clear();
     // Add standard value cards and those with face values up to 15
 
     for (int suite = 1; suite < 5; ++suite)
     {
-        for (int value = 1; value < 16; ++value) {
-            deck.push_back(Card(value, suite));
-        }
+	for (int value = 1; value < 16; ++value) {
+	    deck.push_back(Card(value, suite));
+	}
     }
 
     // Add other face cards, two of each
     for (int c = 0; 2 > c; ++c) {
-        deck.push_back(Card(FACE_QUEEN_AIR_DARK, SUITE_NONE));
-        deck.push_back(Card(FACE_ENDURANCE, SUITE_NONE));
-        deck.push_back(Card(FACE_BALANCE, SUITE_NONE));
-        deck.push_back(Card(FACE_DEMISE, SUITE_NONE));
-        deck.push_back(Card(FACE_MODERATION, SUITE_NONE));
-        deck.push_back(Card(FACE_EVIL_ONE, SUITE_NONE));
-        deck.push_back(Card(FACE_STAR, SUITE_NONE));
-        deck.push_back(Card(FACE_IDIOT, SUITE_NONE));
+	deck.push_back(Card(FACE_QUEEN_AIR_DARK, SUITE_NONE));
+	deck.push_back(Card(FACE_ENDURANCE, SUITE_NONE));
+	deck.push_back(Card(FACE_BALANCE, SUITE_NONE));
+	deck.push_back(Card(FACE_DEMISE, SUITE_NONE));
+	deck.push_back(Card(FACE_MODERATION, SUITE_NONE));
+	deck.push_back(Card(FACE_EVIL_ONE, SUITE_NONE));
+	deck.push_back(Card(FACE_STAR, SUITE_NONE));
+	deck.push_back(Card(FACE_IDIOT, SUITE_NONE));
     }	// for(c)
 }	// createDeck()
 
-void GameBase::shuffleDeck() {
+void
+GameBase::ShuffleDeck()
+{
     Random rnum;
     std::random_shuffle(deck.begin(), deck.end(), rnum);
 } // ShuffleDeck
 
-std::vector<Player>& GameBase::getPlayers() {
-    return(players);
+std::vector<Player>
+&GameBase::Players()
+{
+    return players;
 }
-Player &GameBase::getPlayer(int player_number)
+
+std::vector<Player>::size_type
+GameBase::PlayerCount() const
+{
+    return players.size();
+}
+
+Player
+&GameBase::PlayerByIndex(typename
+			 std::vector<Player>::size_type player_number)
 {
     // Throw this class on error.
     class InvalidPlayer { };
 
-    if (players.size() < player_number) throw InvalidPlayer();
+    if (players.size() < player_number)
+	throw InvalidPlayer();
 
     return players[player_number];
 }
-void GameBase::addPlayer(Player p) {
+
+std::vector<Player>::iterator
+GameBase::PlayersBegin()
+{
+    return players.begin();
+}
+
+std::vector<Player>::iterator
+GameBase::PlayersEnd()
+{
+    return players.end();
+}
+
+Player
+&GameBase::PlayersFront()
+{
+    return players.front();
+}
+    // Get the last of the players
+Player
+&GameBase::PlayersBack()
+{
+    return players.back();
+}
+
+GameBase
+&GameBase::AddPlayer(Player p)
+{
     players.push_back(p);
+    return *this;
 }	// addPlayer
-void GameBase::remPlayer(const std::vector<Player>::size_type p) {
+
+GameBase
+&GameBase::RemovePlayer(const std::vector<Player>::size_type p)
+{
+    // Throw this class on error.
+    class InvalidPlayer { };
 
     std::vector<Player>::size_type player_number = 0;
     for (std::vector<Player>::iterator it = players.begin();
-            players.end() > it; ++it, ++player_number) {
-
-        if (p == player_number) players.erase(it);
-        return;
-
+	 players.end() > it; ++it, ++player_number)
+    {
+	if (p == player_number) players.erase(it);
+	return *this;
     }	// for(it)
 
-    // If we got here the player was not found, prob because the func was passed to high of a number
-    // throw(Exceptions::Game::InvalidPlayerIndex(__FILE__));
+    // If we got here the player was not found, prob because the func 
+    // was passed to high of a number
+    throw InvalidPlayer();
 
-    // players.erase(p);
+    return *this;
 }	// remPlayer
-void GameBase::remPlayer(Player plr) {
-    for (std::vector<Player>::iterator pl_it = players.begin(); players.end() > pl_it; ++pl_it) {
-        if (plr == *pl_it) players.erase(pl_it);
-    } // for(pl_it)
-} // remPlayer(Player)
-void GameBase::remPlayer(std::vector<Player>::iterator p) {
+
+GameBase
+&GameBase::RemovePlayer(const std::vector<Player>::iterator p)
+{
     players.erase(p);
+    return *this;
 }	// remPlayer
 
-void GameBase::resetLastBet() {
+GameBase
+&GameBase::RemovePlayer(Player plr) {
+    for (std::vector<Player>::iterator pl_it = players.begin();
+	 players.end() > pl_it;
+	 ++pl_it)
+    {
+	if (plr == *pl_it) players.erase(pl_it);
+    } // for(pl_it)
+
+    return *this;
+} // remPlayer(Player)
+
+GameBase
+&GameBase::ResetLastBet()
+{
     last_bet = 0;
+    return *this;
 }
-long GameBase::getLastBet() {
-    return(last_bet);
+
+long
+GameBase::LastBet() const
+{
+    return last_bet;
 }
-void GameBase::setLastBet(long bet) {
+
+GameBase
+&GameBase::LastBet(long bet) {
     last_bet = bet;
+    return *this;
 }
-void GameBase::resetCurrentBet() {
+
+GameBase
+&GameBase::ResetCurrentBet()
+{
     current_bet = 0;
+    return *this;
 }
-const long GameBase::getCurrentBet() {
-    return(current_bet);
+
+long
+GameBase::CurrentBet() const
+{
+    return current_bet;
 }
-void GameBase::raiseCurrentBet(long bet) {
+
+GameBase
+&GameBase::RaiseCurrentBet(long bet)
+{
     current_bet += bet;
+    return *this;
 }
-void GameBase::lowerCurrentBet(long bet) {
+GameBase
+&GameBase::LowerCurrentBet(long bet)
+{
   current_bet -= bet;
+  return *this;
 }
-const long GameBase::getHandPot() {
-    return(hand_pot);
+
+long
+GameBase::HandPot() const
+{
+    return hand_pot;
 }
-void GameBase::setHandPot(long credits) {
+
+GameBase
+&GameBase::HandPot(long credits)
+{
     hand_pot = credits;
+    return *this;
 }
-void GameBase::emptyHandPot() {
+GameBase
+&GameBase::EmptyHandPot()
+{
     hand_pot = 0;
+    return *this;
 }
-void GameBase::addToHandPot(long credits) {
+
+GameBase
+&GameBase::AddToHandPot(long credits)
+{
     hand_pot += credits;
+    return *this;
 }
-const long GameBase::getSabaccPot() {
-    return(sabacc_pot);
+
+long
+GameBase::SabaccPot() const
+{
+    return sabacc_pot;
 }
-void GameBase::setSabaccPot(long credits) {
+
+GameBase
+&GameBase::SabaccPot(long credits)
+{
     sabacc_pot = credits;
+    return *this;
 }
-void GameBase::emptySabaccPot() {
+GameBase
+&GameBase::EmptySabaccPot() {
     sabacc_pot = 0;
+    return *this;
 }
-void GameBase::addToSabaccPot(long credits) {
+
+GameBase
+&GameBase::AddToSabaccPot(long credits)
+{
     sabacc_pot += credits;
+    return *this;
 }
 
-std::vector<Card>& GameBase::getDeck() {
-    return(deck);
-}
-std::vector<Card>& GameBase::getWaste() {
-    return(waste);
-}
-
-const unsigned int GameBase::getRound() {
-    return(current_round);
-}
-const unsigned int GameBase::firstRound() {
-    return(current_round = 1);
-}
-const unsigned int GameBase::nextRound() {
-    return(++current_round);
+std::vector<Card>
+&GameBase::Deck()
+{
+    return deck;
 }
 
-void GameBase::playSelectSound() {
+std::vector<Card>::iterator
+GameBase::DeckBegin()
+{
+    return deck.begin();
+}
+
+std::vector<Card>::iterator
+GameBase::DeckEnd()
+{
+    return deck.end();
+}
+
+Card
+GameBase::DeckLast()
+{
+    Card last_card(deck.back());
+    deck.pop_back();
+    return last_card;
+}
+
+GameBase
+&GameBase::DeckClear()
+{
+    deck.clear();
+    return *this;
+}
+
+std::vector<Card>
+&GameBase::Waste()
+{
+    return waste;
+}
+
+std::vector<Card>::iterator
+GameBase::WasteBegin()
+{
+    return waste.begin();
+}
+
+std::vector<Card>::iterator
+GameBase::WasteEnd()
+{
+    return waste.end();
+}
+
+GameBase
+&GameBase::WasteClear()
+{
+    waste.clear();
+    return *this;
+}
+
+unsigned int
+GameBase::Round() const
+{
+    return current_round;
+}
+
+GameBase
+&GameBase::Round(unsigned int new_round)
+{
+    current_round = new_round;
+    return *this;
+}
+
+GameBase
+&GameBase::FirstRound() {
+    current_round = 1;
+    return *this;
+}
+
+GameBase
+&GameBase::NextRound() {
+    ++current_round;
+    return *this;
+}
+
+void
+GameBase::PlaySelectSound() {
     if (-1 == Mix_PlayChannel(-1, select_sound, 0)) {
-
+	
 #if defined(_DEBUGGAMEBASE) || defined(_DEBUGSOUND)
-        logAppend("Could not play card select sound file.");
-        logAppend(SDL_GetError());
+	logAppend("Could not play card select sound file.");
+	logAppend(SDL_GetError());
 #endif
-
-        // throw(Exceptions::Sound::PlayFailed(__FILE__, SDL_GetError()));
+	
+	// throw(Exceptions::Sound::PlayFailed(__FILE__, SDL_GetError()));
     }	// if(!play)
 }	// playChirpSound
-void GameBase::playHoldSound() {
-    if (-1 == Mix_PlayChannel(-1, hold_sound, 0)) {
 
+void 
+GameBase::PlayHoldSound() {
+    if (-1 == Mix_PlayChannel(-1, hold_sound, 0)) {
+	
 #if defined(_DEBUGGAMEBASE) || defined(_DEBUGSOUND)
-        logAppend("Could not play hold sound file.");
-        logAppend(SDL_GetError());
+	logAppend("Could not play hold sound file.");
+	logAppend(SDL_GetError());
 #endif
 
-        // throw(Exceptions::Sound::PlayFailed(__FILE__, SDL_GetError()));
+	// throw(Exceptions::Sound::PlayFailed(__FILE__, SDL_GetError()));
     }	// if(!play)
 }	// playHoldSound
+
+void
+GameBase::InitGameBase()
+{
+    SDL_RWops* select_stream = 
+	SDL_RWFromMem(chirp_sound_data, size_chirp_sound_data);
+    SDL_RWops* hold_stream = 
+	SDL_RWFromMem(hold_sound_data, size_hold_sound_data);
+
+    select_sound = Mix_LoadWAV_RW(select_stream, true);
+    hold_sound = Mix_LoadWAV_RW(hold_stream, true);
+
+    CreateDeck();
+    ShuffleDeck();
+}
+
+void
+GameBase::DestroyGameBase()
+{
+    if (hold_sound)
+	Mix_FreeChunk(hold_sound);
+
+    if (select_sound)
+	Mix_FreeChunk(select_sound);
+}

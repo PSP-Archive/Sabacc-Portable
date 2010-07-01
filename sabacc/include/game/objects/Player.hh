@@ -17,7 +17,7 @@ class Player {
     // Required properties
     std::string			name;
     long				credits;
-
+    
     // The player's hand
     std::vector<Card>	hand;
     std::vector<Card>::iterator	selected_card;
@@ -28,7 +28,7 @@ class Player {
 
     // Sabacc player statistics
     unsigned int		wins, losses;
-    int					streak;
+    int				 streak;
     long				total_winnings;
     double				avg_winnings;
     float				rank;
@@ -77,17 +77,17 @@ public:
     void moveSelectedRight();
     Card& getSelectedCard();
     std::vector<Card>::iterator getSelectedCardIterator();
-    void holdCard();
+    std::vector<Card>::size_type holdCard();
     int getHoldCount();
 
     // Player operations
     virtual void dropCard();
     virtual void dropCard(int);
     virtual void dropCard(std::vector<Card>::iterator);
-    virtual bool takeCard(Card&);
+    virtual bool takeCard(Card const &);
 
     std::vector<Card>& getHand();
-  virtual void emptyHand();
+    virtual void emptyHand();
     short getHandTotal();
 
     virtual bool pureSabacc();

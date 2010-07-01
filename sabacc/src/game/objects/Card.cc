@@ -56,6 +56,14 @@ Card::operator>(Card const &other)
     return value > other.value;
 }
 
+Card
+&Card::Swap(Card &other)
+{
+    Card swapper(other);
+    other.value = value;
+    other.suite = suite;
+    *this = swapper;
+}
 // Value and suite accessors. The set functions return a reference to
 // this card for chaining of functions.
 
@@ -121,13 +129,13 @@ Card::Name()
     } else if (11 < value) {
 	return(face_names_pos[value + face_pos_offset]);
     }
-	    
+    
     // Finally just return the value as a string.
     std::stringstream card_value;
     card_value << value;
-	    
+    
     return(card_value.str());
-	    
+    
 }	// Name
 
 std::string

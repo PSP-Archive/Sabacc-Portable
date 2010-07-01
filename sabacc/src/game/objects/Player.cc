@@ -112,35 +112,52 @@ void Player::setOccupation(std::string occupation) {
 unsigned int Player::addWin() {
     // Adds win to the stats win variable and returns the new value
     // as well as updates the streak data
-    streak = (0 < streak) ? ++streak : 1;
-    return(++wins);
+    if (0 < streak)
+	++streak;
+    else
+	streak = 1;
+
+    return ++wins;
 } // addWin
 
 unsigned int Player::addWin(long credits = 0) {
     // Adds win to the stats win variable and returns the new value
     // as well as updates the streak data
-    streak = (0 < streak) ? ++streak : 1;
+    if (0 < streak)
+	++streak;
+    else
+	streak = 1;
+
     total_winnings += credits;
-    return(++wins);
+    return ++wins;
 } // addWin
 
 unsigned int Player::getWins() {
-    return(wins);
+    return wins;
 }
 
-unsigned int Player::addLoss() {
+unsigned int
+Player::addLoss() {
     // Adds loss to the stats loss variable and returns the new value
     // as well as updates the streak data
-    streak = (0 > streak) ? --streak : -1;
-    return(++losses);
+    if (0 > streak)
+	--streak;
+    else
+	streak = -1;
+    return ++losses;
 } // addLoss
 
-unsigned int Player::addLoss(long credits = 0) {
+unsigned int
+Player::addLoss(long credits = 0) {
     // Adds loss to the stats loss variable and returns the new value
     // as well as updates the streak data
-    streak = (0 > streak) ? --streak : -1;
+    if (0 > streak)
+	--streak;
+    else
+	streak = -1;
+
     total_winnings -= credits;
-    return(++losses);
+    return ++losses;
 } // addLoss
 
 unsigned int Player::getLosses() {
@@ -188,20 +205,22 @@ Card& Player::getSelectedCard() {
 std::vector<Card>::iterator Player::getSelectedCardIterator() {
     return(selected_card);
 }
-void Player::holdCard() {
-    if (!selected_card->Hold()) {
-        // Check before allowing card to be held
-        if (2 > getHoldCount()) {
-            selected_card->Hold(true);
-        } 
-    }
+
+typename std::vector<Card>::size_type
+Player::holdCard() {
+    if (!selected_card->Hold())
+	selected_card->Hold(true);
+
+    return getHoldCount();
 }	// holdCard()
+
 int Player::getHoldCount() {
     int hold_counter = 0;
 
-    for (std::vector<Card>::iterator it = hand.begin(); hand.end() > it; ++it) {
-        if (it->Hold()) ++hold_counter;
-    }
+    for (std::vector<Card>::iterator it = hand.begin();
+	 hand.end() > it;
+	 ++it)
+	if (it->Hold()) ++hold_counter;
 
     return(hold_counter);
 }
@@ -215,7 +234,7 @@ void Player::dropCard(int number) {
 void Player::dropCard(std::vector<Card>::iterator card_iterator) {
     hand.erase(card_iterator);
 }
-bool Player::takeCard(Card& c) {
+bool Player::takeCard(Card const &c) {
     /* A player can hold a maximum of four cards in Basics.
      * If this is met, check to see if any cards are blank, as these are placeholders
      * for cards possibly removed from the hand. */
