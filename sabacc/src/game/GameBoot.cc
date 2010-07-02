@@ -371,7 +371,7 @@ void GameBoot::eventLoop() {
 	      else
 		{
 
-		  Player* save_player = new Player(sabacc_game->getPlayers().back());
+		  Player* save_player = new Player(sabacc_game->Players().back());
 
 		  if(!save_player) throw(Exceptions::ExceptionBase("Could not create data necessary to save player data.","","", __FILE__, __LINE__));
 		  
@@ -421,7 +421,7 @@ void GameBoot::eventLoop() {
 		  
 		}// if(game did not already exist)
 
-	      PSPUtility::SaveGameData saver(reinterpret_cast<char*>(&sabacc_game->getPlayers().back()), sizeof(Player));
+	      PSPUtility::SaveGameData saver(reinterpret_cast<char*>(&sabacc_game->Players().back()), sizeof(Player));
 	      
 	      saver.show();
 
