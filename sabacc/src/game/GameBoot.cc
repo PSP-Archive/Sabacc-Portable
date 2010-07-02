@@ -68,8 +68,9 @@ using std::stringstream;
 GameBoot::GameBoot() : 
   bg(sabacc_menu_bitmap, size_sabacc_menu_bitmap, Rect(0, 0, 480, 272), "autosize: true; pixelformat: display"),
   logo(main_logo_image, size_main_logo_image, Rect(0, 0, 480, 272), "autosize: true; pixelformat: displayalpha"),
-  copyright("2008, goumba", Rect(380, 252), "autosize: true; anchor: bottom right"),
-  version("version 0.8.0", Rect(5, 252), "autosize: true; anchor: bottom left"),
+  copyright("2007-2010, goumba", Rect(380, 252),
+	    "autosize: true; anchor: bottom right"),
+  version("version 0.9.0", Rect(5, 252), "autosize: true; anchor: bottom left"),
   main_menu("Main Menu", default_rect, "justify: center; autosize: false;"),
   allow_continue(false), menu_music(0), player_name("Player")
 {
@@ -80,9 +81,13 @@ GameBoot::GameBoot() :
 	     getSystemManager().getVideo().getResolution().Height() -
 	     copyright.Height() - 135));
 
-    main_menu.add("Four Cards", "Starts a new game of Sabacc at the\nMos Eisley Cantina, with casual four card play.");
-    main_menu.add("Options", "Personalize the game and change rules to play by.");
-    main_menu.add("Quit", "Leave the Cantina\n(You know you don't really want to do this).");
+    main_menu.add("Four Cards",
+		  "Starts a new game of Sabacc at the\nMos Eisley Cantina, with casual four card play.");
+    main_menu.add("Options",
+		  "Personalize the game and change rules to play by.");
+    main_menu.add("Quit",
+		  "Leave the Cantina\n(You know you don't really want to do this).");
+
     main_menu.setTextColor(default_menu_forecolor);
 
     // The PSP library can not use Mix_LoadMUS_RW yet, so don't load music
@@ -405,7 +410,6 @@ void GameBoot::eventLoop() {
 #if (_PSP_FW_VERSION >= 100)
 	      if(!sabacc_game)
 		{
-
 		  sabacc_game = new CasinoGame;
 
 		  if (sabacc_game) 
@@ -415,7 +419,9 @@ void GameBoot::eventLoop() {
 		      
 		      sabacc_game->Start();
 		      
-		      main_menu.insert("Four Cards", "Continue", "Resume a game\\ialready in progress\\i.");
+		      main_menu.insert("Four Cards",
+				       "Continue",
+				       "Resume a game \\ialready in progress\\i.");
 		      
 		    }// if(sabacc_game successful)
 		  

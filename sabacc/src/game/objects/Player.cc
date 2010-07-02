@@ -208,8 +208,14 @@ std::vector<Card>::iterator Player::getSelectedCardIterator() {
 
 typename std::vector<Card>::size_type
 Player::holdCard() {
-    if (!selected_card->Hold())
+    if (selected_card->Hold())
+    {
+	selected_card->Hold(false);
+    }
+    else
+    {
 	selected_card->Hold(true);
+    }
 
     return getHoldCount();
 }	// holdCard()
@@ -220,7 +226,7 @@ int Player::getHoldCount() {
     for (std::vector<Card>::iterator it = hand.begin();
 	 hand.end() > it;
 	 ++it)
-	if (it->Hold()) ++hold_counter;
+	if ((*it).Hold()) ++hold_counter;
 
     return(hold_counter);
 }

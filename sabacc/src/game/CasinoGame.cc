@@ -177,15 +177,20 @@ void CasinoGame::StartGame() {
 			logAppend(holdc);
 #endif
 	    
-		    if (2 > PlayersBack().getHoldCount())
-		    {
-			PlayHoldSound();
-			PlayersBack().holdCard();
-		    }
-		    else
-		    {
-			// Display error dialog
-			SingleButtonDialog
+			if (PlayersBack().getSelectedCard().Hold())
+			{
+			    PlayersBack().getSelectedCard().Hold(false);
+			}
+			else if (!PlayersBack().getSelectedCard().Hold()
+			    && (2 > PlayersBack().getHoldCount()))
+			{
+			    PlayHoldSound();
+			    PlayersBack().holdCard();
+			}
+			else
+			{
+			    // Display error dialog
+			    SingleButtonDialog
 			    toomany("Unable to hold another card.",
 				    "You can hold a maximum of two cards.");
 			
@@ -530,8 +535,8 @@ CasinoGame::Shift() {
 	copy(WasteBegin(), WasteEnd(),
 	     back_inserter(Deck()));
 
-	WasteClear();
 	ShuffleDeck();
+	WasteClear();
     }	// if(1 > getDeck().size())
 
 
@@ -553,25 +558,13 @@ CasinoGame::Shift() {
 	     * Ooops! Led to hours of fruitless debugging.
 	     *
 	     * This is only here as a reminder. */
-#ifdef _DEBUGCASINOGAME
-	    logAppend("Checking empty deck");
-#endif
 
-#ifdef _DEBUGCASINOGAME
-	    logAppend("Good");
-#endif
+	    if (!((*cd_it).Hold())) {
 
-#ifdef _DEBUGCASINOGAME
-	    sprintf(debug_string, "Deck size %u", Deck().size());
-	    logAppend(debug_string);
-#endif
-	    
-	    if (!(*cd_it).Hold()) {
-	
-		(*pl_it).dropCard(cd_it);
-		Waste().push_back(*cd_it);
-	
-		(*pl_it).takeCard(DeckLast());
+//		(*pl_it).dropCard(cd_it);
+		Card new_card = DeckLast();
+		(*cd_it).Swap(new_card);
+		Waste().push_back(new_card);
 	    }	// cd_it
     
 	} // for(cd_it)

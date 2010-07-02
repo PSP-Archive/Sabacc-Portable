@@ -6,6 +6,11 @@
 #include "game/objects/Card.hh"
 #include "game/CardConstants.hh"
 
+#if _DEBUG || _DEBUGCARD
+#include <cstdio>
+#include "utility/Log.hh"
+#endif
+
 Card::Card() :
     value(0), suite(0), selected(false), hold(false) { }
 Card::Card(short val, unsigned short ste) :
@@ -117,6 +122,13 @@ Card
 &Card::Hold(bool h)
 {
     hold = h;
+
+#if _DEBUG || _DEBUGCARD
+    char debugtext[128];
+    sprintf(debugtext, "Card being held: %d, %d", value, suite);
+    logAppend(debugtext);
+#endif
+
     return *this;
 }
 
