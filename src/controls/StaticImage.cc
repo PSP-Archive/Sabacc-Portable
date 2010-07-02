@@ -42,10 +42,32 @@ using std::string;
 #include "utility/Log.hh"
 #endif
 
-StaticImage::StaticImage(unsigned char* buffer, unsigned long buf_size, const Rect& position, const string& property_string) : SurfaceWidget(position, property_string), image_buffer(buffer), image_buffer_size(buf_size), image_file() { }
-StaticImage::StaticImage(string file_name, const Rect& position, const string& property_string) :
-  SurfaceWidget(position, property_string), image_buffer(0), image_buffer_size(0), image_file(file_name) { }
-StaticImage::StaticImage(const StaticImage& src) : SurfaceWidget(src), image_buffer(src.image_buffer), image_buffer_size(src.image_buffer_size), image_file(src.image_file) { }
+StaticImage::StaticImage(unsigned char* buffer,
+			 unsigned long buf_size,
+			 const Rect& position,
+			 const string& property_string) :
+    SurfaceWidget(position, property_string),
+    image_buffer(buffer),
+    image_buffer_size(buf_size),
+    image_file()
+{ }
+
+StaticImage::StaticImage(string file_name,
+			 const Rect& position,
+			 const string& property_string) :
+  SurfaceWidget(position, property_string),
+  image_buffer(0),
+  image_buffer_size(0),
+  image_file(file_name)
+{ }
+
+StaticImage::StaticImage(const StaticImage& src) :
+    SurfaceWidget(src),
+    image_buffer(src.image_buffer),
+    image_buffer_size(src.image_buffer_size),
+    image_file(src.image_file)
+{ }
+
 StaticImage::~StaticImage() {
 
     if (isInitialized()) cleanup();
@@ -67,14 +89,19 @@ StaticImage& StaticImage::operator=(const StaticImage& src) {
     return(*this);
 }	// operator=
 
-void StaticImage::setImageBuffer(unsigned char* buffer, unsigned long size) {
+void
+StaticImage::setImageBuffer(unsigned char* buffer, unsigned long size) {
   image_buffer = buffer;
   image_buffer_size = size;
 } // setImageBuffer
-string StaticImage::getFileName() {
+
+string
+StaticImage::getFileName() {
     return(image_file);
 }
-void StaticImage::setFileName(string file_name) {
+
+void
+StaticImage::setFileName(string file_name) {
     if (isInitialized()) {
         cleanup();
         setNotInitialized();
@@ -84,6 +111,7 @@ void StaticImage::setFileName(string file_name) {
 }	// setFileName
 
 void StaticImage::init() {
+
 #if defined(_DEBUG) || defined(_DEBUGSTATICIMAGE)
     logAppend("StaticImage: Opening image.");
 
@@ -92,41 +120,54 @@ void StaticImage::init() {
 
     SDL_RWops* image_stream = 0;
 
-    if(image_buffer && (0 < image_buffer_size) && (image_file.empty())) 
+    if(image_buffer
+       && (0 < image_buffer_size)
+       && (image_file.empty()))
       {
 	image_stream = SDL_RWFromMem(image_buffer, image_buffer_size);
       }
     else {
-      if(1 > image_file.length()) throw(Exceptions::File::ZeroLengthFileName("", "", "", __FILE__, __LINE__));
+      if (1 > image_file.length())
+	  throw Exceptions::File::ZeroLengthFileName("",
+						     "",
+						     "",
+						     __FILE__,
+						     __LINE__);
 
-      image_stream = SDL_RWFromFile(getSystemManager().getImagePath(image_file).c_str(), "r");
+      image_stream =
+	  SDL_RWFromFile(getSystemManager().getImagePath(image_file).c_str(),
+			 "r");
     }
 
     SDL_Surface* image_surface = IMG_Load_RW(image_stream, true);
     
     cleanup();
 
-    if (std::string::npos != getProperty("pixelformat").find("noconversion")) {
+    if (std::string::npos !=
+	getProperty("pixelformat").find("noconversion")) {
 
-        setSurface(image_surface);
-
-#if defined(_DEBUG) || defined(_DEBUGSTATICIMAGE)
-        logAppend("StaticImage: using image data as stored.");
-#endif
-
-    } else if (std::string::npos != getProperty("pixelformat").find("displayalpha")) {
+	setSurface(image_surface);
 
 #if defined(_DEBUG) || defined(_DEBUGSTATICIMAGE)
-        logAppend("StaticImage: converting image data to display format with alpha.");
+	logAppend("StaticImage: using image data as stored.");
 #endif
 
-        if (image_surface) {
-            setSurface(SDL_DisplayFormatAlpha(image_surface));
-	    SDL_FreeSurface(image_surface);
-        } else {
-            setSurface(0);
-        }	// if(image_surface)
-    } else {
+    } else
+	if (std::string::npos !=
+	    getProperty("pixelformat").find("displayalpha")) {
+
+#if defined(_DEBUG) || defined(_DEBUGSTATICIMAGE)
+	    logAppend("StaticImage: converting image data to display format with alpha.");
+#endif
+
+	    if (image_surface) {
+		setSurface(SDL_DisplayFormatAlpha(image_surface));
+		SDL_FreeSurface(image_surface);
+	    } else
+	    {
+		setSurface(0);
+	    }	// if(image_surface)
+	} else {
 
 #if defined(_DEBUG) || defined(_DEBUGSTATICIMAGE)
         logAppend("StaticImage: converting image data to display format.");

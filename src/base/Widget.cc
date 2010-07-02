@@ -25,21 +25,38 @@
 #endif
 
 Widget::Widget(const Rect& position, std::string properties) :
-        Object(properties), parent(0), position(position), initialized(false) { }
-Widget::Widget(Widget* guardian, const Rect& position, std::string properties) :
-        Object(properties), parent(guardian), position(position), initialized(false) { }
+    Object(properties),
+    parent(0),
+    position(position),
+    initialized(false)
+{ }
+
+Widget::Widget(Widget* guardian,
+	       const Rect& position,
+	       std::string properties) :
+    Object(properties),
+    parent(guardian),
+    position(position),
+    initialized(false)
+{ }
+
 Widget::Widget(const Widget& src) :
-        Object(src), parent(src.parent), position(src.position), initialized(false) { }
+    Object(src),
+    parent(src.parent),
+    position(src.position),
+    initialized(false)
+{ }
+
 Widget::~Widget() { }
 
 Widget
 &Widget::operator=(const Widget& src) {
 
     if (&src != this) {
-        Object::operator=(src);
+	Object::operator=(src);
 
-        this->parent = src.parent;
-        this->position = src.position;
+	this->parent = src.parent;
+	this->position = src.position;
     }	// if(not self)
 
     return(*this);
@@ -166,21 +183,23 @@ Widget::resize()
 }
 
 #if defined(_DEBUG) || defined(_DEBUGWIDGETBOUNDARY)
-Widget
-&Widget::draw() {
-  rectangleColor(SDL_GetVideoSurface(),
-		 Left(),
-		 Top(),
-		 Right(),
-		 Bottom(),
-		 0xFFFFFFFF);
+void
+Widget::draw() {
+    rectangleColor(SDL_GetVideoSurface(),
+		   Left(),
+		   Top(),
+		   Right(),
+		   Bottom(),
+		   0xFFFFFFFF);
 
-  char debug_string[128];
-  sprintf(debug_string, "Boundary: %d,%dx%dw,%dh",
-	  Left(),
-	  Top(),
-	  Width(),
-	  Height());
+    char debug_string[128];
+    sprintf(debug_string, "Boundary: %d,%dx%dw,%dh",
+	    Left(),
+	    Top(),
+	    Width(),
+	    Height());
+
   logAppend(debug_string);
+
 }
 #endif

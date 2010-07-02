@@ -43,6 +43,8 @@ public:
 
     SDL_Surface* get() const;
 
+    bool valid() const;
+
 protected:
   SDL_Surface* my_ptr;
   static std::map<SDL_Surface*, int> reference_map;

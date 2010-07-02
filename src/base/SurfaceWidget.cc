@@ -72,10 +72,40 @@ SurfaceWidget
 &SurfaceWidget::setSurface(SDL_Surface* surface)
 {
     widget_surface = SmartSurface(surface);
+    resize();
     return *this;
 }
 
-void SurfaceWidget::draw() {
+void
+SurfaceWidget::resize()
+{
+
+#if _DEBUG || _DEBUGSURFACEWIDGET
+    char debugtext[128];
+    sprintf(debugtext, "Before: %d, %d, %d, %d",
+	    Left(), Top(), Width(), Height());
+    logAppend(debugtext);
+#endif
+
+    if ((string::npos != getProperty("autosize").find("true"))
+	&& widget_surface.get())
+    {
+	Width(widget_surface->w);
+	Height(widget_surface->h);
+#if _DEBUG || _DEBUGSURFACEWIDGET
+    char debugtext[128];
+    sprintf(debugtext, "After: %d, %d, %d, %d // %d, %d",
+	    Left(), Top(), Width(), Height(),
+	    widget_surface->w, widget_surface->h);
+    logAppend(debugtext);
+#endif
+
+    }
+
+}
+
+void
+SurfaceWidget::draw() {
 
     if (!Initialized() || !(widget_surface.get())) {
 
@@ -128,7 +158,7 @@ void SurfaceWidget::draw() {
     }	// Blit
 
 #if defined(_DEBUG) || defined(_DEBUGWIDGETBOUNDARY)
-    Widget::Draw();
+    Widget::draw();
 #endif
 
 }	// draw

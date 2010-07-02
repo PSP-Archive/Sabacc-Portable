@@ -6,7 +6,7 @@ LIB_OBJ = $(patsubst %.cc,%.o,$(filter %.cc,$(LIB_SRC)))
 BIN_SRC = $(shell find sabacc/src -type f -name "*.cc")
 BIN_OBJ = $(patsubst %.cc,%.o,$(filter %.cc,$(BIN_SRC)))
 
-SMFDEBUGFLAGS += -D_DEBUGCASINOGAME
+SMFDEBUGFLAGS += -D_DEBUG
 # -D_DEBUGTOFILE
 DEBUGFLAGS += -g -ggdb
 PROFILEFLAGS += -pg

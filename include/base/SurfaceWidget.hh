@@ -46,6 +46,9 @@ public:
     SurfaceWidget &setSurface(SDL_Surface*);
     /** @} */
 
+    // resizes the widget
+    virtual void resize();
+
     /** Draw the widget to screen. */
     virtual void draw();
 

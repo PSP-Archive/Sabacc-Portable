@@ -63,6 +63,7 @@ Card
     other.value = value;
     other.suite = suite;
     *this = swapper;
+    return *this;
 }
 // Value and suite accessors. The set functions return a reference to
 // this card for chaining of functions.
