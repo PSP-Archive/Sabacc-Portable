@@ -16,7 +16,7 @@
 static const int psp_dpad_up = 8;
 static const int psp_dpad_right = 9;
 static const int psp_dpad_down = 6;
-static const int psp_dpad_left = 7; 
+static const int psp_dpad_left = 7;
 
 // Action buttons, clockwise
 static const int psp_triangle = 0;

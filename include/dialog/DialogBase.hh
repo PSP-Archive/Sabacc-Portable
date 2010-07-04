@@ -46,9 +46,10 @@
  * @class DialogBase
  * Draws the dialog frame and renders the dialog elements.
  */
-class DialogBase : public Control {
+class DialogBase : public Control
+  {
 
-public:
+  public:
 
     /** Constructors. Same as any lower tier Control base class. @{ */
     DialogBase(const Rect&, const string&, const SDL_Color& = default_frame_forecolor, const SDL_Color& = default_frame_backcolor, const SDL_Color& = default_frame_titlecolor, const SDL_Color& = default_frame_bordercolor);
@@ -69,8 +70,8 @@ public:
     virtual void setTitleColor(const SDL_Color& = default_frame_titlecolor);
     /** @} */
 
-	/** Keyboard event handlers, all defined to return true to prevent underlying
-     *  controls from capturing input. @{ */
+    /** Keyboard event handlers, all defined to return true to prevent underlying
+       *  controls from capturing input. @{ */
     virtual bool onKeyDown(const SDL_KeyboardEvent&);	/// Key pressed down.
     virtual bool onKeyUp(const SDL_KeyboardEvent&);	/// Key released.
     /** @} */
@@ -95,13 +96,13 @@ public:
     virtual void init();
     virtual void cleanup();
 
-	/** Draw the frame. */
-	virtual void draw();
+    /** Draw the frame. */
+    virtual void draw();
 
-private:
+  private:
 
-	SDL_Color	background_color, frame_border_color, foreground_color, title_text_color;
+    SDL_Color	background_color, frame_border_color, foreground_color, title_text_color;
 
-};	// class Control
+  };	// class Control
 
 #endif // __SMF_DIALOGBASE_HH

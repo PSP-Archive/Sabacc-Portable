@@ -19,27 +19,30 @@ using std::string;
 // SMF Exception headers
 #include "exceptions/base/ExceptionBase.hh"
 
-namespace Exceptions {
+namespace Exceptions
+  {
 
-    namespace Events {
+  namespace Events
+    {
 
-        class PushFailed : public ExceptionBase {
+    class PushFailed : public ExceptionBase
+      {
 
-        public:
+      public:
 
-            /** Constructors. See ExceptionBase. @{ */
-            PushFailed(const string&, const char* = "", int = 0);	/// Short message, file (default: zero length) and line (default: -1)
-            PushFailed(const string&, const string&, const char* = "", int = 0);	/// Short message, long message, file (default: zero length) and line (default: -1)
-            PushFailed(const string&, const string&, const string&, const char* = "", int = 0);	/// Short message, long message, extra data, file (default: zero length) and line (default: -1)
-            virtual ~PushFailed() { }
-            /** @} */
+        /** Constructors. See ExceptionBase. @{ */
+        PushFailed(const string&, const char* = "", int = 0);	/// Short message, file (default: zero length) and line (default: -1)
+        PushFailed(const string&, const string&, const char* = "", int = 0);	/// Short message, long message, file (default: zero length) and line (default: -1)
+        PushFailed(const string&, const string&, const string&, const char* = "", int = 0);	/// Short message, long message, extra data, file (default: zero length) and line (default: -1)
+        virtual ~PushFailed() { }
+        /** @} */
 
-            /** These functions get exception information. @{ */
-            virtual string getExceptionName();
+        /** These functions get exception information. @{ */
+        virtual string getExceptionName();
 
-        };	// class PushFailed
+      };	// class PushFailed
 
-    }	// namespace Events
+  }	// namespace Events
 
 }	// namespace Exceptions
 

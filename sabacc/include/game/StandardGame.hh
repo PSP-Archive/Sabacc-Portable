@@ -14,7 +14,8 @@
 #include "game/GameBase.hh"
 #include "sitextensions/CardImageSet.hh"
 
-class StandardGame : public GameBase {
+class StandardGame : public GameBase
+  {
 
     // UI stuff
     TextLabel				dealer_caption, player_caption, selected_info,
@@ -43,7 +44,7 @@ class StandardGame : public GameBase {
     virtual void dealerCall();
     virtual void call();
 
-public:
+  public:
 
     StandardGame();
     StandardGame(std::vector<Player>);	// Vector of players with which to start the game
@@ -57,6 +58,6 @@ public:
     // Start the game, run the event loop, &c.
     virtual void start();
 
-};	// CasinoBase
+  };	// CasinoBase
 
 #endif // __STANDARDGAME_HH

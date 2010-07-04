@@ -36,9 +36,10 @@ using std::string;
 #include "constants/ColorConstants.hh"
 #include "constants/FreeTypeRendererConstants.hh"
 
-class FreeTypeControl : public Control {
+class FreeTypeControl : public Control
+  {
 
-public:
+  public:
 
     FreeTypeControl(const Rect& = default_rect, string = "", const string& = default_font_file, int = default_font_size, int = default_font_style, SDL_Color = default_forecolor);
     FreeTypeControl(const Rect& = default_rect, const FontState& = getDefaultFontState());
@@ -90,10 +91,10 @@ public:
     virtual void render(const char*, SDL_Surface*, int = 0, int = 0);
     /** @} */
 
-private:
+  private:
 
     FreeTypeRenderer widget_font_renderer;
 
-};	// FreeTypeControl
+  };	// FreeTypeControl
 
 #endif // __SMF_FREETYPECONTROL_HH

@@ -53,151 +53,182 @@
 #endif
 
 OKCancelDialog::OKCancelDialog(const Rect& position, const string& property_string) :
-  DialogBase(position, property_string), dialog_text(""), dialog_title(""),
-  ok_button("OK"), cancel_button("Cancel") { }
+    DialogBase(position, property_string), dialog_text(""), dialog_title(""),
+    ok_button("OK"), cancel_button("Cancel") { }
 // OKCancelDialog::OKCancelDialog(const string& text, const string& title, const Rect& position, const string& property_string) :
 //  DialogBase(position, property_string), dialog_text(text), dialog_title(title), ok_button("OK"), cancel_button("Cancel") { }
 OKCancelDialog::OKCancelDialog(const string& text, const string& title, const string& ok_button_text, const string& cancel_button_text, const Rect& position, const string& property_string) :
-  DialogBase(position, property_string), dialog_text(text), dialog_title(title), ok_button(ok_button_text), cancel_button(cancel_button_text) { }
+    DialogBase(position, property_string), dialog_text(text), dialog_title(title), ok_button(ok_button_text), cancel_button(cancel_button_text) { }
 OKCancelDialog::OKCancelDialog(const OKCancelDialog& src) :
-  DialogBase(src), dialog_text(src.dialog_text), dialog_title(src.dialog_title),
-  ok_button(src.ok_button), cancel_button(src.cancel_button) { }
+    DialogBase(src), dialog_text(src.dialog_text), dialog_title(src.dialog_title),
+    ok_button(src.ok_button), cancel_button(src.cancel_button) { }
 OKCancelDialog::~OKCancelDialog() { }
 
-OKCancelDialog& OKCancelDialog::operator=(const OKCancelDialog& src) {
+OKCancelDialog& OKCancelDialog::operator=(const OKCancelDialog& src)
+{
 
-	if(&src != this) {
+  if (&src != this)
+    {
 
-		OKCancelDialog::operator=(src);
+      OKCancelDialog::operator=(src);
 
-		dialog_text = src.dialog_text;
-		dialog_title = src.dialog_title;
-		ok_button = src.ok_button;
-		cancel_button = src.cancel_button;
+      dialog_text = src.dialog_text;
+      dialog_title = src.dialog_title;
+      ok_button = src.ok_button;
+      cancel_button = src.cancel_button;
 
-	}	// if(not self)
+    }	// if(not self)
 
-	return(*this);
+  return(*this);
 
 }	// operator=
 
-string OKCancelDialog::getDialogText() { return(dialog_text.getText()); }
-void OKCancelDialog::setDialogText(std::string text) {
+string OKCancelDialog::getDialogText()
+{
+  return(dialog_text.getText());
+}
+void OKCancelDialog::setDialogText(std::string text)
+{
   dialog_text.setText(text);
   setNotInitialized();
 }
-string OKCancelDialog::getDialogTitle() { return(dialog_title.getText()); }
-void OKCancelDialog::setDialogTitle(std::string title) { 
-  dialog_title.setText(title); 
+string OKCancelDialog::getDialogTitle()
+{
+  return(dialog_title.getText());
+}
+void OKCancelDialog::setDialogTitle(std::string title)
+{
+  dialog_title.setText(title);
   setNotInitialized();
 }
-string OKCancelDialog::getDialogOKButtontext() { return(ok_button.getText()); }
-void OKCancelDialog::setDialogOKButtonText(std::string button_text) { 
+string OKCancelDialog::getDialogOKButtontext()
+{
+  return(ok_button.getText());
+}
+void OKCancelDialog::setDialogOKButtonText(std::string button_text)
+{
   ok_button.setText(button_text);
   setNotInitialized();
 }
-string OKCancelDialog::getDialogCancelButtontext() { return(cancel_button.getText()); }
-void OKCancelDialog::setDialogCancelButtonText(std::string button_text) { 
+string OKCancelDialog::getDialogCancelButtontext()
+{
+  return(cancel_button.getText());
+}
+void OKCancelDialog::setDialogCancelButtonText(std::string button_text)
+{
   cancel_button.setText(button_text);
   setNotInitialized();
 }
 
-bool OKCancelDialog::onKeyDown(const SDL_KeyboardEvent& key) {
+bool OKCancelDialog::onKeyDown(const SDL_KeyboardEvent& key)
+{
 
 #if defined(_DEBUG) || defined(_DEBUGSINGLEBUTTONDIALOG)
-    logAppend("Handling keyboard event.");
+  logAppend("Handling keyboard event.");
 #endif
 
-    if (SDLK_RETURN == key.keysym.sym) {
+  if (SDLK_RETURN == key.keysym.sym)
+    {
 
-        SDL_Event dialog_result;
-        dialog_result.type = SDL_USEREVENT;
-        dialog_result.user.code = event_dialog_ok;
+      SDL_Event dialog_result;
+      dialog_result.type = SDL_USEREVENT;
+      dialog_result.user.code = event_dialog_ok;
 
 #if defined(_DEBUG) || defined(_DEBUGSINGLEBUTTONDIALOG) || defined(_DEBUGEVENTS)
-	char debug_string[64];
-	sprintf(debug_string, "Dialog event: %d.", dialog_result.user.code);
-	logAppend(debug_string);
+      char debug_string[64];
+      sprintf(debug_string, "Dialog event: %d.", dialog_result.user.code);
+      logAppend(debug_string);
 #endif
 
-        if (-1 == SDL_PushEvent(&dialog_result)) {
+      if (-1 == SDL_PushEvent(&dialog_result))
+        {
 
-            throw(Exceptions::Events::PushFailed("Push failed.", "The event for dialog selection could not be pushed into the event queue.",
-                                                 SDL_GetError(), __FILE__, __LINE__));
+          throw(Exceptions::Events::PushFailed("Push failed.", "The event for dialog selection could not be pushed into the event queue.",
+                                               SDL_GetError(), __FILE__, __LINE__));
 
         }	// if(SDL_PushEvent)
 
-    } else if (SDLK_ESCAPE == key.keysym.sym) {
+    }
+  else if (SDLK_ESCAPE == key.keysym.sym)
+    {
 
-        SDL_Event dialog_result;
-        dialog_result.type = SDL_USEREVENT;
-        dialog_result.user.code = event_dialog_cancel;
+      SDL_Event dialog_result;
+      dialog_result.type = SDL_USEREVENT;
+      dialog_result.user.code = event_dialog_cancel;
 
 #if defined(_DEBUG) || defined(_DEBUGSINGLEBUTTONDIALOG) || defined(_DEBUGEVENTS)
-	char debug_string[64];
-	sprintf(debug_string, "Dialog event: %d.", dialog_result.user.code);
-	logAppend(debug_string);
+      char debug_string[64];
+      sprintf(debug_string, "Dialog event: %d.", dialog_result.user.code);
+      logAppend(debug_string);
 #endif
 
-        if (-1 == SDL_PushEvent(&dialog_result)) {
+      if (-1 == SDL_PushEvent(&dialog_result))
+        {
 
-            throw(Exceptions::Events::PushFailed("Push failed.", "The event for dialog selection could not be pushed into the event queue.",
-                                                 SDL_GetError(), __FILE__, __LINE__));
+          throw(Exceptions::Events::PushFailed("Push failed.", "The event for dialog selection could not be pushed into the event queue.",
+                                               SDL_GetError(), __FILE__, __LINE__));
 
         }	// if(SDL_PushEvent)
 
     }	// Enter/Return/Escape
 
-    /* We processed events with this control.
-     * A dialog takes precendence over all others. */
-    return(true);
+  /* We processed events with this control.
+   * A dialog takes precendence over all others. */
+  return(true);
 
 }
-bool OKCancelDialog::onKeyUp(const SDL_KeyboardEvent&) {
-    return(true);
+bool OKCancelDialog::onKeyUp(const SDL_KeyboardEvent&)
+{
+  return(true);
 }
 
-bool OKCancelDialog::onJoystickButtonDown(const SDL_JoyButtonEvent& joystick_event) {
+bool OKCancelDialog::onJoystickButtonDown(const SDL_JoyButtonEvent& joystick_event)
+{
 
-  if(1 > SDL_NumJoysticks()) return(false);// Don't process if none found
+  if (1 > SDL_NumJoysticks()) return(false);// Don't process if none found
 #if defined(__PSP__)
   const Uint8& button = joystick_event.button;
 
-  if((psp_cross == button) || (psp_start == button)) {
+  if ((psp_cross == button) || (psp_start == button))
+    {
 
-        SDL_Event dialog_result;
-        dialog_result.type = SDL_USEREVENT;
-        dialog_result.user.code = event_dialog_ok;
+      SDL_Event dialog_result;
+      dialog_result.type = SDL_USEREVENT;
+      dialog_result.user.code = event_dialog_ok;
 
 #if defined(_DEBUG) || defined(_DEBUGSINGLEBUTTONDIALOG) || defined(_DEBUGEVENTS)
-	char debug_string[64];
-	sprintf(debug_string, "Dialog event: %d.", dialog_result.user.code);
-	logAppend(debug_string);
+      char debug_string[64];
+      sprintf(debug_string, "Dialog event: %d.", dialog_result.user.code);
+      logAppend(debug_string);
 #endif
 
-        if (-1 == SDL_PushEvent(&dialog_result)) {
+      if (-1 == SDL_PushEvent(&dialog_result))
+        {
 
-            throw(Exceptions::Events::PushFailed("Push failed.", "The event for dialog selection could not be pushed into the event queue.",
-                                                 SDL_GetError(), __FILE__, __LINE__));
+          throw(Exceptions::Events::PushFailed("Push failed.", "The event for dialog selection could not be pushed into the event queue.",
+                                               SDL_GetError(), __FILE__, __LINE__));
 
         }	// if(SDL_PushEvent)
 
-    } else if((psp_circle == button) || (psp_home == button)) {
+    }
+  else if ((psp_circle == button) || (psp_home == button))
+    {
 
-        SDL_Event dialog_result;
-        dialog_result.type = SDL_USEREVENT;
-        dialog_result.user.code = event_dialog_cancel;
+      SDL_Event dialog_result;
+      dialog_result.type = SDL_USEREVENT;
+      dialog_result.user.code = event_dialog_cancel;
 
 #if defined(_DEBUG) || defined(_DEBUGSINGLEBUTTONDIALOG) || defined(_DEBUGEVENTS)
-	char debug_string[64];
-	sprintf(debug_string, "Dialog event: %d.", dialog_result.user.code);
-	logAppend(debug_string);
+      char debug_string[64];
+      sprintf(debug_string, "Dialog event: %d.", dialog_result.user.code);
+      logAppend(debug_string);
 #endif
 
-        if (-1 == SDL_PushEvent(&dialog_result)) {
+      if (-1 == SDL_PushEvent(&dialog_result))
+        {
 
-            throw(Exceptions::Events::PushFailed("Push failed.", "The event for dialog selection could not be pushed into the event queue.",
-                                                 SDL_GetError(), __FILE__, __LINE__));
+          throw(Exceptions::Events::PushFailed("Push failed.", "The event for dialog selection could not be pushed into the event queue.",
+                                               SDL_GetError(), __FILE__, __LINE__));
 
         }	// if(SDL_PushEvent)
 
@@ -205,94 +236,104 @@ bool OKCancelDialog::onJoystickButtonDown(const SDL_JoyButtonEvent& joystick_eve
 
 #endif // __PSP__
 
-    /* We processed events with this control.
-     * A dialog takes precendence over all others. */
-    return(true);
+  /* We processed events with this control.
+   * A dialog takes precendence over all others. */
+  return(true);
 
 }
-bool OKCancelDialog::onJoystickButtonUp(const SDL_JoyButtonEvent&) {
-    return(true);
+bool OKCancelDialog::onJoystickButtonUp(const SDL_JoyButtonEvent&)
+{
+  return(true);
 }
-bool OKCancelDialog::onJoystickMove(const SDL_JoyAxisEvent&) {
-    return(true);
+bool OKCancelDialog::onJoystickMove(const SDL_JoyAxisEvent&)
+{
+  return(true);
 }
-bool OKCancelDialog::onJoystickHat(const SDL_JoyHatEvent&) {
-    return(true);
+bool OKCancelDialog::onJoystickHat(const SDL_JoyHatEvent&)
+{
+  return(true);
 }
-bool OKCancelDialog::onJoystickBall(const SDL_JoyBallEvent&) {
-    return(true);
-}
-
-bool OKCancelDialog::onMouseMove(const SDL_MouseMotionEvent&) {
-    return(true);
-}
-bool OKCancelDialog::onMouseButtonDown(const SDL_MouseButtonEvent&) {
-    return(true);
-}
-bool OKCancelDialog::onMouseButtonUp(const SDL_MouseButtonEvent&) {
-    return(true);
+bool OKCancelDialog::onJoystickBall(const SDL_JoyBallEvent&)
+{
+  return(true);
 }
 
-void OKCancelDialog::init() {
+bool OKCancelDialog::onMouseMove(const SDL_MouseMotionEvent&)
+{
+  return(true);
+}
+bool OKCancelDialog::onMouseButtonDown(const SDL_MouseButtonEvent&)
+{
+  return(true);
+}
+bool OKCancelDialog::onMouseButtonUp(const SDL_MouseButtonEvent&)
+{
+  return(true);
+}
+
+void OKCancelDialog::init()
+{
 
   DialogBase::init();
 
 #if defined(_DEBUG) || defined(_DEBUGSINGLEBUTTONDIALOG)
-	logAppend("Creating single button dialog.");
+  logAppend("Creating single button dialog.");
 #endif
 
-	// Set up child controls
+  // Set up child controls
 
-	dialog_title.setProperties("autosize: true;");
-	dialog_title.init();
-	dialog_title.setTextColor(default_frame_titlecolor);
-	dialog_title.Left(3 + Left() 
-			  + ((Width() - dialog_title.Width()) / 2));
-	dialog_title.Top(Top() + 3);
+  dialog_title.setProperties("autosize: true;");
+  dialog_title.init();
+  dialog_title.setTextColor(default_frame_titlecolor);
+  dialog_title.Left(3 + Left()
+                    + ((Width() - dialog_title.Width()) / 2));
+  dialog_title.Top(Top() + 3);
 
-	// 20081208: The location of the OK and Cancel buttons reversed so OK is on the right.
-	ok_button.setProperties("autosize: true;");
-	ok_button.init();
-	ok_button.Left(Left() + Width() - ok_button.Width() - 13);
-	ok_button.Top((Top() + Height() - 3) - ok_button.Height());
+  // 20081208: The location of the OK and Cancel buttons reversed so OK is on the right.
+  ok_button.setProperties("autosize: true;");
+  ok_button.init();
+  ok_button.Left(Left() + Width() - ok_button.Width() - 13);
+  ok_button.Top((Top() + Height() - 3) - ok_button.Height());
 
 #if defined(__PSP__)
-	cancel_button.setPSPKey('C');
+  cancel_button.setPSPKey('C');
 #endif
 
-	cancel_button.setProperties("autosize: true;");
-	cancel_button.init();
-	cancel_button.Left(Left() + 13);
-	cancel_button.Top((Top() + Height() - 3) - cancel_button.Height());
+  cancel_button.setProperties("autosize: true;");
+  cancel_button.init();
+  cancel_button.Left(Left() + 13);
+  cancel_button.Top((Top() + Height() - 3) - cancel_button.Height());
 
-	dialog_text.setProperties("justify: center; autosize: true;");
+  dialog_text.setProperties("justify: center; autosize: true;");
 
-	dialog_text.init();
-	dialog_text.setTextColor(default_frame_forecolor);
+  dialog_text.init();
+  dialog_text.setTextColor(default_frame_forecolor);
 
-	// Although we used autosize, resulting text must be smaller than
-	// the dialog, so clip accordingly
+  // Although we used autosize, resulting text must be smaller than
+  // the dialog, so clip accordingly
 
-	if((Width() - 6) < dialog_text.Width()) dialog_text.Width(Width() - 6);
+  if ((Width() - 6) < dialog_text.Width()) dialog_text.Width(Width() - 6);
 
-	int text_max_height = Height() - dialog_title.Height() - ok_button.Height() - 9;
-	if(text_max_height < dialog_text.Height()) dialog_text.Height(text_max_height);
+  int text_max_height = Height() - dialog_title.Height() - ok_button.Height() - 9;
+  if (text_max_height < dialog_text.Height()) dialog_text.Height(text_max_height);
 
-	dialog_text.Left(3 + Left() + ((Width() - dialog_text.Width()) / 2));
-	dialog_text.Top(Top() + ((Height() - dialog_text.Height()) / 2));
-	
-	setInitialized();
+  dialog_text.Left(3 + Left() + ((Width() - dialog_text.Width()) / 2));
+  dialog_text.Top(Top() + ((Height() - dialog_text.Height()) / 2));
+
+  setInitialized();
 
 #if defined(_DEBUG) || defined(_DEBUGSINGLEBUTTONDIALOG)
-	logAppend("Created single button dialog.");
+  logAppend("Created single button dialog.");
 #endif
 
 }	// init
-void OKCancelDialog::cleanup() {
+void OKCancelDialog::cleanup()
+{
   DialogBase::cleanup();
 }	// cleanup
 
-void OKCancelDialog::draw() {
+void OKCancelDialog::draw()
+{
 
   DialogBase::draw();
 

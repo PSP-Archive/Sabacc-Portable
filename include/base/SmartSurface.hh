@@ -23,18 +23,19 @@
 #include <SDL.h>
 #endif
 
-class SmartSurface {
+class SmartSurface
+  {
 
-public:
+  public:
 
-  explicit SmartSurface(SDL_Surface*);
-  ~SmartSurface();
+    explicit SmartSurface(SDL_Surface*);
+    ~SmartSurface();
 
     SmartSurface(const SmartSurface&);
     SmartSurface& operator=(const SmartSurface&);
 
     const SDL_Surface* operator->() const;
-  SDL_Surface* operator->();
+    SDL_Surface* operator->();
 
     bool operator!() const;
 
@@ -45,13 +46,13 @@ public:
 
     bool valid() const;
 
-protected:
-  SDL_Surface* my_ptr;
-  static std::map<SDL_Surface*, int> reference_map;
+  protected:
+    SDL_Surface* my_ptr;
+    static std::map<SDL_Surface*, int> reference_map;
 
-  void releaseSurface();
-  void initializeSurface(SDL_Surface*);
+    void releaseSurface();
+    void initializeSurface(SDL_Surface*);
 
-};	// class SmartSurface
+  };	// class SmartSurface
 
 #endif // __SIR_SMART_SURFACE_HH

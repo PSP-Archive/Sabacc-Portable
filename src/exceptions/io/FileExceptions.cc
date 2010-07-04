@@ -17,33 +17,37 @@ using std::string;
 #include "exceptions/base/ExceptionBase.hh"
 #include "exceptions/io/FileExceptions.hh"
 
-namespace Exceptions {
+namespace Exceptions
+  {
 
-    namespace File {
+  namespace File
+    {
 
-        FileNotFound::FileNotFound(const string& message, const char* file, int line) :
-                ExceptionBase(message, file, line) { }
-        FileNotFound::FileNotFound(const string& message, const string& details, const char* file, int line)  :
-                ExceptionBase(message, details, file, line) { }
-        FileNotFound::FileNotFound(const string& message, const string& details, const string& data, const char* file, int line)  :
-                ExceptionBase(message, details, data, file, line) { }
+    FileNotFound::FileNotFound(const string& message, const char* file, int line) :
+        ExceptionBase(message, file, line) { }
+    FileNotFound::FileNotFound(const string& message, const string& details, const char* file, int line)  :
+        ExceptionBase(message, details, file, line) { }
+    FileNotFound::FileNotFound(const string& message, const string& details, const string& data, const char* file, int line)  :
+        ExceptionBase(message, details, data, file, line) { }
 
-        string FileNotFound::getExceptionName() {
-            return("File::FileNotFound");
-        }
+    string FileNotFound::getExceptionName()
+    {
+      return("File::FileNotFound");
+    }
 
-        ZeroLengthFileName::ZeroLengthFileName(const string& message, const char* file, int line) :
-                ExceptionBase(message, file, line) { }
-        ZeroLengthFileName::ZeroLengthFileName(const string& message, const string& details, const char* file, int line)  :
-                ExceptionBase(message, details, file, line) { }
-        ZeroLengthFileName::ZeroLengthFileName(const string& message, const string& details, const string& data, const char* file, int line)  :
-                ExceptionBase(message, details, data, file, line) { }
+    ZeroLengthFileName::ZeroLengthFileName(const string& message, const char* file, int line) :
+        ExceptionBase(message, file, line) { }
+    ZeroLengthFileName::ZeroLengthFileName(const string& message, const string& details, const char* file, int line)  :
+        ExceptionBase(message, details, file, line) { }
+    ZeroLengthFileName::ZeroLengthFileName(const string& message, const string& details, const string& data, const char* file, int line)  :
+        ExceptionBase(message, details, data, file, line) { }
 
-        string ZeroLengthFileName::getExceptionName() {
-            return("File::ZeroLengthFileName");
-        }
+    string ZeroLengthFileName::getExceptionName()
+    {
+      return("File::ZeroLengthFileName");
+    }
 
 
-    }	// namespace LoadError
+  }	// namespace LoadError
 
 }	// namespace Exceptions

@@ -25,46 +25,47 @@
 
 typedef int psp_osk_size_t;
 
-class PSPKeyboard : public Object {
+class PSPKeyboard : public Object
+  {
 
-public:
+  public:
 
-  PSPKeyboard(const std::string& = "Text", const std::string& = "");
-  ~PSPKeyboard();
+    PSPKeyboard(const std::string& = "Text", const std::string& = "");
+    ~PSPKeyboard();
 
-  /** Set up the Keyboard @{ */
-  virtual const std::string getText();
-  virtual void setInputText(const std::string&);
-  
-  virtual const std::string getHelpText();
-  virtual void setHelptext(const std::string&);
-  /** @} */
+    /** Set up the Keyboard @{ */
+    virtual const std::string getText();
+    virtual void setInputText(const std::string&);
 
-  /// Initialize the keyboard
-  virtual void init();
+    virtual const std::string getHelpText();
+    virtual void setHelptext(const std::string&);
+    /** @} */
 
-  /// Display the keyboard, returning the user's entry.
-  virtual std::string show();
+    /// Initialize the keyboard
+    virtual void init();
 
-private:
+    /// Display the keyboard, returning the user's entry.
+    virtual std::string show();
 
-  std::string input, output, help;
+  private:
 
-  static const psp_osk_size_t field_length;
+    std::string input, output, help;
 
-  bool is_init;
-  
-  SceUtilityOskData osk_data;
-  SceUtilityOskParams osk_params;
+    static const psp_osk_size_t field_length;
 
-  // No sense in copying this class
-  PSPKeyboard(const PSPKeyboard&);
-  PSPKeyboard& operator=(const PSPKeyboard&);
+    bool is_init;
 
-  // Utility function for copying string to required format
-  void stringToUShort(const std::string&, unsigned short*);
-  std::string uShortToString(unsigned short*);
-  
-};// class PSPKeyboard
+    SceUtilityOskData osk_data;
+    SceUtilityOskParams osk_params;
+
+    // No sense in copying this class
+    PSPKeyboard(const PSPKeyboard&);
+    PSPKeyboard& operator=(const PSPKeyboard&);
+
+    // Utility function for copying string to required format
+    void stringToUShort(const std::string&, unsigned short*);
+    std::string uShortToString(unsigned short*);
+
+  };// class PSPKeyboard
 
 #endif// __SMF_PSP_KEYBOARD_HH

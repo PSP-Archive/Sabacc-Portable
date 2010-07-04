@@ -13,7 +13,8 @@
 // Standard Library headers
 #include <cstring>
 #include <string>
-using std::string;				\
+using std::string;
+\
 
 // PSP SDK headers
 #include <pspkernel.h>
@@ -40,156 +41,171 @@ using std::string;				\
 // The PSP dialogs have been moved to the PSPUtility namespace
 // so that both SMF dialogs and PSP dialogs may be used together
 // in the same application.
-namespace PSPUtility {
+namespace PSPUtility
+  {
 
-DialogBase::DialogBase(const Rect& position, const string& property_string, 
-		       const SDL_Color& fore_color, const SDL_Color& back_color, 
-		       const SDL_Color& title_color, const SDL_Color& border_color) :
-  Control(position, property_string), dialog_parameters(),
-  button_pressed(false)
-{ }
-DialogBase::DialogBase(const DialogBase& src) : Control(src),
-						dialog_parameters(),
-						button_pressed(false)
-{
-}
-DialogBase::~DialogBase() { }
+  DialogBase::DialogBase(const Rect& position, const string& property_string,
+                         const SDL_Color& fore_color, const SDL_Color& back_color,
+                         const SDL_Color& title_color, const SDL_Color& border_color) :
+      Control(position, property_string), dialog_parameters(),
+      button_pressed(false)
+  { }
+  DialogBase::DialogBase(const DialogBase& src) : Control(src),
+      dialog_parameters(),
+      button_pressed(false)
+  {
+  }
+  DialogBase::~DialogBase() { }
 
-DialogBase& DialogBase::operator=(const DialogBase& src) {
+  DialogBase& DialogBase::operator=(const DialogBase& src)
+  {
 
-	if(&src != this) {
+    if (&src != this)
+      {
 
-	  memcpy(&dialog_parameters, &src.dialog_parameters, sizeof(dialog_parameters));
-	  button_pressed = false;
-		
-	}	// if(not self)
+        memcpy(&dialog_parameters, &src.dialog_parameters, sizeof(dialog_parameters));
+        button_pressed = false;
 
-	return(*this);
+      }	// if(not self)
 
-}	// operator=
+    return(*this);
 
-const SDL_Color& DialogBase::getBackgroundColor() 
-{ 
-  return(default_frame_backcolor);
-}
-void DialogBase::setBackgroundColor(const SDL_Color&)
-{
-}
-const SDL_Color& DialogBase::getBorderColor() 
-{
-  return(default_frame_bordercolor);
-}
-void DialogBase::setBorderColor(const SDL_Color&)
-{
-}
-const SDL_Color& DialogBase::getTextColor()
-{
-  return(default_frame_forecolor);
-}
-void DialogBase::setTextColor(const SDL_Color&)
-{
-}
-const SDL_Color& DialogBase::getTitleColor()
-{
-  return(default_frame_titlecolor);
-}
-void DialogBase::setTitleColor(const SDL_Color&)
-{
-}
+  }	// operator=
 
-bool DialogBase::onKeyDown(const SDL_KeyboardEvent&) {
+  const SDL_Color& DialogBase::getBackgroundColor()
+  {
+    return(default_frame_backcolor);
+  }
+  void DialogBase::setBackgroundColor(const SDL_Color&)
+  {
+  }
+  const SDL_Color& DialogBase::getBorderColor()
+  {
+    return(default_frame_bordercolor);
+  }
+  void DialogBase::setBorderColor(const SDL_Color&)
+  {
+  }
+  const SDL_Color& DialogBase::getTextColor()
+  {
+    return(default_frame_forecolor);
+  }
+  void DialogBase::setTextColor(const SDL_Color&)
+  {
+  }
+  const SDL_Color& DialogBase::getTitleColor()
+  {
+    return(default_frame_titlecolor);
+  }
+  void DialogBase::setTitleColor(const SDL_Color&)
+  {
+  }
+
+  bool DialogBase::onKeyDown(const SDL_KeyboardEvent&)
+  {
     return(true);
-}
-bool DialogBase::onKeyUp(const SDL_KeyboardEvent&) {
+  }
+  bool DialogBase::onKeyUp(const SDL_KeyboardEvent&)
+  {
     return(true);
-}
+  }
 
-bool DialogBase::onJoystickButtonDown(const SDL_JoyButtonEvent&) {
+  bool DialogBase::onJoystickButtonDown(const SDL_JoyButtonEvent&)
+  {
     return(true);
-}
-bool DialogBase::onJoystickButtonUp(const SDL_JoyButtonEvent&) {
+  }
+  bool DialogBase::onJoystickButtonUp(const SDL_JoyButtonEvent&)
+  {
     return(true);
-}
-bool DialogBase::onJoystickMove(const SDL_JoyAxisEvent&) {
+  }
+  bool DialogBase::onJoystickMove(const SDL_JoyAxisEvent&)
+  {
     return(true);
-}
-bool DialogBase::onJoystickHat(const SDL_JoyHatEvent&) {
+  }
+  bool DialogBase::onJoystickHat(const SDL_JoyHatEvent&)
+  {
     return(true);
-}
-bool DialogBase::onJoystickBall(const SDL_JoyBallEvent&) {
+  }
+  bool DialogBase::onJoystickBall(const SDL_JoyBallEvent&)
+  {
     return(true);
-}
+  }
 
-bool DialogBase::onMouseMove(const SDL_MouseMotionEvent&) {
+  bool DialogBase::onMouseMove(const SDL_MouseMotionEvent&)
+  {
     return(true);
-}
-bool DialogBase::onMouseButtonDown(const SDL_MouseButtonEvent&) {
+  }
+  bool DialogBase::onMouseButtonDown(const SDL_MouseButtonEvent&)
+  {
     return(true);
-}
-bool DialogBase::onMouseButtonUp(const SDL_MouseButtonEvent&) {
+  }
+  bool DialogBase::onMouseButtonUp(const SDL_MouseButtonEvent&)
+  {
     return(true);
-}
+  }
 
-pspUtilityMsgDialogParams& DialogBase::getPSPDialogParameters()
-{
-  return(dialog_parameters);
-}
+  pspUtilityMsgDialogParams& DialogBase::getPSPDialogParameters()
+  {
+    return(dialog_parameters);
+  }
 
-void DialogBase::init() {
+  void DialogBase::init()
+  {
 
 #if defined(_DEBUG) || defined(_DEBUGPSPDIALOGBASE)
-	logAppend("Initializing PSP dialog.");
+    logAppend("Initializing PSP dialog.");
 #endif
 
-  size_t dialog_size = sizeof(dialog_parameters);
-  
-  memset(&dialog_parameters, 0, dialog_size);
+    size_t dialog_size = sizeof(dialog_parameters);
 
-  dialog_parameters.base.size = dialog_size;
-  sceUtilityGetSystemParamInt(PSP_SYSTEMPARAM_ID_INT_LANGUAGE,
-			      &dialog_parameters.base.language);
-  // X/O button swap
-  sceUtilityGetSystemParamInt(PSP_SYSTEMPARAM_ID_INT_UNKNOWN,
-			      &dialog_parameters.base.buttonSwap);
-  
-  dialog_parameters.base.graphicsThread = 0x11;
-  dialog_parameters.base.accessThread = 0x13;
-  dialog_parameters.base.fontThread = 0x12;
-  dialog_parameters.base.soundThread = 0x10;
+    memset(&dialog_parameters, 0, dialog_size);
 
-  dialog_parameters.mode = PSP_UTILITY_MSGDIALOG_MODE_TEXT;
-  dialog_parameters.options = PSP_UTILITY_MSGDIALOG_OPTION_TEXT;
-	
-  sceUtilityMsgDialogInitStart(&dialog_parameters);  
+    dialog_parameters.base.size = dialog_size;
+    sceUtilityGetSystemParamInt(PSP_SYSTEMPARAM_ID_INT_LANGUAGE,
+                                &dialog_parameters.base.language);
+    // X/O button swap
+    sceUtilityGetSystemParamInt(PSP_SYSTEMPARAM_ID_INT_UNKNOWN,
+                                &dialog_parameters.base.buttonSwap);
 
-  resetButtonPress();
-  
-  setInitialized();
+    dialog_parameters.base.graphicsThread = 0x11;
+    dialog_parameters.base.accessThread = 0x13;
+    dialog_parameters.base.fontThread = 0x12;
+    dialog_parameters.base.soundThread = 0x10;
+
+    dialog_parameters.mode = PSP_UTILITY_MSGDIALOG_MODE_TEXT;
+    dialog_parameters.options = PSP_UTILITY_MSGDIALOG_OPTION_TEXT;
+
+    sceUtilityMsgDialogInitStart(&dialog_parameters);
+
+    resetButtonPress();
+
+    setInitialized();
 
 #if defined(_DEBUG) || defined(_DEBUGDIALOGBASE)
-	logAppend("Finished initializing PSP dialog.");
+    logAppend("Finished initializing PSP dialog.");
 #endif
 
-}	// init
-void DialogBase::cleanup() {
+  }	// init
+  void DialogBase::cleanup()
+  {
 
-  button_pressed = false;
-  setNotInitialized();
-  
-}	// cleanup
+    button_pressed = false;
+    setNotInitialized();
 
-bool DialogBase::buttonPressed()
-{
-  return(button_pressed);
-}
-void DialogBase::resetButtonPress()
-{
-  button_pressed = false;
-}
-void DialogBase::setButtonPress()
-{
-  button_pressed = true;
-}
+  }	// cleanup
+
+  bool DialogBase::buttonPressed()
+  {
+    return(button_pressed);
+  }
+  void DialogBase::resetButtonPress()
+  {
+    button_pressed = false;
+  }
+  void DialogBase::setButtonPress()
+  {
+    button_pressed = true;
+  }
 
 };// namespace PSPUtility
 

@@ -5,13 +5,16 @@
  * Sabacc Media Framework
  *
  * Author: Anthony Thomasel
- * Date: August 27, 2008
+ * Date: December 9, 2008
  *
  * File: SmartSurface.hh
  *
  * A class to assist with proper allocation of surfaces,
  * in attempt to avoid double frees and the like.
  */
+
+// Standard library headers
+#include <map>
 
 // SDL headers
 #if defined(__APPLE__)
@@ -24,16 +27,14 @@ class SmartSurface {
 
 public:
 
-    explicit SmartSurface(SDL_Surface* p = 0) : pointer_data(0) {
-        if (p) pointer_data = new PointerData(p);
-    }	// SmartSurface
+  explicit SmartSurface(SDL_Surface*);
+  ~SmartSurface();
 
-    ~SmartSurface();
     SmartSurface(const SmartSurface&);
     SmartSurface& operator=(const SmartSurface&);
 
-    // Make the following two functions const when COW fixed
-    SDL_Surface* operator->() const;
+    const SDL_Surface* operator->() const;
+  SDL_Surface* operator->();
 
     bool operator!() const;
 
@@ -41,21 +42,15 @@ public:
     bool operator!=(const SmartSurface&);
 
     SDL_Surface* get() const;
-    bool unique();
 
-private:
-    struct PointerData {
+    bool valid() const;
 
-        explicit PointerData(SDL_Surface* ptr = 0, unsigned int ct = 1) : pointer(ptr), count(ct) { }
+protected:
+  SDL_Surface* my_ptr;
+  static std::map<SDL_Surface*, int> reference_map;
 
-        SDL_Surface*		pointer;
-        unsigned int		count;
-
-    }	*pointer_data;
-
-    void set(PointerData*);
-    void release();
-
+  void releaseSurface();
+  void initializeSurface(SDL_Surface*);
 
 };	// class SmartSurface
 

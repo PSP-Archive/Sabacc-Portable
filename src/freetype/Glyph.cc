@@ -26,94 +26,102 @@ using std::endl;
 #endif
 
 CachedGlyphImpl::CachedGlyphImpl() : index(0), bitmap(), metrics(), advance(),
-				     x_min(0), x_max(0), x_adv(0), y_min(0), y_max(0), y_offset(0) {
+    x_min(0), x_max(0), x_adv(0), y_min(0), y_max(0), y_offset(0)
+{
 
 #if defined(_DEBUGCACHEDGLYPH)
-    logAppend("Constructed from nothing.");
+  logAppend("Constructed from nothing.");
 #endif
 
 }
 CachedGlyphImpl::CachedGlyphImpl(const CachedGlyphImpl& src) : index(src.index), bitmap(src.bitmap),
-							       metrics(src.metrics), advance(src.advance), x_min(src.x_min), x_max(src.x_max), x_adv(src.x_adv), y_min(src.y_min), y_max(src.y_max), y_offset(src.y_offset) {
+    metrics(src.metrics), advance(src.advance), x_min(src.x_min), x_max(src.x_max), x_adv(src.x_adv), y_min(src.y_min), y_max(src.y_max), y_offset(src.y_offset)
+{
 
 #if defined(_DEBUGCACHEDGLYPH)
-    logAppend("Constructed via copy.");
+  logAppend("Constructed via copy.");
 #endif
 
 }
 
-CachedGlyphImpl::~CachedGlyphImpl() {
+CachedGlyphImpl::~CachedGlyphImpl()
+{
 
-    if (bitmap.buffer) {
+  if (bitmap.buffer)
+    {
 
       delete[](bitmap.buffer); // deleted via the smart pointer wrapper
 
 #if defined(_DEBUG) || defined(_DEBUGCACHEDGLYPH)
-        char debug_string[128];
-        sprintf(debug_string, "Buffer of %d @ 0x%x freed.", index, bitmap.buffer);
-        logAppend(debug_string);
+      char debug_string[128];
+      sprintf(debug_string, "Buffer of %d @ 0x%x freed.", index, bitmap.buffer);
+      logAppend(debug_string);
 #endif
 
     }
 
 }	// ~CachedGlyphImpl
 
-CachedGlyphImpl& CachedGlyphImpl::operator=(const CachedGlyphImpl& src) {
+CachedGlyphImpl& CachedGlyphImpl::operator=(const CachedGlyphImpl& src)
+{
 
-    index = src.index;
-    bitmap = src.bitmap;
-    metrics = src.metrics;
-    advance = src.advance;
+  index = src.index;
+  bitmap = src.bitmap;
+  metrics = src.metrics;
+  advance = src.advance;
 
-    return(*this);
+  return(*this);
 
 }
-bool CachedGlyphImpl::operator==(const CachedGlyphImpl& rhs) {
+bool CachedGlyphImpl::operator==(const CachedGlyphImpl& rhs)
+{
 
-    if ((rhs.index == this->index)
-	&& (rhs.bitmap.buffer == this->bitmap.buffer))
+  if ((rhs.index == this->index)
+      && (rhs.bitmap.buffer == this->bitmap.buffer))
     {
-        return(true);
+      return(true);
     }
 
-    return(false);
+  return(false);
 
 }	// operator==
 
-bool CachedGlyphImpl::operator!=(const CachedGlyphImpl& rhs) {
+bool CachedGlyphImpl::operator!=(const CachedGlyphImpl& rhs)
+{
 
 
-    if ((rhs.index != this->index)
-	&& (rhs.bitmap.buffer == this->bitmap.buffer))
+  if ((rhs.index != this->index)
+      && (rhs.bitmap.buffer == this->bitmap.buffer))
     {
-        return(true);
+      return(true);
     }
 
-    return(false);
+  return(false);
 
 }	// operator!=
 
-unsigned char* CachedGlyphImpl::allocGlyph(size_t size) {
+unsigned char* CachedGlyphImpl::allocGlyph(size_t size)
+{
 
   try
-  {
-    bitmap.buffer = new unsigned char[size];
-  }
-  catch(bad_alloc& a)
-  {
+    {
+      bitmap.buffer = new unsigned char[size];
+    }
+  catch (bad_alloc& a)
+    {
 #if defined(_DEBUG) || defined(_DEBUGCACHEDGLYPH)
-    logAppend("Unable to allocate memory for font glyph.");
-    logAppend("Continuing... some glyphs may be unavailable.");
+      logAppend("Unable to allocate memory for font glyph.");
+      logAppend("Continuing... some glyphs may be unavailable.");
 #endif
-    
-  }
+
+    }
 
 #if defined(_DEBUGCACHEDGLYPH)
-    char debug_string[128];
-    sprintf(debug_string, "Allocated buffer 0x%x.", bitmap.buffer);
-    logAppend(debug_string);
+  char debug_string[128];
+  sprintf(debug_string, "Allocated buffer 0x%x.", bitmap.buffer);
+  logAppend(debug_string);
 #endif
 
-    return(bitmap.buffer);
+  return(bitmap.buffer);
 
 }	// allocGlyph

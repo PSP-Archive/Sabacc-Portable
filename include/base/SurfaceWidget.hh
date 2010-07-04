@@ -29,8 +29,8 @@ using std::string;
 #include "geometry/Rect.hh"
 
 class SurfaceWidget : public Widget
-{
-public:
+  {
+  public:
     /** Constructors @{ */
     SurfaceWidget(const Rect& = default_rect, string = "");
     SurfaceWidget(Widget*, const Rect& = default_rect, string = "");
@@ -52,9 +52,9 @@ public:
     /** Draw the widget to screen. */
     virtual void draw();
 
-private:
+  private:
 
     SmartSurface	widget_surface;
-};	// class SurfaceWidget
+  };	// class SurfaceWidget
 
 #endif // __SMF_SURFACEWIDGET_HH

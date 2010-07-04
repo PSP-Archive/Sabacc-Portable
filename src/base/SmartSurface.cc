@@ -33,64 +33,76 @@ using std::map;
 // Redefine map
 map<SDL_Surface*, int> SmartSurface::reference_map;
 
-SmartSurface::SmartSurface(SDL_Surface* surf) : my_ptr(0) { initializeSurface(surf); }
-SmartSurface::SmartSurface(const SmartSurface& other) : my_ptr(0) {
+SmartSurface::SmartSurface(SDL_Surface* surf) : my_ptr(0)
+{
+  initializeSurface(surf);
+}
+SmartSurface::SmartSurface(const SmartSurface& other) : my_ptr(0)
+{
   initializeSurface(other.my_ptr);
 }
 
-SmartSurface::~SmartSurface() {
-    releaseSurface();
+SmartSurface::~SmartSurface()
+{
+  releaseSurface();
 }	// ~SmartSurface
 
-SmartSurface& SmartSurface::operator=(const SmartSurface& other) {
+SmartSurface& SmartSurface::operator=(const SmartSurface& other)
+{
 
-    if (this != &other) {
-        releaseSurface();
-        initializeSurface(other.my_ptr);
+  if (this != &other)
+    {
+      releaseSurface();
+      initializeSurface(other.my_ptr);
     }
 
-    return(*this);
+  return(*this);
 }
 
-const SDL_Surface* SmartSurface::operator->() const 
+const SDL_Surface* SmartSurface::operator->() const
+  {
+    return(my_ptr);
+  }
+SDL_Surface* SmartSurface::operator->()
 {
   return(my_ptr);
-}
-SDL_Surface* SmartSurface::operator->() {
-    return(my_ptr);
 }	// operator->
 
-bool SmartSurface::operator!() const {
+bool SmartSurface::operator!() const
+  {
     if (!my_ptr) return true;
 
     return(0 == my_ptr);
-}
+  }
 
-bool SmartSurface::operator==(const SmartSurface& rhs) {
+bool SmartSurface::operator==(const SmartSurface& rhs)
+{
 
-    return(rhs.my_ptr == this->my_ptr);
-
-}
-bool SmartSurface::operator!=(const SmartSurface& rhs) {
-
-    return(!operator==(rhs));
+  return(rhs.my_ptr == this->my_ptr);
 
 }
+bool SmartSurface::operator!=(const SmartSurface& rhs)
+{
 
-SDL_Surface* SmartSurface::get() const {
-	if(!my_ptr) return(NULL);
+  return(!operator==(rhs));
+
+}
+
+SDL_Surface* SmartSurface::get() const
+  {
+    if (!my_ptr) return(NULL);
     return(my_ptr);
-}	// get
+  }	// get
 
 bool
 SmartSurface::valid() const
-{
+  {
     return (0 != my_ptr);
-}
+  }
 
 void SmartSurface::releaseSurface()
 {
-  if(reference_map.end() == reference_map.find(my_ptr))
+  if (reference_map.end() == reference_map.find(my_ptr))
     {
 #if defined(_DEBUG) || defined(_DEBUGSMARTSURFACE)
       logAppend("Missing entry in surface reference map.");
@@ -98,7 +110,7 @@ void SmartSurface::releaseSurface()
       return;
     }
   --reference_map[my_ptr];
-  if(0 == reference_map[my_ptr])
+  if (0 == reference_map[my_ptr])
     {
       reference_map.erase(my_ptr);
       SDL_FreeSurface(my_ptr);
@@ -108,7 +120,7 @@ void SmartSurface::releaseSurface()
 void SmartSurface::initializeSurface(SDL_Surface* new_surface)
 {
   my_ptr = new_surface;
-  if(reference_map.end() == reference_map.find(my_ptr))
+  if (reference_map.end() == reference_map.find(my_ptr))
     {
       reference_map[my_ptr] = 1;
     }

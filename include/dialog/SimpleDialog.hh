@@ -32,28 +32,29 @@
 // SMF constants
 #include "constants/ColorConstants.hh"
 
-class SimpleDialog : public DialogBase {
+class SimpleDialog : public DialogBase
+  {
 
-public:
+  public:
 
     /** Constructors. Same as any lower tier Control base class. @{ */
-  SimpleDialog(const Rect& = default_rect, const string& = "");
-  SimpleDialog(const string&, const string& = "", const string& = "OK", const Rect& = default_rect, const string& = "");
+    SimpleDialog(const Rect& = default_rect, const string& = "");
+    SimpleDialog(const string&, const string& = "", const string& = "OK", const Rect& = default_rect, const string& = "");
     SimpleDialog(const SimpleDialog&);
     virtual ~SimpleDialog();
 
     /** Assignment operator */
     SimpleDialog& operator=(const SimpleDialog&);
 
-  /** Text properties. @{ */
-  virtual std::string getDialogText();
-  virtual void setDialogText(std::string);
-  virtual std::string getDialogTitle();
-  virtual void setDialogTitle(std::string);
-  /** @} */
+    /** Text properties. @{ */
+    virtual std::string getDialogText();
+    virtual void setDialogText(std::string);
+    virtual std::string getDialogTitle();
+    virtual void setDialogTitle(std::string);
+    /** @} */
 
-	/** Keyboard event handlers, all defined to return true to prevent underlying
-     *  controls from capturing input. @{ */
+    /** Keyboard event handlers, all defined to return true to prevent underlying
+       *  controls from capturing input. @{ */
     virtual bool onKeyDown(const SDL_KeyboardEvent&);	/// Key pressed down.
     virtual bool onKeyUp(const SDL_KeyboardEvent&);	/// Key released.
     /** @} */
@@ -78,13 +79,13 @@ public:
     virtual void init();
     virtual void cleanup();
 
-	/** Draw the frame. */
-	virtual void draw();
+    /** Draw the frame. */
+    virtual void draw();
 
-private:
+  private:
 
-  TextLabel dialog_text, dialog_title;
+    TextLabel dialog_text, dialog_title;
 
-};	// class Control
+  };	// class Control
 
 #endif // __SMF_DIALOGBASE_HH

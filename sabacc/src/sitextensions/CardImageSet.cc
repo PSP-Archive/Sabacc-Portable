@@ -33,138 +33,175 @@ CardImageSet::CardImageSet(Rect pos) :
 CardImageSet::~CardImageSet() { }
 
 void
-CardImageSet::setPlayer(Player* p) {
+CardImageSet::setPlayer(Player* p)
+{
 
-    card_holder = p;
+  card_holder = p;
 
-    init();
+  init();
 
 }
 
 void
-CardImageSet::setHideCards(bool hide) {
-    for (std::vector<CardImage>::iterator cd_it = card_images.begin();
-	 card_images.end() > cd_it;
-	 ++cd_it)
+CardImageSet::setHideCards(bool hide)
+{
+  for (std::vector<CardImage>::iterator cd_it = card_images.begin();
+       card_images.end() > cd_it;
+       ++cd_it)
     {
-	(*cd_it).HideFace(hide);
+      (*cd_it).HideFace(hide);
     }
 }
 
 void
-CardImageSet::init() {
+CardImageSet::init()
+{
 
-    card_images.clear();
+  card_images.clear();
 
-    if (!card_holder) return;
+  if (!card_holder) return;
 
-    for (std::vector<Card>::iterator pit = card_holder->getHand().begin();
-	 card_holder->getHand().end() != pit;
-	 ++pit)
-    {
-	card_images.push_back(CardImage(&(*pit)));
-    }
+  for (std::vector<Card>::iterator pit = (*card_holder).HandBegin();
+       (*card_holder).HandEnd() != pit;
+       ++pit)
+  {
+      card_images.push_back(CardImage(&(*pit)));
+  }
 
 }	// clear
 void
 CardImageSet::cleanup() { }
 
 void
-CardImageSet::draw() {
+CardImageSet::draw()
+{
 
-    if (card_images.empty()) return;
+  if (card_images.empty()) return;
 
-    int x_start = Left();
-    int x_sel = Left();
+  int x_start = Left();
+  int x_sel = Left();
 
-    std::vector<CardImage>::iterator c_sel = card_images.begin();
+  std::vector<CardImage>::iterator c_sel = card_images.begin();
 
-    Width((card_images.size() * card_images.back().Width() / 3)
-	  + card_images.back().Width());
+  Width((card_images.size() * card_images.back().Width() / 3)
+        + card_images.back().Width());
 
-    Height(card_images.back().Height());
+  Height(card_images.back().Height());
 
 #ifdef _DEBUGCARDIMAGESET
-    char debug_string[128];
-    sprintf(debug_string, "Drawing cards for 0x%x @ %d %d",
-	    card_holder,
-	    Left(),
-	    Top());
-    logAppend(debug_string);
+  char debug_string[128];
+  sprintf(debug_string, "Drawing cards for 0x%x @ %d %d",
+          card_holder,
+          Left(),
+          Top());
+  logAppend(debug_string);
 #endif
 
-    for (std::vector<CardImage>::iterator it = card_images.begin();
-	 card_images.end() > it;
-	 ++it) {
+  for (std::vector<CardImage>::iterator it = card_images.begin();
+       card_images.end() > it;
+       ++it)
+    {
 
-      if(card_images.end() != it) {
-	  (*it).Left(x_start);
-	  (*it).Top(Top());
+      if (card_images.end() != it)
+        {
+          (*it).Left(x_start);
+          (*it).Top(Top());
 
-	if ((*it).CardData()->Hold()) {
-	    Sint16 l = (*it).Left();
-	    Sint16 t = (*it).Top();
-	    Sint16 w = (*it).Width();
-	    Sint16 h = (*it).Height();
-	    Sint16 m = 4;
+	  (*it).draw();
 
-	    Sint16 poly_x[8] = {
-		static_cast<Sint16>(l - m),
-		static_cast<Sint16>(l + m),
-		static_cast<Sint16>(l + w - m),
-		static_cast<Sint16>(l + w + m),
-		static_cast<Sint16>(l + w + m),
-		static_cast<Sint16>(l + w - m),
-		static_cast<Sint16>(l + m),
-		static_cast<Sint16>(l - m)
-	    };
-	    Sint16 poly_y[8] = {
-		static_cast<Sint16>(t + m),
-		static_cast<Sint16>(t - m),
-		static_cast<Sint16>(t - m),
-		static_cast<Sint16>(t + m),
-		static_cast<Sint16>(t + h - m),
-		static_cast<Sint16>(t + h + m),
-		static_cast<Sint16>(t + h + m),
-		static_cast<Sint16>(t + h - m)
-	    };
-	    filledPolygonRGBA(SDL_GetVideoSurface(),
-			      poly_x, poly_y, 8, 0xFF, 0xFF, 0x00, 0x80);
+              Sint16 l = (*it).Left();
+              Sint16 t = (*it).Top();
+              Sint16 w = (*it).Width();
+              Sint16 h = (*it).Height();
+              Sint16 m = 3;
 
+
+          if ((*it).CardData()->Hold())
+            {
+
+              Sint16 poly_x[13] =
+              {
+                static_cast<Sint16>(l + 12),
+                static_cast<Sint16>(l + 32),
+                static_cast<Sint16>(l + 63),
+                static_cast<Sint16>(l + 83),
+                static_cast<Sint16>(l + 87),
+                static_cast<Sint16>(l + 87),
+                static_cast<Sint16>(l + 83),
+		static_cast<Sint16>(l + 63),
+		static_cast<Sint16>(l + 32),
+		static_cast<Sint16>(l + 12),
+		static_cast<Sint16>(l + 8),
+		static_cast<Sint16>(l + 8),
+		static_cast<Sint16>(l + 12)
+              };
+
+              Sint16 poly_y[13] =
+              {
+                static_cast<Sint16>(t + 12),
+                static_cast<Sint16>(t + 8),
+                static_cast<Sint16>(t + 8),
+                static_cast<Sint16>(t + 12),
+                static_cast<Sint16>(t + 32),
+                static_cast<Sint16>(t + 63),
+                static_cast<Sint16>(t + 83),
+		static_cast<Sint16>(t + 87),
+		static_cast<Sint16>(t + 87),
+		static_cast<Sint16>(t + 83),
+		static_cast<Sint16>(t + 63),
+		static_cast<Sint16>(t + 32),
+		static_cast<Sint16>(t + 12)
+              };
+
+              filledPolygonRGBA(SDL_GetVideoSurface(),
+				poly_x, poly_y, 13, 0x00, 0xA0, 0xFF, 0x60);
+            }
+
+	  if ((&(*card_holder->SelectedCard()) == (*it).CardData())
+	      && use_selection)
+            {
+
+		Sint16 poly_x[13] =
+		    {
+			static_cast<Sint16>(l + 12),
+			static_cast<Sint16>(l + 32),
+			static_cast<Sint16>(l + 63),
+			static_cast<Sint16>(l + 83),
+			static_cast<Sint16>(l + 87),
+			static_cast<Sint16>(l + 87),
+			static_cast<Sint16>(l + 83),
+			static_cast<Sint16>(l + 63),
+			static_cast<Sint16>(l + 32),
+			static_cast<Sint16>(l + 12),
+			static_cast<Sint16>(l + 8),
+			static_cast<Sint16>(l + 8),
+			static_cast<Sint16>(l + 12)
+		    };
+
+		Sint16 poly_y[13] =
+		    {
+			static_cast<Sint16>(t + 12),
+			static_cast<Sint16>(t + 8),
+			static_cast<Sint16>(t + 8),
+			static_cast<Sint16>(t + 12),
+			static_cast<Sint16>(t + 32),
+			static_cast<Sint16>(t + 63),
+			static_cast<Sint16>(t + 83),
+			static_cast<Sint16>(t + 87),
+			static_cast<Sint16>(t + 87),
+			static_cast<Sint16>(t + 83),
+			static_cast<Sint16>(t + 63),
+			static_cast<Sint16>(t + 32),
+			static_cast<Sint16>(t + 12)
+		    };
+
+		filledPolygonRGBA(SDL_GetVideoSurface(),
+				  poly_x, poly_y, 13, 0xFF, 0xFF, 0xFF, 0x60);
 	}
 
-	(*it).draw();
+          x_start += static_cast<int>(static_cast<float>((*it).Width()) / 1.33);
 
-	if (&(*card_holder->getSelectedCardIterator()) == (*it).CardData()) {
-	    c_sel = it;
-	    x_sel = x_start;
-	}
-
-	x_start += static_cast<int>(static_cast<float>((*it).Width()) / 1.33);
-
-      } // if(it)
+        } // if(it)
     }	// it
 
-    if ((card_images.end() != c_sel) && use_selection) {
-	c_sel->Left(x_sel);
-	if ((*c_sel).CardData()->Hold()) {
-	    rectangleRGBA(SDL_GetVideoSurface(),
-			  x_sel - 1,
-			  c_sel->Top() - 1,
-			  x_sel + c_sel->Width() + 1,
-			  c_sel->Top() + c_sel->Width() + 1,
-			  0xFF, 0xFF, 0x88, 0xFF);
-	} else {
-	    rectangleRGBA(SDL_GetVideoSurface(),
-			  x_sel - 1,
-			  c_sel->Top() - 1,
-			  x_sel + c_sel->Width() + 1,
-			  c_sel->Top() + c_sel->Width() + 1,
-			  0x00, 0xCC, 0xFF, 0xFF);
-	}
-
-#warning "Here is c_sel->draw thich may need to be uncommented."
-	(*c_sel).draw();
-
-    }	// c_sel
 }	// draw

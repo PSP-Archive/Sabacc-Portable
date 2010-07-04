@@ -20,22 +20,26 @@
 #include "freetype/fonts/PSPGlyphs.h"
 #include "freetype/fonts/AureBesh.h"
 
-FreeTypeRenderer& getSystemFont() {
-    static FreeTypeRenderer system_font;
-    return(system_font);
+FreeTypeRenderer& getSystemFont()
+{
+  static FreeTypeRenderer system_font;
+  return(system_font);
 }	// getSystemFont
-FreeTypeRenderer& getPSPFont() {
+FreeTypeRenderer& getPSPFont()
+{
   static FreeTypeRenderer psp_font;
   psp_font.setFileStream(psp_glyph_font, size_psp_glyph_font);
   return(psp_font);
 }
-FreeTypeRenderer& getCardFont() {
+FreeTypeRenderer& getCardFont()
+{
   static FreeTypeRenderer card_font;
   card_font.setFileStream(newaurebesh, size_newaurebesh);
   card_font.setSize(default_font_size * 0.75f);
   return(card_font);
 }
-const FontState& getDefaultFontState() {
-    static FontState default_state;
-    return(default_state);
+const FontState& getDefaultFontState()
+{
+  static FontState default_state;
+  return(default_state);
 }	// getDefaultState

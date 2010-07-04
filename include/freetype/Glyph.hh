@@ -26,7 +26,8 @@
 #include "utility/Log.hh"
 #endif
 
-struct CachedGlyphImpl {
+struct CachedGlyphImpl
+  {
 
     FT_Int							index;
 
@@ -35,7 +36,7 @@ struct CachedGlyphImpl {
     FT_Glyph_Metrics				metrics;
     FT_Vector						advance;
 
-  FT_Int x_min, x_max, x_adv, y_min, y_max, y_offset;
+    FT_Int x_min, x_max, x_adv, y_min, y_max, y_offset;
 
     CachedGlyphImpl();
     CachedGlyphImpl(const CachedGlyphImpl&);
@@ -48,7 +49,7 @@ struct CachedGlyphImpl {
 
     unsigned char* allocGlyph(size_t);
 
-};
+  };
 
 // Sabacc Media Framework header which must be included at end.
 #include "freetype/CachedGlyph.hh"

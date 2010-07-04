@@ -34,44 +34,46 @@
 // The PSP dialogs have been moved to the PSPUtility namespace
 // so that both SMF dialogs and PSP dialogs may be used together
 // in the same application.
-namespace PSPUtility {
+namespace PSPUtility
+  {
 
-class SingleButtonDialog : public DialogBase {
+  class SingleButtonDialog : public DialogBase
+    {
 
-public:
+    public:
 
-  /** Constructors. Same as any lower tier Control base class. @{ */
-  SingleButtonDialog(const Rect& = default_rect, const string& = "");
-  SingleButtonDialog(const std::string&, const std::string& = "",
-		     const std::string& = "OK", const Rect& = default_rect,
-		     const std::string& = "");
-  SingleButtonDialog(const SingleButtonDialog&);
-  virtual ~SingleButtonDialog();
+      /** Constructors. Same as any lower tier Control base class. @{ */
+      SingleButtonDialog(const Rect& = default_rect, const string& = "");
+      SingleButtonDialog(const std::string&, const std::string& = "",
+                         const std::string& = "OK", const Rect& = default_rect,
+                         const std::string& = "");
+      SingleButtonDialog(const SingleButtonDialog&);
+      virtual ~SingleButtonDialog();
 
-  /** Assignment operator */
-  SingleButtonDialog& operator=(const SingleButtonDialog&);
+      /** Assignment operator */
+      SingleButtonDialog& operator=(const SingleButtonDialog&);
 
-  /** Text properties. @{ */
-  virtual std::string getDialogText();
-  virtual void setDialogText(std::string);
-  virtual std::string getDialogTitle();
-  virtual void setDialogTitle(std::string);
-  virtual std::string getDialogButtontext();
-  virtual void setDialogButtonText(std::string);
-  /** @} */
+      /** Text properties. @{ */
+      virtual std::string getDialogText();
+      virtual void setDialogText(std::string);
+      virtual std::string getDialogTitle();
+      virtual void setDialogTitle(std::string);
+      virtual std::string getDialogButtontext();
+      virtual void setDialogButtonText(std::string);
+      /** @} */
 
-  /** Initialization of the control and cleanup. */
-  virtual void init();
-  virtual void cleanup();
-  
-  /** Draw the frame. */
-  virtual void draw();
+      /** Initialization of the control and cleanup. */
+      virtual void init();
+      virtual void cleanup();
 
-protected:
+      /** Draw the frame. */
+      virtual void draw();
 
-  std::string dialog_text, dialog_title, dialog_button;
+    protected:
 
-};	// class SingleButtonDialog
+      std::string dialog_text, dialog_title, dialog_button;
+
+    };	// class SingleButtonDialog
 
 };// namespace PSPUtility
 

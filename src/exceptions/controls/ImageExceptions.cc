@@ -17,21 +17,24 @@ using std::string;
 #include "exceptions/base/ExceptionBase.hh"
 #include "exceptions/controls/ImageExceptions.hh"
 
-namespace Exceptions {
+namespace Exceptions
+  {
 
-    namespace Image {
+  namespace Image
+    {
 
-        LoadError::LoadError(const string& message, const char* file, int line) :
-                ExceptionBase(message, file, line) { }
-        LoadError::LoadError(const string& message, const string& details, const char* file, int line)  :
-                ExceptionBase(message, details, file, line) { }
-        LoadError::LoadError(const string& message, const string& details, const string& data, const char* file, int line)  :
-                ExceptionBase(message, details, data, file, line) { }
+    LoadError::LoadError(const string& message, const char* file, int line) :
+        ExceptionBase(message, file, line) { }
+    LoadError::LoadError(const string& message, const string& details, const char* file, int line)  :
+        ExceptionBase(message, details, file, line) { }
+    LoadError::LoadError(const string& message, const string& details, const string& data, const char* file, int line)  :
+        ExceptionBase(message, details, data, file, line) { }
 
-        string LoadError::getExceptionName() {
-            return("Image::LoadError");
-        }
+    string LoadError::getExceptionName()
+    {
+      return("Image::LoadError");
+    }
 
-    }	// namespace Image
+  }	// namespace Image
 
 }	// namespace Exceptions

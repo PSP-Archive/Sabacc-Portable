@@ -18,8 +18,9 @@
 
 typedef double media_time_t;
 
-class AudioControl : public Object {
-public:
+class AudioControl : public Object
+  {
+  public:
     /** Constructors @{
       * @param position - the position from which to start playing the audio.
       * @param property_string - any Object or AudioControl property (to be implemented).
@@ -70,7 +71,7 @@ public:
     /** All derived classes must have a play() method for consistency. */
     virtual void play() = 0;
 
-private:
+  private:
 
     string	audio_file;
 
@@ -78,6 +79,6 @@ private:
 
     bool	initialized;
 
-};
+  };
 
 #endif // __SMF_AUDIOCONTROL_HH

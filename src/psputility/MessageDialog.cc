@@ -15,7 +15,8 @@
 // Standard Library headers
 #include <cstring>
 #include <string>
-using std::string;				\
+using std::string;
+\
 
 // PSP SDK headers
 #include <pspkernel.h>
@@ -41,11 +42,11 @@ using std::string;				\
 #endif
 
 PSPDialog::PSPDialog(const string& msg, const string&,
-				     const string& btn) :
-  Control(), message(msg), button_text(btn), dialog_params()
+                     const string& btn) :
+    Control(), message(msg), button_text(btn), dialog_params()
 {
 }
-PSPDialog::~PSPDialog() 
+PSPDialog::~PSPDialog()
 {
 }
 
@@ -79,15 +80,15 @@ void PSPDialog::init()
 {
 
   size_t dialog_size = sizeof(dialog_params);
-  
+
   memset(&dialog_params, 0, dialog_size);
 
   dialog_params.base.size = dialog_size;
   sceUtilityGetSystemParamInt(PSP_SYSTEMPARAM_ID_INT_LANGUAGE,
-			      &dialog_params.base.language); // Prompt language
+                              &dialog_params.base.language); // Prompt language
   sceUtilityGetSystemParamInt(PSP_SYSTEMPARAM_ID_INT_UNKNOWN,
-			      &dialog_params.base.buttonSwap); // X/O button swap
-  
+                              &dialog_params.base.buttonSwap); // X/O button swap
+
   dialog_params.base.graphicsThread = 0x11;
   dialog_params.base.accessThread = 0x13;
   dialog_params.base.fontThread = 0x12;
@@ -95,13 +96,13 @@ void PSPDialog::init()
 
   dialog_params.mode = PSP_UTILITY_MSGDIALOG_MODE_TEXT;
   dialog_params.options = PSP_UTILITY_MSGDIALOG_OPTION_TEXT;
-	
+
   strncpy(dialog_params.message, message.c_str(), message.length());
 
-  sceUtilityMsgDialogInitStart(&dialog_params);  
+  sceUtilityMsgDialogInitStart(&dialog_params);
 
   setInitialized();
-  
+
 }//init
 void PSPDialog::cleanup()
 {
@@ -111,28 +112,28 @@ void PSPDialog::cleanup()
 void PSPDialog::draw()
 {
 
-  if(!isInitialized()) init();
+  if (!isInitialized()) init();
 
   sceUtilityMsgDialogInitStart(&dialog_params);
-  
-  for(;;)
-    {
-    if(PSP_UTILITY_DIALOG_VISIBLE == sceUtilityMsgDialogGetStatus())
-      {
-	sceUtilityMsgDialogUpdate(1);
-      }
-    else if(PSP_UTILITY_DIALOG_QUIT == sceUtilityMsgDialogGetStatus())
-      {
-	sceUtilityMsgDialogShutdownStart();
-      }
-    else if(PSP_UTILITY_DIALOG_NONE == sceUtilityMsgDialogGetStatus())
-      {
-	break;
-      }// if(sceUtilityMsgDialogGetStatus)
 
-    sceDisplayWaitVblankStart();
-    sceGuSwapBuffers();
-    
+  for (;;)
+    {
+      if (PSP_UTILITY_DIALOG_VISIBLE == sceUtilityMsgDialogGetStatus())
+        {
+          sceUtilityMsgDialogUpdate(1);
+        }
+      else if (PSP_UTILITY_DIALOG_QUIT == sceUtilityMsgDialogGetStatus())
+        {
+          sceUtilityMsgDialogShutdownStart();
+        }
+      else if (PSP_UTILITY_DIALOG_NONE == sceUtilityMsgDialogGetStatus())
+        {
+          break;
+        }// if(sceUtilityMsgDialogGetStatus)
+
+      sceDisplayWaitVblankStart();
+      sceGuSwapBuffers();
+
     }// if(isActive)
 
 #if defined(_DEBUG) || defined(_DEBUGPSPOKCANCELDLG) || defined(_DEBUGEVENTS)
@@ -141,7 +142,7 @@ void PSPDialog::draw()
 
   SDL_Event dialog_result;
   dialog_result.type = SDL_USEREVENT;
-    
+
   dialog_result.user.code = event_dialog_dismiss;
 
 #if defined(_DEBUG) || defined(_DEBUGPSPOKCANCELDLG) || defined(_DEBUGEVENTS)
@@ -150,17 +151,18 @@ void PSPDialog::draw()
   logAppend(debug_string);
 #endif
 
-  if (-1 == SDL_PushEvent(&dialog_result)) {
+  if (-1 == SDL_PushEvent(&dialog_result))
+    {
 
 #if defined(_DEBUG) || defined(_DEBUGPSPOKCANCELDLG) || defined(_DEBUGEVENTS)
-    logAppend("Dialog event error:");
-    logAppend(SDL_GetError());
+      logAppend("Dialog event error:");
+      logAppend(SDL_GetError());
 #endif
 
-    throw(Exceptions::Events::PushFailed("Push failed.",
-					 "The event for dialog selection could not be pushed into the event queue.",
-					 SDL_GetError(), __FILE__, __LINE__));
-      
+      throw(Exceptions::Events::PushFailed("Push failed.",
+                                           "The event for dialog selection could not be pushed into the event queue.",
+                                           SDL_GetError(), __FILE__, __LINE__));
+
     }	// if(SDL_PushEvent)
 
 }// draw

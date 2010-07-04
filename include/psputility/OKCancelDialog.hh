@@ -34,47 +34,49 @@
 // The PSP dialogs have been moved to the PSPUtility namespace
 // so that both SMF dialogs and PSP dialogs may be used together
 // in the same application.
-namespace PSPUtility {
+namespace PSPUtility
+  {
 
-class OKCancelDialog : public DialogBase {
+  class OKCancelDialog : public DialogBase
+    {
 
-public:
+    public:
 
-  /** Constructors. Same as any lower tier Control base class. @{ */
-  OKCancelDialog(const Rect& = default_rect, const string& = "");
-  OKCancelDialog(const std::string&, const std::string& = "",
-		 const std::string& = "OK", const std::string& = "Cancel",
-		 const Rect& = default_rect,
-		     const std::string& = "");
-  OKCancelDialog(const OKCancelDialog&);
-  virtual ~OKCancelDialog();
+      /** Constructors. Same as any lower tier Control base class. @{ */
+      OKCancelDialog(const Rect& = default_rect, const string& = "");
+      OKCancelDialog(const std::string&, const std::string& = "",
+                     const std::string& = "OK", const std::string& = "Cancel",
+                     const Rect& = default_rect,
+                     const std::string& = "");
+      OKCancelDialog(const OKCancelDialog&);
+      virtual ~OKCancelDialog();
 
-  /** Assignment operator */
-  OKCancelDialog& operator=(const OKCancelDialog&);
+      /** Assignment operator */
+      OKCancelDialog& operator=(const OKCancelDialog&);
 
-  /** Text properties. @{ */
-  virtual std::string getDialogText();
-  virtual void setDialogText(std::string);
-  virtual std::string getDialogTitle();
-  virtual void setDialogTitle(std::string);
-  virtual std::string getDialogOKButtonText();
-  virtual void setDialogOKButtonText(std::string);
-  virtual std::string getDialogCancelButtonText();
-  virtual void setDialogCancelButtonText(std::string);
-  /** @} */
+      /** Text properties. @{ */
+      virtual std::string getDialogText();
+      virtual void setDialogText(std::string);
+      virtual std::string getDialogTitle();
+      virtual void setDialogTitle(std::string);
+      virtual std::string getDialogOKButtonText();
+      virtual void setDialogOKButtonText(std::string);
+      virtual std::string getDialogCancelButtonText();
+      virtual void setDialogCancelButtonText(std::string);
+      /** @} */
 
-  /** Initialization of the control and cleanup. */
-  virtual void init();
-  virtual void cleanup();
-  
-  /** Draw the frame. */
-  virtual void draw();
+      /** Initialization of the control and cleanup. */
+      virtual void init();
+      virtual void cleanup();
 
-protected:
+      /** Draw the frame. */
+      virtual void draw();
 
-  std::string dialog_text, dialog_title, ok_button, cancel_button;
+    protected:
 
-};	// class OKCancelDialog
+      std::string dialog_text, dialog_title, ok_button, cancel_button;
+
+    };	// class OKCancelDialog
 
 };// namespace PSPUtility
 

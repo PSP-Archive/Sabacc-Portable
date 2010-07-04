@@ -32,18 +32,19 @@ using std::vector;
 #include "base/Widget.hh"
 #include "constants/EventConstants.hh"
 
-class EventManager {
+class EventManager
+  {
 
-public:
+  public:
 
-  /** @{ */
-  EventManager();
-  virtual ~EventManager();
-  /** @} */
+    /** @{ */
+    EventManager();
+    virtual ~EventManager();
+    /** @} */
 
     /** EventManager operators @{ */
     virtual EventManager& operator<<(Control*);
-  virtual EventManager& operator<<(Widget*);
+    virtual EventManager& operator<<(Widget*);
     virtual Control* operator[](vector<Control*>::size_type);	/// Allow for EM[] = x.
     virtual Control* operator[](vector<Control*>::size_type) const;	/// Read only.
     /** @} */
@@ -51,8 +52,8 @@ public:
     /** Event queue operations. @{ */
     virtual void clear();	/// Clear the event queue.
 
-  virtual void push(Control*);	/// Add a Control to the end of the queue.
-  virtual void push(Widget*);  /// Add a Widget, conversion done in function
+    virtual void push(Control*);	/// Add a Control to the end of the queue.
+    virtual void push(Widget*);  /// Add a Widget, conversion done in function
     virtual void pop();	/// Remove the last Widget from the queue.
 
     virtual void erase(vector<Control*>::iterator);	/// Erase the Widget indicated by iterator
@@ -66,21 +67,21 @@ public:
     /** Draw the Widgets in the queue. */
     virtual smf_event_t doEvents();
 
-  /** Set up user event handlers. @{ */
-  //  virtual void addUserEventHandler(user_fn*(int));
+    /** Set up user event handlers. @{ */
+    //  virtual void addUserEventHandler(user_fn*(int));
 
-private:
+  private:
 
     vector<Control*>	event_queue;
 
     SDL_Event	system_event;
 
-  //  list<user_fn*(int)> user_event_handlers;
+    //  list<user_fn*(int)> user_event_handlers;
 
     // Copying not allowed
     EventManager(const EventManager&);
     EventManager& operator=(const EventManager&);
 
-};	// class EventManager
+  };	// class EventManager
 
 #endif // __SMF_EVENTMANAGER_HH

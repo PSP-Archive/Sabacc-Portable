@@ -22,9 +22,10 @@ using std::string;
 #include "base/Widget.hh"
 #include "geometry/Rect.hh"
 
-class ImageLabel : public FreeTypeControl {
+class ImageLabel : public FreeTypeControl
+  {
 
-public:
+  public:
 
     /** ImageLabel constructors:
      * @param Text to display. Required.
@@ -60,10 +61,10 @@ public:
     /** Draw image to screen. */
     virtual void draw();
 
-private:
+  private:
     string	label_text;
     string	image_file;
 
-};	// class ImageLabel
+  };	// class ImageLabel
 
 #endif // __SMF_STATICIMAGELABEL_HH

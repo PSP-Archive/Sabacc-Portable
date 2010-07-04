@@ -20,10 +20,10 @@
 #endif // _DEBUG
 
 class CasinoGame :
-    public GameBase
-{
-    
-public:
+      public GameBase
+  {
+
+  public:
 
     CasinoGame();
     CasinoGame(std::vector<Player>);	// Vector of players with which to start the game
@@ -39,18 +39,24 @@ public:
 
     // This is used for resuming a game
     virtual void StartGame();
-    
-    // Needs to be public for SDL_Timer callback to work
 
-private:
+      // The following will determine the various hands.
+      // DO NOT rely on these functions existing as they may (rightly)
+      // be moved to the ruleset class in the future.
+      virtual bool PureSabacc(Player &);
+      virtual bool Sabacc(Player &);
+      virtual bool IdiotArray(Player &);
+      virtual bool Bomb(Player &);
+
+  private:
 
     // UI stuff
     TextLabel dealer_caption,
-	player_caption,
-	selected_info,
-	rules_text,
-	round_caption,
-	round_info;
+    player_caption,
+    selected_info,
+    rules_text,
+    round_caption,
+    round_info;
 
     CardImageSet dealer_cimages, player_cimages;
 
@@ -81,8 +87,6 @@ private:
     void InitCasinoGame();
     void DestroyCasinoGame();
 
-    // SDL timer callback
-    static Uint32 TimedShiftCallback(Uint32, void *);
-};	// CasinoBase
+  };	// CasinoBase
 
 #endif // __CASINOGAME_HH

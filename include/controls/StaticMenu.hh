@@ -29,9 +29,10 @@ using std::vector;
 // SMF Type definitions
 typedef pair<string, string> ItemType;
 
-class Menu : public FreeTypeControl {
+class Menu : public FreeTypeControl
+  {
 
-public:
+  public:
 
     /** Menu constructors:
      * @param title - the menu title.
@@ -56,9 +57,9 @@ public:
 
     /** Item management. @{ */
     virtual void add(string, string = "");
-  virtual void insert(const string&, const string&, const string& = "");
-  virtual void insert(vector<ItemType>::iterator, const string&, const string&);
-  virtual void insert(vector<ItemType>::iterator, ItemType);
+    virtual void insert(const string&, const string&, const string& = "");
+    virtual void insert(vector<ItemType>::iterator, const string&, const string&);
+    virtual void insert(vector<ItemType>::iterator, ItemType);
     virtual void erase(const string&);
     virtual void erase(vector<ItemType>::iterator);
     virtual void clear();
@@ -96,12 +97,12 @@ public:
     /** Draw image to screen. */
     virtual void draw();
 
-private:
+  private:
     string	menu_title;
 
     vector<ItemType>	items;
     vector<ItemType>::iterator selector;
 
-};	// class Menu
+  };	// class Menu
 
 #endif // __SMF_STATICMENU_HH

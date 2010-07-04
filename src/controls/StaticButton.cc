@@ -46,108 +46,118 @@ using std::string;
 #endif
 
 Button::Button(string text, const Rect& position, string property_string) :
-        FreeTypeControl(position, property_string), label_text(text) { }
+    FreeTypeControl(position, property_string), label_text(text) { }
 Button::Button(Widget* guardian, string text, const Rect& position, string property_string) :
-        FreeTypeControl(guardian, position, property_string), label_text(text) { }
+    FreeTypeControl(guardian, position, property_string), label_text(text) { }
 Button::Button(const Button& src) : FreeTypeControl(src), label_text(src.label_text) { }
-Button::~Button() {
+Button::~Button()
+{
 
-    if (isInitialized()) cleanup();
+  if (isInitialized()) cleanup();
 
 }
 
-Button& Button::operator=(const Button& src) {
+Button& Button::operator=(const Button& src)
+{
 
-    if (&src != this) {
+  if (&src != this)
+    {
 
-        FreeTypeControl::operator=(src);
-        label_text = src.label_text;
+      FreeTypeControl::operator=(src);
+      label_text = src.label_text;
 
-        setNotInitialized();
+      setNotInitialized();
 
     }
 
-    return(*this);
+  return(*this);
 }	// operator=
 
-string Button::getText() {
-    return(label_text);
+string Button::getText()
+{
+  return(label_text);
 }	// getText
-void Button::setText(string text) {
-    if (isInitialized()) {
-        cleanup();
-        setNotInitialized();
+void Button::setText(string text)
+{
+  if (isInitialized())
+    {
+      cleanup();
+      setNotInitialized();
     }	// if(isInitialized)
 
-    label_text = text;
+  label_text = text;
 }	// setText
 
-void Button::init() {
+void Button::init()
+{
 #if defined(_DEBUG) || defined(_DEBUGSTATICTEXTLABEL)
-    logAppend("Setting up text label: " + label_text );
+  logAppend("Setting up text label: " + label_text );
 #endif
 
-    // Store the previous state
-    pushState();
+  // Store the previous state
+  pushState();
 
-    // Propogate widget properties to text renderer
-    setFontProperties(getProperties());
+  // Propogate widget properties to text renderer
+  setFontProperties(getProperties());
 
-    int surface_width = textWidth(label_text) + 6;
-
-#if defined(_DEBUG) || defined(_DEBUGSTATICTEXTLABEL)
-    logAppend("Got width.");
-#endif
-
-    int surface_height = textHeight(label_text) + 1;
+  int surface_width = textWidth(label_text) + 6;
 
 #if defined(_DEBUG) || defined(_DEBUGSTATICTEXTLABEL)
-    logAppend("Got height.");
+  logAppend("Got width.");
 #endif
 
-    setSurface(SDL_AllocSurface(SDL_SWSURFACE, surface_width, surface_height, 32, 0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000));
-
-    // Draw button background
-    boxRGBA(getSurface(), 0, 0, surface_width, surface_height, default_button_backcolor.r, default_button_backcolor.g, default_button_backcolor.b, 0xFF);
-    rectangleRGBA(getSurface(), 0, 0, surface_width - 1, surface_height - 1, default_button_bordercolor.r, default_button_bordercolor.g, default_button_bordercolor.b, 0xFF);
-
-    render(label_text, getSurface(), 3, 0);
-
-    // After redering, restore previous state
-    popState();
+  int surface_height = textHeight(label_text) + 1;
 
 #if defined(_DEBUG) || defined(_DEBUGSTATICTEXTLABEL)
-    logAppend("Rendered.");
+  logAppend("Got height.");
 #endif
 
-    // Automatic adjustment of Widget size
-    if (string::npos != getProperty("autosize").find("true")) {
-        Width(surface_width);
-        Height(surface_height);
+  setSurface(SDL_AllocSurface(SDL_SWSURFACE, surface_width, surface_height, 32, 0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000));
+
+  // Draw button background
+  boxRGBA(getSurface(), 0, 0, surface_width, surface_height, default_button_backcolor.r, default_button_backcolor.g, default_button_backcolor.b, 0xFF);
+  rectangleRGBA(getSurface(), 0, 0, surface_width - 1, surface_height - 1, default_button_bordercolor.r, default_button_bordercolor.g, default_button_bordercolor.b, 0xFF);
+
+  render(label_text, getSurface(), 3, 0);
+
+  // After redering, restore previous state
+  popState();
+
+#if defined(_DEBUG) || defined(_DEBUGSTATICTEXTLABEL)
+  logAppend("Rendered.");
+#endif
+
+  // Automatic adjustment of Widget size
+  if (string::npos != getProperty("autosize").find("true"))
+    {
+      Width(surface_width);
+      Height(surface_height);
     }	// getProperty("all")
 
 #if defined(_DEBUG) || defined(_DEBUGSTATICTEXTLABEL)
-    logAppend("Converting rendered surface to display alpha format.");
+  logAppend("Converting rendered surface to display alpha format.");
 #endif
 
-    setSurface(SDL_DisplayFormatAlpha(getSurface()));
+  setSurface(SDL_DisplayFormatAlpha(getSurface()));
 
-    setInitialized();
+  setInitialized();
 
 }	// init
-void Button::cleanup() {
-    setSurface(0);
+void Button::cleanup()
+{
+  setSurface(0);
 
-    setNotInitialized();
+  setNotInitialized();
 
 }	// cleanup
 
-void Button::draw() {
+void Button::draw()
+{
 
 #if defined(_DEBUG) || defined(_DEBUGSTATICTEXTLABEL)
-    logAppend("Button: Drawing.");
+  logAppend("Button: Drawing.");
 #endif
 
-    FreeTypeControl::draw();
+  FreeTypeControl::draw();
 
 }	// draw

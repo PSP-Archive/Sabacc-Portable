@@ -30,33 +30,40 @@ using std::string;
  *  generateObjectID() to assign an object id. */
 Object::Object() : my_id(generateObjectID()), my_properties() { }
 Object::Object(string property_string) :
-        my_id(generateObjectID()), my_properties(parseProperties(property_string)) { }
+    my_id(generateObjectID()), my_properties(parseProperties(property_string)) { }
 Object::Object(const Object& src) : my_id(generateObjectID()), my_properties(src.my_properties) { }
 Object::~Object() { }
 
-Object& Object::operator=(const Object& src) {
+Object& Object::operator=(const Object& src)
+{
 
-    if (&src != this) {
-        my_id = generateObjectID();
-        // my_properties = src.my_properties;
+  if (&src != this)
+    {
+      my_id = generateObjectID();
+      // my_properties = src.my_properties;
     }	// if(&src != this)
 
-    return(*this);
+  return(*this);
 }	// operator=
 
-object_id_type Object::getID() {
-    return(my_id);
+object_id_type Object::getID()
+{
+  return(my_id);
 }	// getID
 
-string Object::getProperty(string key) {
-  if(my_properties.end() != my_properties.find(key))
+string Object::getProperty(string key)
+{
+  if (my_properties.end() != my_properties.find(key))
     {
       return(my_properties.at(key));
-    } else {
-    return("");
-  }
+    }
+  else
+    {
+      return("");
+    }
 }	// getProperty
-void Object::setProperty(string key, string property) {
+void Object::setProperty(string key, string property)
+{
 
 #ifdef _DEBUG
   logAppend("Setting object properties.");
@@ -66,9 +73,11 @@ void Object::setProperty(string key, string property) {
   //   && (property != my_properties.at(key)))
   //  my_properties[key] = property;
 }	// setProperty
-string Object::getProperties() {
-    return(buildPropertyString(my_properties));
+string Object::getProperties()
+{
+  return(buildPropertyString(my_properties));
 }	// getProperties
-void Object::setProperties(string property_string) {
-    my_properties = parseProperties(property_string);
+void Object::setProperties(string property_string)
+{
+  my_properties = parseProperties(property_string);
 }	// setProperties

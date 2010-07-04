@@ -17,21 +17,24 @@ using std::string;
 #include "exceptions/base/ExceptionBase.hh"
 #include "exceptions/system/RenderManagerExceptions.hh"
 
-namespace Exceptions {
+namespace Exceptions
+  {
 
-    namespace RenderManager {
+  namespace RenderManager
+    {
 
-        FlipFailed::FlipFailed(const string& message, const char* file, int line) :
-                ExceptionBase(message, file, line) { }
-        FlipFailed::FlipFailed(const string& message, const string& details, const char* file, int line)  :
-                ExceptionBase(message, details, file, line) { }
-        FlipFailed::FlipFailed(const string& message, const string& details, const string& data, const char* file, int line)  :
-                ExceptionBase(message, details, data, file, line) { }
+    FlipFailed::FlipFailed(const string& message, const char* file, int line) :
+        ExceptionBase(message, file, line) { }
+    FlipFailed::FlipFailed(const string& message, const string& details, const char* file, int line)  :
+        ExceptionBase(message, details, file, line) { }
+    FlipFailed::FlipFailed(const string& message, const string& details, const string& data, const char* file, int line)  :
+        ExceptionBase(message, details, data, file, line) { }
 
-        string FlipFailed::getExceptionName() {
-            return("Image::FlipFailed");
-        }
+    string FlipFailed::getExceptionName()
+    {
+      return("Image::FlipFailed");
+    }
 
-    }	// namespace Image
+  }	// namespace Image
 
 }	// namespace Exceptions

@@ -32,61 +32,74 @@ using std::string;
 #endif
 
 Control::Control(const Rect& position, string property_string ) :
-        SurfaceWidget(position, property_string) { }
+    SurfaceWidget(position, property_string) { }
 Control::Control(Widget* guardian, const Rect& position, string property_string) :
-        SurfaceWidget(guardian, position, property_string) { }
+    SurfaceWidget(guardian, position, property_string) { }
 Control::Control(const Control& src) : SurfaceWidget(src) { }
 Control::~Control() { }
 
-Control& Control::operator=(const Control& src) {
+Control& Control::operator=(const Control& src)
+{
 
-    if (&src != this) {
-        SurfaceWidget::operator=(src);
+  if (&src != this)
+    {
+      SurfaceWidget::operator=(src);
     }
 
-    return(*this);
+  return(*this);
 
 }	// operator=
 
-bool Control::onKeyDown(const SDL_KeyboardEvent&) {
-    return(false);
+bool Control::onKeyDown(const SDL_KeyboardEvent&)
+{
+  return(false);
 }
-bool Control::onKeyUp(const SDL_KeyboardEvent&) {
-    return(false);
-}
-
-bool Control::onJoystickButtonDown(const SDL_JoyButtonEvent&) {
-    return(false);
-}
-bool Control::onJoystickButtonUp(const SDL_JoyButtonEvent&) {
-    return(false);
-}
-bool Control::onJoystickMove(const SDL_JoyAxisEvent&) {
-    return(false);
-}
-bool Control::onJoystickHat(const SDL_JoyHatEvent&) {
-    return(false);
-}
-bool Control::onJoystickBall(const SDL_JoyBallEvent&) {
-    return(false);
+bool Control::onKeyUp(const SDL_KeyboardEvent&)
+{
+  return(false);
 }
 
-bool Control::onMouseMove(const SDL_MouseMotionEvent&) {
-    return(false);
+bool Control::onJoystickButtonDown(const SDL_JoyButtonEvent&)
+{
+  return(false);
 }
-bool Control::onMouseButtonDown(const SDL_MouseButtonEvent&) {
-    return(false);
+bool Control::onJoystickButtonUp(const SDL_JoyButtonEvent&)
+{
+  return(false);
 }
-bool Control::onMouseButtonUp(const SDL_MouseButtonEvent&) {
-    return(false);
+bool Control::onJoystickMove(const SDL_JoyAxisEvent&)
+{
+  return(false);
+}
+bool Control::onJoystickHat(const SDL_JoyHatEvent&)
+{
+  return(false);
+}
+bool Control::onJoystickBall(const SDL_JoyBallEvent&)
+{
+  return(false);
 }
 
-void Control::draw() {
+bool Control::onMouseMove(const SDL_MouseMotionEvent&)
+{
+  return(false);
+}
+bool Control::onMouseButtonDown(const SDL_MouseButtonEvent&)
+{
+  return(false);
+}
+bool Control::onMouseButtonUp(const SDL_MouseButtonEvent&)
+{
+  return(false);
+}
+
+void Control::draw()
+{
 
 #if defined(_DEBUG) || defined(_DEBUGCONTROLBASE)
-    logAppend("Control doesn't draw, passing off to SurfaceWidget.");
+  logAppend("Control doesn't draw, passing off to SurfaceWidget.");
 #endif
 
-    SurfaceWidget::draw();
+  SurfaceWidget::draw();
 
 }	// draw

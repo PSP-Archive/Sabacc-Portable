@@ -12,7 +12,8 @@
 // SMF headers
 #include "utility/ObjectUtilities.hh"
 
-object_id_type generateObjectID() {
-    static object_id_type new_object_id = 0;
-    return(++new_object_id);
+object_id_type generateObjectID()
+{
+  static object_id_type new_object_id = 0;
+  return(++new_object_id);
 } // generateObjectID

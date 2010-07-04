@@ -17,9 +17,10 @@
 // Sabacc forward declarations
 class Card;
 
-class GameBase {
+class GameBase
+  {
 
-public:
+  public:
 
     GameBase();
 // Vector of players with which to start the game
@@ -111,7 +112,7 @@ public:
     // For resuming a game. Also called by start when a new game is started
     virtual void StartGame() = 0;
 
-private:
+  private:
 
     std::vector<Player>		players, winners;
     std::vector<Card>		deck, waste;
@@ -139,6 +140,6 @@ private:
     // Common destruction/cleanup function
     void DestroyGameBase();
 
-};	// GameBase
+  };	// GameBase
 
 #endif // __GAMEBASE_HH

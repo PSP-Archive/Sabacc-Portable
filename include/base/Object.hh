@@ -22,9 +22,10 @@ using std::string;
 #include "utility/ObjectUtilities.hh"
 #include "utility/PropertyParser.hh"
 
-class Object {
+class Object
+  {
 
-public:
+  public:
 
     /** Constructors. @{ */
     Object();
@@ -45,12 +46,12 @@ public:
     virtual void setProperties(string);	/// Set (or create) properties from a string containing @c key: @c value pairs
     /** @} */
 
-private:
+  private:
 
     object_id_type	my_id;
     PropertyMap		my_properties;
 
-}; // class Object
+  }; // class Object
 
 #endif // __SMF_OBJECT_HH__
 

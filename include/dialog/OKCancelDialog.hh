@@ -40,33 +40,34 @@ class TextLabel;
 // SMF constants
 #include "constants/ColorConstants.hh"
 
-class OKCancelDialog : public DialogBase {
+class OKCancelDialog : public DialogBase
+  {
 
-public:
+  public:
 
     /** Constructors. Same as any lower tier Control base class. @{ */
-  OKCancelDialog(const Rect& = default_rect, const string& = "");
-  //  OKCancelDialog(const string&, const string& = "", const Rect& = default_rect, const string& = "");
-  OKCancelDialog(const string&, const string& = "", const string& = "OK", const string& = "Cancel", const Rect& = default_rect, const string& = "");
+    OKCancelDialog(const Rect& = default_rect, const string& = "");
+    //  OKCancelDialog(const string&, const string& = "", const Rect& = default_rect, const string& = "");
+    OKCancelDialog(const string&, const string& = "", const string& = "OK", const string& = "Cancel", const Rect& = default_rect, const string& = "");
     OKCancelDialog(const OKCancelDialog&);
     virtual ~OKCancelDialog();
 
     /** Assignment operator */
     OKCancelDialog& operator=(const OKCancelDialog&);
 
-  /** Text properties. @{ */
-  virtual std::string getDialogText();
-  virtual void setDialogText(std::string);
-  virtual std::string getDialogTitle();
-  virtual void setDialogTitle(std::string);
-  virtual std::string getDialogOKButtontext();
-  virtual void setDialogOKButtonText(std::string);
-  virtual std::string getDialogCancelButtontext();
-  virtual void setDialogCancelButtonText(std::string);
-  /** @} */
+    /** Text properties. @{ */
+    virtual std::string getDialogText();
+    virtual void setDialogText(std::string);
+    virtual std::string getDialogTitle();
+    virtual void setDialogTitle(std::string);
+    virtual std::string getDialogOKButtontext();
+    virtual void setDialogOKButtonText(std::string);
+    virtual std::string getDialogCancelButtontext();
+    virtual void setDialogCancelButtonText(std::string);
+    /** @} */
 
-	/** Keyboard event handlers, all defined to return true to prevent underlying
-     *  controls from capturing input. @{ */
+    /** Keyboard event handlers, all defined to return true to prevent underlying
+       *  controls from capturing input. @{ */
     virtual bool onKeyDown(const SDL_KeyboardEvent&);	/// Key pressed down.
     virtual bool onKeyUp(const SDL_KeyboardEvent&);	/// Key released.
     /** @} */
@@ -91,20 +92,20 @@ public:
     virtual void init();
     virtual void cleanup();
 
-	/** Draw the frame. */
-	virtual void draw();
+    /** Draw the frame. */
+    virtual void draw();
 
-private:
+  private:
 
-  TextLabel dialog_text, dialog_title;
+    TextLabel dialog_text, dialog_title;
 
 #if defined(__PSP__)
-  PSPButton ok_button, cancel_button;
+    PSPButton ok_button, cancel_button;
 #else
-  Button ok_button, cancel_button;
+    Button ok_button, cancel_button;
 #endif
 
 
-};	// class Control
+  };	// class Control
 
 #endif // __SMF_OKCANCELDIALOG_HH

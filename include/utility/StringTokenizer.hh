@@ -18,7 +18,8 @@
 using std::deque;
 using std::string;
 
-class StringTokenizer {
+class StringTokenizer
+  {
     deque<string>		tokens;
     deque<string>::iterator	current_token;
     string					delimiter;
@@ -28,7 +29,7 @@ class StringTokenizer {
     StringTokenizer();	// Can not create instance without string to parse
     void tokenize(string);	// do it
 
-public:
+  public:
     StringTokenizer(string);
     StringTokenizer(string, bool);
     StringTokenizer(string, string);
@@ -38,6 +39,6 @@ public:
     deque<string>::size_type size();
     string next();
     bool end();
-};	// class StringTokenizer
+  };	// class StringTokenizer
 
 #endif	// __SMF_STRING_TOKENIZER_HH

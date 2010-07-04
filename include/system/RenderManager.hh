@@ -26,9 +26,10 @@ using std::vector;
 // SMF headers
 #include "base/Widget.hh"
 
-class RenderManager {
+class RenderManager
+  {
 
-public:
+  public:
 
     RenderManager();
     virtual ~RenderManager();
@@ -45,7 +46,7 @@ public:
     virtual void push(Widget*);	/// Add a Widget to the end of the queue.
     virtual void pop();	/// Remove the last Widget from the queue.
 
-  virtual void erase(Widget*);
+    virtual void erase(Widget*);
     virtual void erase(vector<Widget*>::iterator);	/// Erase the Widget indicated by iterator
     /** @} */
 
@@ -57,7 +58,7 @@ public:
     /** Draw the Widgets in the queue. */
     virtual void draw();
 
-private:
+  private:
 
     vector<Widget*>	render_queue;
 
@@ -71,6 +72,6 @@ private:
     float fps_calculated;
 #endif
 
-};	// class RenderManager
+  };	// class RenderManager
 
 #endif // __RENDERMANAGER_HH

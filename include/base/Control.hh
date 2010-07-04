@@ -28,8 +28,9 @@ using std::string;
 #include "base/SurfaceWidget.hh"
 #include "geometry/Rect.hh"
 
-class Control : public SurfaceWidget {
-public:
+class Control : public SurfaceWidget
+  {
+  public:
     /** Constructors @{ */
     Control(const Rect& = default_rect, string = "");
     Control(Widget*, const Rect& = default_rect, string = "");
@@ -61,6 +62,6 @@ public:
     /** Draw the widget to screen. */
     virtual void draw();
 
-};	// class Control
+  };	// class Control
 
 #endif // __SMF_CONTROL_HH

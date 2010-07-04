@@ -22,9 +22,10 @@ using std::string;
 #include "base/Widget.hh"
 #include "geometry/Rect.hh"
 
-class PSPButton : public FreeTypeControl {
+class PSPButton : public FreeTypeControl
+  {
 
-public:
+  public:
 
     /** PSPButton has only one constructor:
      * @param text - the file to load. Required.
@@ -48,8 +49,8 @@ public:
     /** Retrieve or set label text and properties. @{ */
     virtual string getText();
     virtual void setText(string);
-  virtual string getPSPKey();
-  virtual void setPSPKey(char);
+    virtual string getPSPKey();
+    virtual void setPSPKey(char);
 
     /** Initialization and cleanup functions which must be overloaded by derived classes. @{ */
     virtual void init();
@@ -59,10 +60,10 @@ public:
     /** Draw image to screen. */
     virtual void draw();
 
-private:
-  string	label_text, psp_key;
+  private:
+    string	label_text, psp_key;
 
-};	// class PSPButton
+  };	// class PSPButton
 
 
 #endif // __SMF_STATICBUTTON_HH

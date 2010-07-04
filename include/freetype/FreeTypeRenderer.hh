@@ -43,9 +43,10 @@ using std::vector;
 // SMF Forward declarations
 class CachedGlyph;
 
-class FreeTypeRenderer {
+class FreeTypeRenderer
+  {
 
-public:
+  public:
 
     FreeTypeRenderer();
     FreeTypeRenderer(const FontState&);
@@ -61,7 +62,7 @@ public:
     /** @} */
 
     /** Retrieve and set font properties. @{ */
-  virtual void setFileStream(FT_Byte*, int);
+    virtual void setFileStream(FT_Byte*, int);
     virtual string getProperty(string);
     virtual void setProperty(string, string);
     virtual string getProperties();
@@ -113,7 +114,7 @@ public:
     virtual void render(const char*, SDL_Surface*, int = 0, int = 0);
     /** @} */
 
-private:
+  private:
 
     // Freetype objects
     FT_Library			freetype2;
@@ -124,14 +125,14 @@ private:
     // Library status
     bool				lib_open;
     bool				lib_initialized;
-  bool using_stream;
+    bool using_stream;
 
     // error code
     int					result;
 
     // Set up the library
     virtual void init();
-  virtual void initFromStream(FT_Byte*, int);
+    virtual void initFromStream(FT_Byte*, int);
     virtual void cleanup();
     virtual void close();
     virtual void open();
@@ -144,13 +145,13 @@ private:
     map<char, CachedGlyph>	glyph_cache, stroke_cache;	// char, glyph index, bitmap
     virtual CachedGlyph loadGlyph(char);
 
-  // Do not use this under PSP as the newer FreeType lib works with stroker
-  // differently. To be fixed, and dependent on FreeType lib version rather
-  // than if SMF is being compiled for PSP or not.
+    // Do not use this under PSP as the newer FreeType lib works with stroker
+    // differently. To be fixed, and dependent on FreeType lib version rather
+    // than if SMF is being compiled for PSP or not.
     virtual CachedGlyph loadStrokedGlyph(char);
 
     void clearCache();
 
-};	// class FreeTypeRenderer
+  };	// class FreeTypeRenderer
 
 #endif // SMF_FREETYPERENDERER_HH

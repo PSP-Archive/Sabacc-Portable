@@ -32,13 +32,14 @@ using std::string;
 #include "constants/FreeTypeRendererConstants.hh"
 #include "types/TypeDefinitions.hh"
 
-class FontState {
+class FontState
+  {
 
-public:
+  public:
 
     /** Constructors @{  */
     FontState();
-  FontState(int, int = default_font_style, SDL_Color = default_forecolor, string = "");
+    FontState(int, int = default_font_style, SDL_Color = default_forecolor, string = "");
     FontState(const FontState&);
     FontState& operator=(const FontState&);
     virtual ~FontState();
@@ -86,7 +87,7 @@ public:
     virtual void setBoldOffset(int);
     /** @} */
 
-private:
+  private:
 
     /** Basic font data. */
     int			size, style;
@@ -112,7 +113,7 @@ private:
     // Properties
     PropertyMap		font_properties;
 
-};	// struct FontState
+  };	// struct FontState
 
 
 #endif // __SMF_FONTSTATE_HH

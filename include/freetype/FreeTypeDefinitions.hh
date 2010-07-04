@@ -13,15 +13,16 @@
  * rendering class.
  */
 
-class FreeTypeRenderStyle {
+class FreeTypeRenderStyle
+  {
 
-public:
+  public:
 
     virtual FreeTypeRenderStyle renderStyleDefault();
     virtual FreeTypeRenderStyle renderStyleMono();
     virtual FreeTypeRenderStyle renderStyleAliased();
 
-private:
+  private:
 
     /** Prevent any instance of FreeTypeRenderStyle from being created. @{ */
     FreeTypeRenderStyle();
@@ -31,6 +32,6 @@ private:
     FreeTypeRenderStyle& operator=(const FreeTypeRenderStyle&);
     /** @} */
 
-};	// class FreeTypeRenderStyle
+  };	// class FreeTypeRenderStyle
 
 #endif // __FREETYPEDEFINITIONS_HH

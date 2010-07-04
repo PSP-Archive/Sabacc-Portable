@@ -31,14 +31,15 @@ static const std::string default_card_image = "card_small.png";
 static const std::string default_card_image = "card_small.png";
 #endif
 
-class CardImage : public StaticImage {
+class CardImage : public StaticImage
+  {
 
     Card*	card_data;
     bool	hide_face;
 
     static FreeTypeRenderer card_renderer;
 
-public:
+  public:
 
     CardImage();
     CardImage(Card*);
@@ -62,6 +63,6 @@ public:
     // Draw the card
     virtual void draw();
 
-};	// class CardImage
+  };	// class CardImage
 
 #endif // __CARDWIDGET_HH

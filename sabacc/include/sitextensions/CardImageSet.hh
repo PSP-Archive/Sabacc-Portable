@@ -14,7 +14,8 @@ class Player;
 
 /* This class uses a vector of CardImage objects and is derived from widget so that it may
  * be added to the render queue. */
-class CardImageSet : public Widget {
+class CardImageSet : public Widget
+  {
 
     std::vector<CardImage>	card_images;
     Player*					card_holder;
@@ -23,10 +24,10 @@ class CardImageSet : public Widget {
     CardImageSet(const CardImageSet&);
     CardImageSet& operator=(const CardImageSet&);
 
-public:
+  public:
 
     bool					use_selection;
-  bool hide_cards;
+    bool hide_cards;
 
     CardImageSet();
     CardImageSet(Rect);
@@ -34,8 +35,8 @@ public:
 
     void setPlayer(Player*);
 
-  // Hide the faces of the cards
-  virtual void setHideCards(bool);
+    // Hide the faces of the cards
+    virtual void setHideCards(bool);
 
     // Required overrides
     virtual void init();
@@ -44,6 +45,6 @@ public:
     // Draw
     virtual void draw();
 
-};	// class CardImageSet
+  };	// class CardImageSet
 
 #endif // __CARDIMAGESET_HH

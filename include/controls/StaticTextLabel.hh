@@ -21,9 +21,10 @@ using std::string;
 #include "base/Widget.hh"
 #include "geometry/Rect.hh"
 
-class TextLabel : public FreeTypeControl {
+class TextLabel : public FreeTypeControl
+  {
 
-public:
+  public:
 
     /** TextLabel has only one constructor:
      * @param text - the file to load. Required.
@@ -57,9 +58,9 @@ public:
     /** Draw image to screen. */
     virtual void draw();
 
-private:
+  private:
     string	label_text;
 
-};	// class TextLabel
+  };	// class TextLabel
 
 #endif // __SMF_STATICTEXT_HH

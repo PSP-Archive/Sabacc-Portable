@@ -10,10 +10,11 @@
  * only a change to a typedef at the end of this header file.
  * Operator++ and -- will decrease by one chip's value as defined in the chipset.
  * opertaor+= and -= will decrease by the specified number of chips. */
-template <type T> class Credit_ {
+template <type T> class Credit_
+  {
     T	_value;
 
-public:
+  public:
     // Constructors for various types
     Credit_() : _value(static_cast<T>(0)) { }
     CreditType(short val) : _value(static_cast<T>(val)) { }
@@ -31,65 +32,82 @@ public:
     ~Credit_() { }
 
     // Assignment operator for various types
-    Credit_& operator=() {
-        _value = static_cast<T>(0);
+    Credit_& operator=()
+    {
+      _value = static_cast<T>(0);
     }
-    Credit_& operator=(short val) {
-        _value = static_cast<T>(val);
+    Credit_& operator=(short val)
+    {
+      _value = static_cast<T>(val);
     }
-    Credit_& operator=(unsigned short val) {
-        _value = static_cast<T>(val);
+    Credit_& operator=(unsigned short val)
+    {
+      _value = static_cast<T>(val);
     }
-    Credit_& operator=(int val) {
-        _value = static_cast<T>(val);
+    Credit_& operator=(int val)
+    {
+      _value = static_cast<T>(val);
     }
-    Credit_& operator=(unsigned int val) {
-        _value = static_cast<T>(val);
+    Credit_& operator=(unsigned int val)
+    {
+      _value = static_cast<T>(val);
     }
-    Credit_& operator=(long val) {
-        _value = static_cast<T>(val);
+    Credit_& operator=(long val)
+    {
+      _value = static_cast<T>(val);
     }
-    Credit_& operator=(unsigned long val) {
-        _value = static_cast<T>(val);
+    Credit_& operator=(unsigned long val)
+    {
+      _value = static_cast<T>(val);
     }
-    Credit_& operator=(float val) {
-        _value = static_cast<T>(val);
+    Credit_& operator=(float val)
+    {
+      _value = static_cast<T>(val);
     }
-    Credit_& operator=(unsigned float val) {
-        _value = static_cast<T>(val);
+    Credit_& operator=(unsigned float val)
+    {
+      _value = static_cast<T>(val);
     }
-    Credit_& operator=(double val) {
-        _value = static_cast<T>(val);
+    Credit_& operator=(double val)
+    {
+      _value = static_cast<T>(val);
     }
-    Credit_& operator=(unsigned double val) {
-        _value = static_cast<T>(val);
+    Credit_& operator=(unsigned double val)
+    {
+      _value = static_cast<T>(val);
     }
 
     // Credit operations
-    inline Credit_& operator++() {
-        _value += Rules.getChipSize()); return(_value);
+    inline Credit_& operator++()
+    {
+      _value += Rules.getChipSize()); return(_value);
     }
-    Credit_& operator++(int) {
-        T	temp;
-        _value += Rules.getChipSize();
-        return(temp);
+    Credit_& operator++(int)
+    {
+      T	temp;
+      _value += Rules.getChipSize();
+      return(temp);
     } // operator++(int)
-    inline Credit_& operator--() {
-        _value -= Rules.getChipSize()); return(_value);
+    inline Credit_& operator--()
+    {
+      _value -= Rules.getChipSize()); return(_value);
     }
-    Credit_& operator--(int) {
-        T	temp;
-        _value -= Rules.getChipSize();
-        return(temp);
+    Credit_& operator--(int)
+    {
+      T	temp;
+      _value -= Rules.getChipSize();
+      return(temp);
     } // operator --
-    inline Credit_& operator+=(const Credit_& c) {
-        _value += (c * Rules().getChipSize());
-        return (_value);
+    inline Credit_& operator+=(const Credit_& c)
+    {
+      _value += (c * Rules().getChipSize());
+      return (_value);
     } // operator+=
-    inline Credit_& operator-=(const Credit_& c) {
-        _value -= (c * Rules().getChipSize());
-        return (_value);
+    inline Credit_& operator-=(const Credit_& c)
+    {
+      _value -= (c * Rules().getChipSize());
+      return (_value);
     } // operator-=
-}; // Credit_
+  }; // Credit_
 
 #endif // __CREDIT_HH

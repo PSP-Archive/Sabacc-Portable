@@ -18,9 +18,10 @@ using std::string;
 #include "system/RenderManager.hh"
 #include "system/VideoManager.hh"
 
-class SystemManager {
+class SystemManager
+  {
 
-public:
+  public:
 
     SystemManager();
     virtual ~SystemManager();
@@ -51,9 +52,9 @@ public:
 
     virtual VideoManager& getVideo();
     virtual RenderManager& getRenderer();
-  virtual EventManager& getEventManager();
+    virtual EventManager& getEventManager();
 
-private:
+  private:
     // Paths
     string		path_base;
     string		path_delimiter;
@@ -70,8 +71,8 @@ private:
     // Rendering Manager
     RenderManager*	renderer;
 
-  // Event Manager
-  EventManager* events;
+    // Event Manager
+    EventManager* events;
     // Audio Manager
     // AudioManager*	audio;
 
@@ -87,7 +88,7 @@ private:
     SystemManager(const SystemManager&);
     SystemManager& operator=(const SystemManager&);
 
-};	// SystemManager
+  };	// SystemManager
 
 SystemManager& getSystemManager();
 

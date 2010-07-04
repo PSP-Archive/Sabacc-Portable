@@ -32,19 +32,23 @@ static const short FACE_IDIOT = 0;
 
 static const int face_neg_offset = 17;
 static const int face_pos_offset = - 12;
-static const std::string face_names_neg[18] = {
-    "star", "", "evil one", "moderation", "demise", "", "balance", "", "",
-    "endurance", "", "", "", "", "", "queen", "", "idiot"
+static const std::string face_names_neg[18] =
+{
+  "star", "", "evil one", "moderation", "demise", "", "balance", "", "",
+  "endurance", "", "", "", "", "", "queen", "", "idiot"
 };
-static const std::string face_names_pos[4] = {
-    "commander", "mistress", "master", "ace"
+static const std::string face_names_pos[4] =
+{
+  "commander", "mistress", "master", "ace"
 };
-static const std::string face_names_neg_full[18] = {
-    "The Star", "", "The Evil One", "Moderation", "Demise", "", "Balance", "", "",
-    "Endurance", "", "", "", "", "", "The Queen of Air and Darkness", "", "The Idiot"
+static const std::string face_names_neg_full[18] =
+{
+  "The Star", "", "The Evil One", "Moderation", "Demise", "", "Balance", "", "",
+  "Endurance", "", "", "", "", "", "The Queen of Air and Darkness", "", "The Idiot"
 };
-static const std::string face_names_pos_full[4] = {
-    "The Commander", "The Mistress", "The Master", "The Ace"
+static const std::string face_names_pos_full[4] =
+{
+  "The Commander", "The Mistress", "The Master", "The Ace"
 };
 
 #endif // __CARDCONSTANTS_HH

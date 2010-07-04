@@ -7,42 +7,47 @@
 // Exception headers
 #include "exceptions/base/ExceptionBase.hh"
 
-namespace Exceptions {
+namespace Exceptions
+  {
 
-    namespace GamePlay {
+  namespace GamePlay
+    {
 
-        class TooFewPlayers : public ExceptionBase {
+    class TooFewPlayers : public ExceptionBase
+      {
 
-        public:
-            TooFewPlayers(std::string);
-            TooFewPlayers(std::string, std::string);
-            TooFewPlayers(std::string, std::string, std::string);
-            virtual ~TooFewPlayers();
+      public:
+        TooFewPlayers(std::string);
+        TooFewPlayers(std::string, std::string);
+        TooFewPlayers(std::string, std::string, std::string);
+        virtual ~TooFewPlayers();
 
-        };  // class TooFewPlayers
+      };  // class TooFewPlayers
 
-        class TooManyPlayers : public ExceptionBase {
+    class TooManyPlayers : public ExceptionBase
+      {
 
-        public:
-            TooManyPlayers(std::string);
-            TooManyPlayers(std::string, std::string);
-            TooManyPlayers(std::string, std::string, std::string);
-            virtual ~TooManyPlayers();
+      public:
+        TooManyPlayers(std::string);
+        TooManyPlayers(std::string, std::string);
+        TooManyPlayers(std::string, std::string, std::string);
+        virtual ~TooManyPlayers();
 
-        };  // class TooManyPlayers
+      };  // class TooManyPlayers
 
-        class CannotHoldMore : public ExceptionBase {
+    class CannotHoldMore : public ExceptionBase
+      {
 
-        public:
-            CannotHoldMore(std::string);
-            CannotHoldMore(std::string, std::string);
-            CannotHoldMore(std::string, std::string, std::string);
-            virtual ~CannotHoldMore();
+      public:
+        CannotHoldMore(std::string);
+        CannotHoldMore(std::string, std::string);
+        CannotHoldMore(std::string, std::string, std::string);
+        virtual ~CannotHoldMore();
 
-        };  // class CannotHoldMore
+      };  // class CannotHoldMore
 
 
-    } // namespace GamePlay
+  } // namespace GamePlay
 
 }   // namespace Exceptions
 

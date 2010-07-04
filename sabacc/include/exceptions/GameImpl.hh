@@ -7,31 +7,35 @@
 // Exception headers
 #include "exceptions/base/ExceptionBase.hh"
 
-namespace Exceptions {
+namespace Exceptions
+  {
 
-    namespace Game {
+  namespace Game
+    {
 
-        class Game : public ExceptionBase {
+    class Game : public ExceptionBase
+      {
 
-        public:
-            Game(std::string);
-            Game(std::string, std::string);
-            Game(std::string, std::string, std::string);
-            virtual ~Game();
+      public:
+        Game(std::string);
+        Game(std::string, std::string);
+        Game(std::string, std::string, std::string);
+        virtual ~Game();
 
-        };  // class Game
+      };  // class Game
 
-        class CouldNotCreateGameObject : public ExceptionBase {
+    class CouldNotCreateGameObject : public ExceptionBase
+      {
 
-        public:
-            CouldNotCreateGameObject(std::string);
-            CouldNotCreateGameObject(std::string, std::string);
-            CouldNotCreateGameObject(std::string, std::string, std::string);
-            virtual ~CouldNotCreateGameObject();
+      public:
+        CouldNotCreateGameObject(std::string);
+        CouldNotCreateGameObject(std::string, std::string);
+        CouldNotCreateGameObject(std::string, std::string, std::string);
+        virtual ~CouldNotCreateGameObject();
 
-        };  // class CouldNotCreateGameObject
+      };  // class CouldNotCreateGameObject
 
-    } // namespace GamePlay
+  } // namespace GamePlay
 
 }   // namespace Exceptions
 

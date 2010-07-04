@@ -17,21 +17,24 @@ using std::string;
 #include "exceptions/base/ExceptionBase.hh"
 #include "exceptions/system/SystemManagerExceptions.hh"
 
-namespace Exceptions {
+namespace Exceptions
+  {
 
-    namespace SystemManager {
+  namespace SystemManager
+    {
 
-        InitFailed::InitFailed(const string& message, const char* file, int line) :
-                ExceptionBase(message, file, line) { }
-        InitFailed::InitFailed(const string& message, const string& details, const char* file, int line)  :
-                ExceptionBase(message, details, file, line) { }
-        InitFailed::InitFailed(const string& message, const string& details, const string& data, const char* file, int line)  :
-                ExceptionBase(message, details, data, file, line) { }
+    InitFailed::InitFailed(const string& message, const char* file, int line) :
+        ExceptionBase(message, file, line) { }
+    InitFailed::InitFailed(const string& message, const string& details, const char* file, int line)  :
+        ExceptionBase(message, details, file, line) { }
+    InitFailed::InitFailed(const string& message, const string& details, const string& data, const char* file, int line)  :
+        ExceptionBase(message, details, data, file, line) { }
 
-        string InitFailed::getExceptionName() {
-            return("Image::InitFailed");
-        }
+    string InitFailed::getExceptionName()
+    {
+      return("Image::InitFailed");
+    }
 
-    }	// namespace SystemManager
+  }	// namespace SystemManager
 
 }	// namespace Exceptions

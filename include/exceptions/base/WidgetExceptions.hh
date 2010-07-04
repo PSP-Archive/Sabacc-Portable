@@ -19,43 +19,47 @@ using std::string;
 // SMF Exception headers
 #include "exceptions/base/ExceptionBase.hh"
 
-namespace Exceptions {
+namespace Exceptions
+  {
 
-    namespace Widget {
+  namespace Widget
+    {
 
-        class BlitError : public ExceptionBase {
+    class BlitError : public ExceptionBase
+      {
 
-        public:
+      public:
 
-            /** Constructors. See ExceptionBase for details. @{ */
-            BlitError(const string&, const char* = "", int = 0);	/// Short message, file (default: zero length) and line (default: -1)
-            BlitError(const string&, const string&, const char* = "", int = 0);	/// Short message, long message, file (default: zero length) and line (default: -1)
-            BlitError(const string&, const string&, const string&, const char* = "", int = 0);	/// Short message, long message, extra data, file (default: zero length) and line (default: -1)
-            virtual ~BlitError() { }
-            /** @} */
+        /** Constructors. See ExceptionBase for details. @{ */
+        BlitError(const string&, const char* = "", int = 0);	/// Short message, file (default: zero length) and line (default: -1)
+        BlitError(const string&, const string&, const char* = "", int = 0);	/// Short message, long message, file (default: zero length) and line (default: -1)
+        BlitError(const string&, const string&, const string&, const char* = "", int = 0);	/// Short message, long message, extra data, file (default: zero length) and line (default: -1)
+        virtual ~BlitError() { }
+        /** @} */
 
-            /** These functions get exception information. @{ */
-            virtual string getExceptionName();
+        /** These functions get exception information. @{ */
+        virtual string getExceptionName();
 
-        };	// class BlitError
+      };	// class BlitError
 
-        class InvalidSurfaceForBlit : public ExceptionBase {
+    class InvalidSurfaceForBlit : public ExceptionBase
+      {
 
-        public:
+      public:
 
-            /** Constructors. See ExceptionBase for details. @{ */
-            InvalidSurfaceForBlit(const string&, const char* = "", int = 0);	/// Short message, file (default: zero length) and line (default: -1)
-            InvalidSurfaceForBlit(const string&, const string&, const char* = "", int = 0);	/// Short message, long message, file (default: zero length) and line (default: -1)
-            InvalidSurfaceForBlit(const string&, const string&, const string&, const char* = "", int = 0);	/// Short message, long message, extra data, file (default: zero length) and line (default: -1)
-            virtual ~InvalidSurfaceForBlit() { }
-            /** @} */
+        /** Constructors. See ExceptionBase for details. @{ */
+        InvalidSurfaceForBlit(const string&, const char* = "", int = 0);	/// Short message, file (default: zero length) and line (default: -1)
+        InvalidSurfaceForBlit(const string&, const string&, const char* = "", int = 0);	/// Short message, long message, file (default: zero length) and line (default: -1)
+        InvalidSurfaceForBlit(const string&, const string&, const string&, const char* = "", int = 0);	/// Short message, long message, extra data, file (default: zero length) and line (default: -1)
+        virtual ~InvalidSurfaceForBlit() { }
+        /** @} */
 
-            /** These functions get exception information. @{ */
-            virtual string getExceptionName();
+        /** These functions get exception information. @{ */
+        virtual string getExceptionName();
 
-        };	// class LoadError
+      };	// class LoadError
 
-    }	// namespace Widget
+  }	// namespace Widget
 
 }	// namespace Exceptions
 

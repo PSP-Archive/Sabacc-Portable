@@ -34,8 +34,9 @@
 // The PSP dialogs have been moved to the PSPUtility namespace
 // so that both SMF dialogs and PSP dialogs may be used together
 // in the same application.
-namespace PSPUtility {
-  
+namespace PSPUtility
+  {
+
   /**
    * @enum SaveGameDialogMode
    * Available options for the save/load dialog.
@@ -51,52 +52,53 @@ namespace PSPUtility {
    * Stores the data for and performs the actual operation of
    * saving and lodaing game data.
    */
-  class SaveGameData {
+  class SaveGameData
+    {
 
-  public:
+    public:
 
-    SaveGameData(char*, size_t, std::string = "No details available");
-    SaveGameData(const SaveGameData&);
-    virtual ~SaveGameData();
+      SaveGameData(char*, size_t, std::string = "No details available");
+      SaveGameData(const SaveGameData&);
+      virtual ~SaveGameData();
 
-    virtual SaveGameData& operator=(const SaveGameData&);
+      virtual SaveGameData& operator=(const SaveGameData&);
 
-    /** Retreive and store save game data @{ */
-    virtual const char* getData();
-    virtual size_t getDataSize();
-    virtual void setData(char*, size_t = 0);
-    virtual std::string getDescription();
-    virtual void setDescription(std::string);
-    /** @} */
+      /** Retreive and store save game data @{ */
+      virtual const char* getData();
+      virtual size_t getDataSize();
+      virtual void setData(char*, size_t = 0);
+      virtual std::string getDescription();
+      virtual void setDescription(std::string);
+      /** @} */
 
-    /** Set up the dialog. @{ */
-    virtual PspUtilitySavedataMode getDialogMode();
-    virtual void setDialogMode(PspUtilitySavedataMode = PSP_UTILITY_SAVEDATA_LISTSAVE);
-    /** @} */
+      /** Set up the dialog. @{ */
+      virtual PspUtilitySavedataMode getDialogMode();
+      virtual void setDialogMode(PspUtilitySavedataMode = PSP_UTILITY_SAVEDATA_LISTSAVE);
+      /** @} */
 
-    /** Set up and clean up @{ */
-    virtual void init();
-    virtual void cleanup();
-    /** @} */
+      /** Set up and clean up @{ */
+      virtual void init();
+      virtual void cleanup();
+      /** @} */
 
-    /** Display the dialog. */
-    virtual void show();
+      /** Display the dialog. */
+      virtual void show();
 
-  private:
+    private:
 
-    char* save_game_data;
-    size_t save_game_data_length;
+      char* save_game_data;
+      size_t save_game_data_length;
 
-    PspUtilitySavedataMode dialog_mode;
+      PspUtilitySavedataMode dialog_mode;
 
-    string game_description;
+      string game_description;
 
-    SceUtilitySavedataParam save_data;
-    PspUtilitySavedataListSaveNewData data_list;
+      SceUtilitySavedataParam save_data;
+      PspUtilitySavedataListSaveNewData data_list;
 
-    bool is_init;
+      bool is_init;
 
-  };// class SaveGameData
+    };// class SaveGameData
 
 };// namespace PSPUtility
 

@@ -43,9 +43,9 @@ using std::string;
 #endif
 
 StaticImage::StaticImage(unsigned char* buffer,
-			 unsigned long buf_size,
-			 const Rect& position,
-			 const string& property_string) :
+                         unsigned long buf_size,
+                         const Rect& position,
+                         const string& property_string) :
     SurfaceWidget(position, property_string),
     image_buffer(buffer),
     image_buffer_size(buf_size),
@@ -53,12 +53,12 @@ StaticImage::StaticImage(unsigned char* buffer,
 { }
 
 StaticImage::StaticImage(string file_name,
-			 const Rect& position,
-			 const string& property_string) :
-  SurfaceWidget(position, property_string),
-  image_buffer(0),
-  image_buffer_size(0),
-  image_file(file_name)
+                         const Rect& position,
+                         const string& property_string) :
+    SurfaceWidget(position, property_string),
+    image_buffer(0),
+    image_buffer_size(0),
+    image_file(file_name)
 { }
 
 StaticImage::StaticImage(const StaticImage& src) :
@@ -68,145 +68,167 @@ StaticImage::StaticImage(const StaticImage& src) :
     image_file(src.image_file)
 { }
 
-StaticImage::~StaticImage() {
+StaticImage::~StaticImage()
+{
 
-    if (isInitialized()) cleanup();
+  if (isInitialized()) cleanup();
 
 }
 
-StaticImage& StaticImage::operator=(const StaticImage& src) {
+StaticImage& StaticImage::operator=(const StaticImage& src)
+{
 
-    if (&src != this) {
+  if (&src != this)
+    {
 
-        SurfaceWidget::operator=(src);
-	image_buffer = src.image_buffer;
-	image_buffer_size = src.image_buffer_size;
-        image_file = src.image_file;
-        setNotInitialized();
+      SurfaceWidget::operator=(src);
+      image_buffer = src.image_buffer;
+      image_buffer_size = src.image_buffer_size;
+      image_file = src.image_file;
+      setNotInitialized();
 
     }
 
-    return(*this);
+  return(*this);
 }	// operator=
 
 void
-StaticImage::setImageBuffer(unsigned char* buffer, unsigned long size) {
+StaticImage::setImageBuffer(unsigned char* buffer, unsigned long size)
+{
   image_buffer = buffer;
   image_buffer_size = size;
 } // setImageBuffer
 
 string
-StaticImage::getFileName() {
-    return(image_file);
+StaticImage::getFileName()
+{
+  return(image_file);
 }
 
 void
-StaticImage::setFileName(string file_name) {
-    if (isInitialized()) {
-        cleanup();
-        setNotInitialized();
+StaticImage::setFileName(string file_name)
+{
+  if (isInitialized())
+    {
+      cleanup();
+      setNotInitialized();
     }	// if(isInitialized)
 
-    image_file = file_name;
+  image_file = file_name;
 }	// setFileName
 
-void StaticImage::init() {
+void StaticImage::init()
+{
 
 #if defined(_DEBUG) || defined(_DEBUGSTATICIMAGE)
-    logAppend("StaticImage: Opening image.");
+  logAppend("StaticImage: Opening image.");
 
-    logAppend(getSystemManager().getImagePath(image_file));
+  logAppend(getSystemManager().getImagePath(image_file));
 #endif
 
-    SDL_RWops* image_stream = 0;
+  SDL_RWops* image_stream = 0;
 
-    if(image_buffer
-       && (0 < image_buffer_size)
-       && (image_file.empty()))
-      {
-	image_stream = SDL_RWFromMem(image_buffer, image_buffer_size);
-      }
-    else {
+  if (image_buffer
+      && (0 < image_buffer_size)
+      && (image_file.empty()))
+    {
+      image_stream = SDL_RWFromMem(image_buffer, image_buffer_size);
+    }
+  else
+    {
       if (1 > image_file.length())
-	  throw Exceptions::File::ZeroLengthFileName("",
-						     "",
-						     "",
-						     __FILE__,
-						     __LINE__);
+        throw Exceptions::File::ZeroLengthFileName("",
+            "",
+            "",
+            __FILE__,
+            __LINE__);
 
       image_stream =
-	  SDL_RWFromFile(getSystemManager().getImagePath(image_file).c_str(),
-			 "r");
+        SDL_RWFromFile(getSystemManager().getImagePath(image_file).c_str(),
+                       "r");
     }
 
-    SDL_Surface* image_surface = IMG_Load_RW(image_stream, true);
-    
-    cleanup();
+  SDL_Surface* image_surface = IMG_Load_RW(image_stream, true);
 
+  cleanup();
+
+  if (std::string::npos !=
+      getProperty("pixelformat").find("noconversion"))
+    {
+
+      setSurface(image_surface);
+
+#if defined(_DEBUG) || defined(_DEBUGSTATICIMAGE)
+      logAppend("StaticImage: using image data as stored.");
+#endif
+
+    }
+  else
     if (std::string::npos !=
-	getProperty("pixelformat").find("noconversion")) {
-
-	setSurface(image_surface);
-
-#if defined(_DEBUG) || defined(_DEBUGSTATICIMAGE)
-	logAppend("StaticImage: using image data as stored.");
-#endif
-
-    } else
-	if (std::string::npos !=
-	    getProperty("pixelformat").find("displayalpha")) {
+        getProperty("pixelformat").find("displayalpha"))
+      {
 
 #if defined(_DEBUG) || defined(_DEBUGSTATICIMAGE)
-	    logAppend("StaticImage: converting image data to display format with alpha.");
+        logAppend("StaticImage: converting image data to display format with alpha.");
 #endif
 
-	    if (image_surface) {
-		setSurface(SDL_DisplayFormatAlpha(image_surface));
-		SDL_FreeSurface(image_surface);
-	    } else
-	    {
-		setSurface(0);
-	    }	// if(image_surface)
-	} else {
+        if (image_surface)
+          {
+            setSurface(SDL_DisplayFormatAlpha(image_surface));
+            SDL_FreeSurface(image_surface);
+          }
+        else
+          {
+            setSurface(0);
+          }	// if(image_surface)
+      }
+    else
+      {
 
 #if defined(_DEBUG) || defined(_DEBUGSTATICIMAGE)
         logAppend("StaticImage: converting image data to display format.");
 #endif
 
-        if (image_surface) {
+        if (image_surface)
+          {
             setSurface(SDL_DisplayFormat(image_surface));
-	    SDL_FreeSurface(image_surface);
-        } else {
+            SDL_FreeSurface(image_surface);
+          }
+        else
+          {
             setSurface(0);
-        }	// if(image_surface)
+          }	// if(image_surface)
 
-    }	// convert to display format
+      }	// convert to display format
 
-    // Automatic adjustment of Widget size
-    if (string::npos != getProperty("autosize").find("true")) {
-        Width(getSurface()->w);
-        Height(getSurface()->h);
+  // Automatic adjustment of Widget size
+  if (string::npos != getProperty("autosize").find("true"))
+    {
+      Width(getSurface()->w);
+      Height(getSurface()->h);
     }	// getProperty("all")
 
-    setInitialized();
+  setInitialized();
 
 }	// init
-void StaticImage::cleanup() {
-    setSurface(0);
+void StaticImage::cleanup()
+{
+  setSurface(0);
 
-    setNotInitialized();
+  setNotInitialized();
 
 }	// cleanup
 
-void StaticImage::draw() {
+void StaticImage::draw()
+{
 
 #if defined(_DEBUG) || defined(_DEBUGSTATICIMAGE)
   char img_debug[256];
-  if(!getFileName().empty()) sprintf(img_debug, "Drawing '%s' @ %d %d %d %d (%s)", getFileName().c_str(), Left(), Top(), Width(), Height(), getProperties().c_str());
+  if (!getFileName().empty()) sprintf(img_debug, "Drawing '%s' @ %d %d %d %d (%s)", getFileName().c_str(), Left(), Top(), Width(), Height(), getProperties().c_str());
   else sprintf(img_debug, "Drawing internal buffer of size %u @ %d %d %d %d (%s)", image_buffer_size, Left(), Top(), Width(), Height(), getProperties().c_str());
-    logAppend(img_debug);
+  logAppend(img_debug);
 #endif
 
-    SurfaceWidget::draw();
+  SurfaceWidget::draw();
 
 }	// draw

@@ -42,17 +42,18 @@
 #include "system/RenderManager.hh"
 #include "system/VideoManager.hh"
 
-class SystemManager {
+class SystemManager
+  {
 
-  /** Constructors.
-      @arg video_res - A Rect used for setting video resolution. Only the width and height members are used. The default depends on platform: usually 640x480 for Desktop OSes. The resolution of 480x272 is the only available for PlayStation Portable.
-      @arg video_color_depth - The bit depth to use for the display. If zero, the framework will use the current display color depth (default).
-      @arg video_full_screen - If true, set display to full screen. The default is "false", using a window for display.
-      @{ */
-  SystemManager(const Rect& = default_video_resolution, Uint8 = default_color_depth, bool = false);
-  virtual ~SystemManager();
-  
-  /** Retrieve and set system resource paths. @{ */
+    /** Constructors.
+        @arg video_res - A Rect used for setting video resolution. Only the width and height members are used. The default depends on platform: usually 640x480 for Desktop OSes. The resolution of 480x272 is the only available for PlayStation Portable.
+        @arg video_color_depth - The bit depth to use for the display. If zero, the framework will use the current display color depth (default).
+        @arg video_full_screen - If true, set display to full screen. The default is "false", using a window for display.
+        @{ */
+    SystemManager(const Rect& = default_video_resolution, Uint8 = default_color_depth, bool = false);
+    virtual ~SystemManager();
+
+    /** Retrieve and set system resource paths. @{ */
     virtual string getBasePath();
     virtual void setBasePath(string);
 
@@ -70,19 +71,19 @@ class SystemManager {
     virtual string getImagePath();
     virtual string getImagePath(string);
     virtual void setImagePath(string);
-  /** @} */
+    /** @} */
 
-  /** Retrieve and set Joystick input properties. @{ */
+    /** Retrieve and set Joystick input properties. @{ */
     virtual int getActiveJoystick();
     virtual void setActiveJoystick(int);
-  /** @} */
+    /** @} */
 
-  /** Retrieve and set Window Manager settings. @{ */
+    /** Retrieve and set Window Manager settings. @{ */
     virtual string getWindowTitle();
     virtual void setWindowTitle(string);
-  /** @} */
+    /** @} */
 
-private:
+  private:
     // Paths
     string		path_base;
     string		path_delimiter;
@@ -99,8 +100,8 @@ private:
     // Rendering Manager
     RenderManager*	renderer;
 
-  // Event Manager
-  EventManager* events;
+    // Event Manager
+    EventManager* events;
 
     // Audio Manager
     // AudioManager*	audio;
@@ -117,7 +118,7 @@ private:
     SystemManager(const SystemManager&);
     SystemManager& operator=(const SystemManager&);
 
-};	// SystemManager
+  };	// SystemManager
 
 SystemManager& getSystemManager();
 

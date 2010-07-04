@@ -21,9 +21,10 @@ using std::string;
 #include "base/SurfaceWidget.hh"
 #include "geometry/Rect.hh"
 
-class StaticImage : public SurfaceWidget {
+class StaticImage : public SurfaceWidget
+  {
 
-public:
+  public:
 
     /** StaticImage constructors:
      * @param buffer
@@ -45,7 +46,7 @@ public:
     StaticImage& operator=(const StaticImage&);
 
     /** Retrieve or set the image file. @{ */
-  virtual void setImageBuffer(unsigned char*, unsigned long);
+    virtual void setImageBuffer(unsigned char*, unsigned long);
     virtual string getFileName();
     virtual void setFileName(string);
     /** @} */
@@ -58,12 +59,12 @@ public:
     /** Draw image to screen. */
     virtual void draw();
 
-private:
+  private:
 
-  unsigned char* image_buffer;
-  unsigned long image_buffer_size;
+    unsigned char* image_buffer;
+    unsigned long image_buffer_size;
     string	image_file;
 
-};	// class StaticImage
+  };	// class StaticImage
 
 #endif // __SMF_STATICIMAGE_HH

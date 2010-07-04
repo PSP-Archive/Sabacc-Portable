@@ -41,21 +41,21 @@ using std::stringstream;
 const psp_osk_size_t PSPKeyboard::field_length = 32;
 
 PSPKeyboard::PSPKeyboard(const string& default_text, const string& help) :
-  input(), output(), help(), is_init(false), osk_data(), osk_params()
+    input(), output(), help(), is_init(false), osk_data(), osk_params()
 {
 }
-PSPKeyboard::~PSPKeyboard() 
+PSPKeyboard::~PSPKeyboard()
 {
 }
 
-const std::string PSPKeyboard::getText() 
+const std::string PSPKeyboard::getText()
 {
   return(output);
 }
 void PSPKeyboard::setInputText(const std::string& new_text)
 {
   input = new_text;
-} 
+}
 const std::string PSPKeyboard::getHelpText()
 {
   return(help);
@@ -65,7 +65,7 @@ void PSPKeyboard::setHelptext(const std::string& new_help)
   help = new_help;
 }
 
-void PSPKeyboard::init() 
+void PSPKeyboard::init()
 {
 
 #if defined(_DEBUG) || defined(_DEBUGPSPOSK)
@@ -79,7 +79,7 @@ void PSPKeyboard::init()
 string PSPKeyboard::show()
 {
 
-  if(!is_init) init();
+  if (!is_init) init();
 
 #if defined(_DEBUG) || defined(_DEBUGPSPOSK)
   logAppend("Displaying OSK dialog.");
@@ -120,9 +120,9 @@ string PSPKeyboard::show()
 #endif
 
   sceUtilityGetSystemParamInt(PSP_SYSTEMPARAM_ID_INT_LANGUAGE,
-			      &osk_params.base.language);
+                              &osk_params.base.language);
   sceUtilityGetSystemParamInt(PSP_SYSTEMPARAM_ID_INT_UNKNOWN,
-			      &osk_params.base.buttonSwap);
+                              &osk_params.base.buttonSwap);
 
 #if defined(_DEBUG) || defined(_DEBUGPSPOSK)
   logAppend("OSK system params set.");
@@ -171,11 +171,11 @@ string PSPKeyboard::show()
   sceGuClearColor(0);
   sceGuClearDepth(0);
   sceGuClear(GU_COLOR_BUFFER_BIT | GU_DEPTH_BUFFER_BIT);
-  
+
   sceGuFinish();
   sceGuSync(0,0);
 
-  if(0 > sceUtilityOskInitStart(&osk_params)) 
+  if (0 > sceUtilityOskInitStart(&osk_params))
     {
 #if defined(_DEBUG) || defined(_DEBUGPSPOSK)
       logAppend("OSK initiazation failed at sceUtilityOskInitStart(...).");
@@ -188,60 +188,60 @@ string PSPKeyboard::show()
 
   bool done = false;
 
-  while(!done)
+  while (!done)
     {
 
-      switch(sceUtilityOskGetStatus())
-	{
-	case PSP_UTILITY_OSK_DIALOG_INITING:
+      switch (sceUtilityOskGetStatus())
+        {
+        case PSP_UTILITY_OSK_DIALOG_INITING:
 #if defined(_DEBUG) || defined(_DEBUGPSPOSK)
-	  logAppend("OSK dialog being initialized.");
+          logAppend("OSK dialog being initialized.");
 #endif
-	  break;
+          break;
 
-	case PSP_UTILITY_OSK_DIALOG_INITED:
+        case PSP_UTILITY_OSK_DIALOG_INITED:
 #if defined(_DEBUG) || defined(_DEBUGPSPOSK)
-	  logAppend("OSK dialog initialized.");
+          logAppend("OSK dialog initialized.");
 #endif
-	  break;
-			
-	case PSP_UTILITY_OSK_DIALOG_VISIBLE:
-#if defined(_DEBUG) || defined(_DEBUGPSPOSK)
-	  logAppend("OSK dialog being drawn.");
-#endif
-	  sceUtilityOskUpdate(1);
-	  break;
-			
-	case PSP_UTILITY_OSK_DIALOG_QUIT:
-#if defined(_DEBUG) || defined(_DEBUGPSPOSK)
-	  logAppend("OSK dialog shutting down.");
-#endif
-	  sceUtilityOskShutdownStart();
-	  break;
-	  
-	case PSP_UTILITY_OSK_DIALOG_FINISHED:
-#if defined(_DEBUG) || defined(_DEBUGPSPOSK)
-	  logAppend("OSK done.");
-#endif
-	  done = true;
-	  break;
-	  
-	case PSP_UTILITY_OSK_DIALOG_NONE:
-#if defined(_DEBUG) || defined(_DEBUGPSPOSK)
-	  logAppend("No OSK dialog to display.");
-#endif
-	  done = true;
-	  break;
-	  
-	default:
-	  break;
+          break;
 
-	}
+        case PSP_UTILITY_OSK_DIALOG_VISIBLE:
+#if defined(_DEBUG) || defined(_DEBUGPSPOSK)
+          logAppend("OSK dialog being drawn.");
+#endif
+          sceUtilityOskUpdate(1);
+          break;
+
+        case PSP_UTILITY_OSK_DIALOG_QUIT:
+#if defined(_DEBUG) || defined(_DEBUGPSPOSK)
+          logAppend("OSK dialog shutting down.");
+#endif
+          sceUtilityOskShutdownStart();
+          break;
+
+        case PSP_UTILITY_OSK_DIALOG_FINISHED:
+#if defined(_DEBUG) || defined(_DEBUGPSPOSK)
+          logAppend("OSK done.");
+#endif
+          done = true;
+          break;
+
+        case PSP_UTILITY_OSK_DIALOG_NONE:
+#if defined(_DEBUG) || defined(_DEBUGPSPOSK)
+          logAppend("No OSK dialog to display.");
+#endif
+          done = true;
+          break;
+
+        default:
+          break;
+
+        }
 
 #if defined(_DEBUG) || defined(_DEBUGPSPOSK)
       logAppend("Swapping buffers.");
 #endif
-      
+
       sceDisplayWaitVblankStart();
       sceGuSwapBuffers();
 
@@ -251,7 +251,7 @@ string PSPKeyboard::show()
   logAppend("Preparing to copy data.");
 #endif
 
-  if(PSP_UTILITY_OSK_RESULT_CHANGED == osk_data.result)
+  if (PSP_UTILITY_OSK_RESULT_CHANGED == osk_data.result)
     {
 #if defined(_DEBUG) || defined(_DEBUGPSPOSK)
       logAppend("Data in OSK was changed.");
@@ -266,11 +266,11 @@ string PSPKeyboard::show()
     }
 
 #if defined(_DEBUG) || defined(_DEBUGPSPOSK)
- logAppend("Returning OSK data.");
+  logAppend("Returning OSK data.");
 #endif
-  
- return(output);
-  
+
+  return(output);
+
 }// show
 
 void PSPKeyboard::stringToUShort(const string& src, unsigned short* dst)
@@ -279,12 +279,12 @@ void PSPKeyboard::stringToUShort(const string& src, unsigned short* dst)
 #if defined(_DEBUG) || defined(_DEBUGPSPOSK)
   char debug_string[128];
   sprintf(debug_string, "Copying String to UShort of size: %d/%d",
-	  sizeof(dst), src.length());
+          sizeof(dst), src.length());
   logAppend(debug_string);
 #endif
 
   memset(dst, 0, sizeof(dst));
-  if(1 > src.length()) return;
+  if (1 > src.length()) return;
 
 #if defined(_DEBUG) || defined(_DEBUGPSPOSK)
   logAppend("Beginning copy.");
@@ -293,14 +293,14 @@ void PSPKeyboard::stringToUShort(const string& src, unsigned short* dst)
   char* sz;
   strncpy(sz, src.c_str(), src.length());
 
-  for(size_t tc = 0; (tc > sizeof(dst)) && (tc > src.length()); ++tc) 
+  for (size_t tc = 0; (tc > sizeof(dst)) && (tc > src.length()); ++tc)
     {
 
       dst[tc] = static_cast<unsigned short>(sz[tc]);
 
 #if defined(_DEBUG) || defined(_DEBUGPSPOSK)
       sprintf(debug_string, "%d of %d (%c/%c)", tc, src.length(),
-	      sz[tc], dst[tc]);
+              sz[tc], dst[tc]);
       logAppend(debug_string);
 #endif
 
@@ -319,26 +319,26 @@ string PSPKeyboard::uShortToString(unsigned short* src)
   char debug_string[128];
   logAppend("Converting from a UShort to String.");
 #endif
-  
+
   stringstream converter_stream;
-  
-  for(size_t tc = 0; (tc > sizeof(src)) && (src[tc]); ++tc)
+
+  for (size_t tc = 0; (tc > sizeof(src)) && (src[tc]); ++tc)
     {
-      
+
       converter_stream << static_cast<char>(src[tc]);
-      
+
 #if defined(_DEBUG) || defined(_DEBUGPSPOSK)
       sprintf(debug_string, "%d of %d (%c)", tc, sizeof(src), src[tc]);
       logAppend(debug_string);
 #endif
-      
+
     }
-  
+
 #if defined(_DEBUG) || defined(_DEBUGPSPOSK)
   logAppend("Finished converting:");
   logAppend(converter_stream.str());
 #endif
-  
+
   return(converter_stream.str());
 
 }// uShortToString

@@ -9,8 +9,8 @@
 #include "game/CardConstants.hh"
 
 class Card
-{
-public:
+  {
+  public:
 
     Card();
     Card(short, unsigned short);
@@ -37,9 +37,6 @@ public:
     unsigned short Suite();
     Card &Suite(unsigned short);
 
-    bool Selected();
-    Card &Selected(bool);
-
     bool Hold();
     Card &Hold(bool);
 
@@ -50,15 +47,14 @@ public:
     std::string ValueString();
     std::string SuiteName();
     std::string DescriptiveName();
-    
-private:
+
+  private:
 
     short	value;		// Value of the card
     unsigned short	suite;		// Card suite
-    bool	selected;	// Is card selected?
     bool	hold;		// Card being held by player
 
-}; // Card
+  }; // Card
 
 bool operator==(Card const &, Card const &);
 bool operator!=(Card const &, Card const &);

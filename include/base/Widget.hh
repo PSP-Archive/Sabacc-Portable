@@ -17,17 +17,18 @@
 #include "base/Object.hh"
 #include "geometry/Rect.hh"
 
-class Widget : public Object {
-public:
+class Widget : public Object
+  {
+  public:
     /** Constructors @{ */
     Widget(const Rect& = default_rect, std::string = "autosize: true;");
     Widget(Widget*, const Rect& = default_rect,
-	   std::string = "autosize: true;");
+           std::string = "autosize: true;");
     Widget(const Widget& other);
     virtual ~Widget();
     /** @} */
 
-    virtual Widget& operator=(const Widget&); 
+    virtual Widget& operator=(const Widget&);
 
     /** Parentage functions. @{ */
     Widget const *Parent();
@@ -51,8 +52,8 @@ public:
     Widget &Bottom(typename Rect::rect_type);
     Widget &Height(typename Rect::rect_type);
 
-    /** Initialization and cleanup functions which must be 
-	overloaded by derived classes. @{ */
+    /** Initialization and cleanup functions which must be
+    overloaded by derived classes. @{ */
     virtual void init() = 0;
     virtual void cleanup() = 0;
     /** @} */
@@ -64,27 +65,36 @@ public:
     /** @} */
 
     // for backwards compat
-    bool isInitialized() { return Initialized(); }
-    void setInitialized() {  Initialized(true); }
-    void setNotInitialized() { Initialized(false); }
+    bool isInitialized()
+    {
+      return Initialized();
+    }
+    void setInitialized()
+    {
+      Initialized(true);
+    }
+    void setNotInitialized()
+    {
+      Initialized(false);
+    }
 
-    /** Resize the widget: changes the dimensions of @c Widget::position 
-	to those of surface in most cases. */
+    /** Resize the widget: changes the dimensions of @c Widget::position
+    to those of surface in most cases. */
     virtual void resize();
 
-    /** All derived classes must have a draw method, this is for drawing 
-	when called, i.e. from a render queue. */
+    /** All derived classes must have a draw method, this is for drawing
+    when called, i.e. from a render queue. */
 #if defined(_DEBUG)
     virtual void draw();
 #else
     virtual void draw() = 0;
 #endif
-    
-private:
+
+  private:
 
     Widget*	parent;
     Rect	position;
     bool	initialized;
-};
+  };
 
 #endif	// __SMF_WIDGET_H

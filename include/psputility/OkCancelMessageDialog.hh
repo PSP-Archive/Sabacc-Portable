@@ -22,42 +22,43 @@
 // SMF headers
 #include "base/Control.hh"
 
-class PSPOkCancelDialog : public Control {
+class PSPOkCancelDialog : public Control
+  {
 
-public:
+  public:
 
-  // Keep interface similar to the standard SMF dialog
-  PSPOkCancelDialog(const std::string&, const std::string& = "", const std::string& = "Ok", const std::string& = "Cancel");
-  ~PSPOkCancelDialog();
+    // Keep interface similar to the standard SMF dialog
+    PSPOkCancelDialog(const std::string&, const std::string& = "", const std::string& = "Ok", const std::string& = "Cancel");
+    ~PSPOkCancelDialog();
 
-  /** Text properties. @{ */
-  virtual std::string getDialogText();
-  virtual void setDialogText(std::string);
-  virtual std::string getDialogTitle();
-  virtual void setDialogTitle(std::string);
-  virtual std::string getDialogOKButtontext();
-  virtual void setDialogOKButtonText(std::string);
-  virtual std::string getDialogCancelButtontext();
-  virtual void setDialogCancelButtonText(std::string);
-  /** @} */
+    /** Text properties. @{ */
+    virtual std::string getDialogText();
+    virtual void setDialogText(std::string);
+    virtual std::string getDialogTitle();
+    virtual void setDialogTitle(std::string);
+    virtual std::string getDialogOKButtontext();
+    virtual void setDialogOKButtonText(std::string);
+    virtual std::string getDialogCancelButtontext();
+    virtual void setDialogCancelButtonText(std::string);
+    /** @} */
 
-  /** Initialization of the control and cleanup. */
-  virtual void init();
-  virtual void cleanup();
+    /** Initialization of the control and cleanup. */
+    virtual void init();
+    virtual void cleanup();
 
-  /** Show the dialog. */
-  virtual void draw();
+    /** Show the dialog. */
+    virtual void draw();
 
-private:
+  private:
 
-  std::string message, ok_text, cancel_text;
-  
-  pspUtilityMsgDialogParams dialog_params;
+    std::string message, ok_text, cancel_text;
 
-  // No sense in copying this class
-  PSPOkCancelDialog(const PSPOkCancelDialog&);
-  PSPOkCancelDialog& operator=(const PSPOkCancelDialog&);
-  
-};// class PSPOkCancelDialog
+    pspUtilityMsgDialogParams dialog_params;
+
+    // No sense in copying this class
+    PSPOkCancelDialog(const PSPOkCancelDialog&);
+    PSPOkCancelDialog& operator=(const PSPOkCancelDialog&);
+
+  };// class PSPOkCancelDialog
 
 #endif// __SMF_PSP_OKCANCELMESSAGEDIALOG_HH

@@ -38,71 +38,78 @@ PSP_HEAP_SIZE_KB(-512);
 PSP_MAIN_THREAD_ATTR(0);
 PSP_MAIN_THREAD_STACK_SIZE_KB(64);
 
-int sdl_psp_exit_callback(int arg1, int arg2, void *common) {
-    exit(0);
-    return(0);
+int sdl_psp_exit_callback(int arg1, int arg2, void *common)
+{
+  exit(0);
+  return(0);
 }
 
-int sdl_psp_callback_thread(SceSize args, void *argp) {
-    int cbid;
-    cbid = sceKernelCreateCallback("Exit Callback",
-                                   sdl_psp_exit_callback, NULL);
-    sceKernelRegisterExitCallback(cbid);
-    sceKernelSleepThreadCB();
-    return(0);
+int sdl_psp_callback_thread(SceSize args, void *argp)
+{
+  int cbid;
+  cbid = sceKernelCreateCallback("Exit Callback",
+                                 sdl_psp_exit_callback, NULL);
+  sceKernelRegisterExitCallback(cbid);
+  sceKernelSleepThreadCB();
+  return(0);
 }
 
-int sdl_psp_setup_callbacks(void) {
-    int thid = 0;
-    thid = sceKernelCreateThread("update_thread",
-                                 sdl_psp_callback_thread, 0x11, 0xFA0, 0, 0);
-    if (thid >= 0)
-        sceKernelStartThread(thid, 0, 0);
-    return(thid);
+int sdl_psp_setup_callbacks(void)
+{
+  int thid = 0;
+  thid = sceKernelCreateThread("update_thread",
+                               sdl_psp_callback_thread, 0x11, 0xFA0, 0, 0);
+  if (thid >= 0)
+    sceKernelStartThread(thid, 0, 0);
+  return(thid);
 }
 #endif//_PSP_FW_VERSION >= 200
 
 extern "C" int main ( int argc, char** argv );
 
-int main (int arg_count, char** argv) {
+int main (int arg_count, char** argv)
+{
 
 #if defined(_DEBUG) && defined(_DEBUGTOFILE)
-    Logger::instance().useFile("./debug.log");
+  Logger::instance().useFile("./debug.log");
 #endif
 
 #if (_PSP_FW_VERSION > 200)
-    pspDebugScreenInit();
+  pspDebugScreenInit();
 
-    sdl_psp_setup_callbacks();
+  sdl_psp_setup_callbacks();
 
-    atexit(sceKernelExitGame);
+  atexit(sceKernelExitGame);
 #endif	// __PSP__
 
-    // Menu result
-    VideoManager& video = getSystemManager().getVideo();
+  // Menu result
+  VideoManager& video = getSystemManager().getVideo();
 
-    if (1 < arg_count) {
-      
-    } else {
-        // initialize SDL video
-        video.setResolution(Rect(0, 0, 480, 272));
+  if (1 < arg_count)
+    {
+
+    }
+  else
+    {
+      // initialize SDL video
+      video.setResolution(Rect(0, 0, 480, 272));
     }
 
-    getSystemManager().setWindowTitle("Sabacc Portable");
+  getSystemManager().setWindowTitle("Sabacc Portable");
 
-    GameBoot* sabacc_game = new GameBoot();
+  GameBoot* sabacc_game = new GameBoot();
 
-    if(!sabacc_game) return(1);
-    if(sabacc_game) delete(sabacc_game);
+  if (!sabacc_game) return(1);
+  if (sabacc_game) delete(sabacc_game);
 
 #if (_PSP_FW_VERSION > 200)
-    sceKernelDelayThread(2500000);
+  sceKernelDelayThread(2500000);
 #endif
 
-    // all is well ;)
+  // all is well ;)
 #if defined(_DEBUG)
-    logAppend("If you see this message, SabaccPortable exited normally.");
+  logAppend("If you see this message, SabaccPortable exited normally.");
 #endif
 
-    return(0);
+  return(0);
 }

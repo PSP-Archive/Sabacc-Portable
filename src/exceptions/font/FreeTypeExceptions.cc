@@ -17,120 +17,132 @@ using std::string;
 #include "exceptions/base/ExceptionBase.hh"
 #include "exceptions/font/FreeTypeExceptions.hh"
 
-namespace Exceptions {
+namespace Exceptions
+  {
 
-    namespace FreeType {
+  namespace FreeType
+    {
 
-        GeneralError::GeneralError(const string& message, const char* file, int line) :
-                ExceptionBase(message, file, line) { }
-        GeneralError::GeneralError(const string& message, const string& details, const char* file, int line)  :
-                ExceptionBase(message, details, file, line) { }
-        GeneralError::GeneralError(const string& message, const string& details, const string& data, const char* file, int line)  :
-                ExceptionBase(message, details, data, file, line) { }
+    GeneralError::GeneralError(const string& message, const char* file, int line) :
+        ExceptionBase(message, file, line) { }
+    GeneralError::GeneralError(const string& message, const string& details, const char* file, int line)  :
+        ExceptionBase(message, details, file, line) { }
+    GeneralError::GeneralError(const string& message, const string& details, const string& data, const char* file, int line)  :
+        ExceptionBase(message, details, data, file, line) { }
 
-        string GeneralError::getExceptionName() {
-            return("FreeType::GeneralError");
-        }
+    string GeneralError::getExceptionName()
+    {
+      return("FreeType::GeneralError");
+    }
 
-        FontOpen::FontOpen(const string& message, const char* file, int line) :
-                ExceptionBase(message, file, line) { }
-        FontOpen::FontOpen(const string& message, const string& details, const char* file, int line)  :
-                ExceptionBase(message, details, file, line) { }
-        FontOpen::FontOpen(const string& message, const string& details, const string& data, const char* file, int line)  :
-                ExceptionBase(message, details, data, file, line) { }
+    FontOpen::FontOpen(const string& message, const char* file, int line) :
+        ExceptionBase(message, file, line) { }
+    FontOpen::FontOpen(const string& message, const string& details, const char* file, int line)  :
+        ExceptionBase(message, details, file, line) { }
+    FontOpen::FontOpen(const string& message, const string& details, const string& data, const char* file, int line)  :
+        ExceptionBase(message, details, data, file, line) { }
 
-        string FontOpen::getExceptionName() {
-            return("FreeType::FontOpen");
-        }
+    string FontOpen::getExceptionName()
+    {
+      return("FreeType::FontOpen");
+    }
 
-        Init::Init(const string& message, const char* file, int line) :
-                ExceptionBase(message, file, line) { }
-        Init::Init(const string& message, const string& details, const char* file, int line)  :
-                ExceptionBase(message, details, file, line) { }
-        Init::Init(const string& message, const string& details, const string& data, const char* file, int line)  :
-                ExceptionBase(message, details, data, file, line) { }
+    Init::Init(const string& message, const char* file, int line) :
+        ExceptionBase(message, file, line) { }
+    Init::Init(const string& message, const string& details, const char* file, int line)  :
+        ExceptionBase(message, details, file, line) { }
+    Init::Init(const string& message, const string& details, const string& data, const char* file, int line)  :
+        ExceptionBase(message, details, data, file, line) { }
 
-        string Init::getExceptionName() {
-            return("FreeType::Init");
-        }
+    string Init::getExceptionName()
+    {
+      return("FreeType::Init");
+    }
 
-        NotInitialized::NotInitialized(const string& message, const char* file, int line) :
-                ExceptionBase(message, file, line) { }
-        NotInitialized::NotInitialized(const string& message, const string& details, const char* file, int line)  :
-                ExceptionBase(message, details, file, line) { }
-        NotInitialized::NotInitialized(const string& message, const string& details, const string& data, const char* file, int line)  :
-                ExceptionBase(message, details, data, file, line) { }
+    NotInitialized::NotInitialized(const string& message, const char* file, int line) :
+        ExceptionBase(message, file, line) { }
+    NotInitialized::NotInitialized(const string& message, const string& details, const char* file, int line)  :
+        ExceptionBase(message, details, file, line) { }
+    NotInitialized::NotInitialized(const string& message, const string& details, const string& data, const char* file, int line)  :
+        ExceptionBase(message, details, data, file, line) { }
 
-        string NotInitialized::getExceptionName() {
-            return("File::NotInitialized");
-        }
+    string NotInitialized::getExceptionName()
+    {
+      return("File::NotInitialized");
+    }
 
-        FaceInit::FaceInit(const string& message, const char* file, int line) :
-                ExceptionBase(message, file, line) { }
-        FaceInit::FaceInit(const string& message, const string& details, const char* file, int line)  :
-                ExceptionBase(message, details, file, line) { }
-        FaceInit::FaceInit(const string& message, const string& details, const string& data, const char* file, int line)  :
-                ExceptionBase(message, details, data, file, line) { }
+    FaceInit::FaceInit(const string& message, const char* file, int line) :
+        ExceptionBase(message, file, line) { }
+    FaceInit::FaceInit(const string& message, const string& details, const char* file, int line)  :
+        ExceptionBase(message, details, file, line) { }
+    FaceInit::FaceInit(const string& message, const string& details, const string& data, const char* file, int line)  :
+        ExceptionBase(message, details, data, file, line) { }
 
-        string FaceInit::getExceptionName() {
-            return("File::FaceInit");
-        }
+    string FaceInit::getExceptionName()
+    {
+      return("File::FaceInit");
+    }
 
-        UnknownFormat::UnknownFormat(const string& message, const char* file, int line) :
-                ExceptionBase(message, file, line) { }
-        UnknownFormat::UnknownFormat(const string& message, const string& details, const char* file, int line)  :
-                ExceptionBase(message, details, file, line) { }
-        UnknownFormat::UnknownFormat(const string& message, const string& details, const string& data, const char* file, int line)  :
-                ExceptionBase(message, details, data, file, line) { }
+    UnknownFormat::UnknownFormat(const string& message, const char* file, int line) :
+        ExceptionBase(message, file, line) { }
+    UnknownFormat::UnknownFormat(const string& message, const string& details, const char* file, int line)  :
+        ExceptionBase(message, details, file, line) { }
+    UnknownFormat::UnknownFormat(const string& message, const string& details, const string& data, const char* file, int line)  :
+        ExceptionBase(message, details, data, file, line) { }
 
-        string UnknownFormat::getExceptionName() {
-            return("File::UnknownFormat");
-        }
+    string UnknownFormat::getExceptionName()
+    {
+      return("File::UnknownFormat");
+    }
 
-        InvalidHandle::InvalidHandle(const string& message, const char* file, int line) :
-                ExceptionBase(message, file, line) { }
-        InvalidHandle::InvalidHandle(const string& message, const string& details, const char* file, int line)  :
-                ExceptionBase(message, details, file, line) { }
-        InvalidHandle::InvalidHandle(const string& message, const string& details, const string& data, const char* file, int line)  :
-                ExceptionBase(message, details, data, file, line) { }
+    InvalidHandle::InvalidHandle(const string& message, const char* file, int line) :
+        ExceptionBase(message, file, line) { }
+    InvalidHandle::InvalidHandle(const string& message, const string& details, const char* file, int line)  :
+        ExceptionBase(message, details, file, line) { }
+    InvalidHandle::InvalidHandle(const string& message, const string& details, const string& data, const char* file, int line)  :
+        ExceptionBase(message, details, data, file, line) { }
 
-        string InvalidHandle::getExceptionName() {
-            return("File::InvalidHandle");
-        }
+    string InvalidHandle::getExceptionName()
+    {
+      return("File::InvalidHandle");
+    }
 
-        LoadGlyph::LoadGlyph(const string& message, const char* file, int line) :
-                ExceptionBase(message, file, line) { }
-        LoadGlyph::LoadGlyph(const string& message, const string& details, const char* file, int line)  :
-                ExceptionBase(message, details, file, line) { }
-        LoadGlyph::LoadGlyph(const string& message, const string& details, const string& data, const char* file, int line)  :
-                ExceptionBase(message, details, data, file, line) { }
+    LoadGlyph::LoadGlyph(const string& message, const char* file, int line) :
+        ExceptionBase(message, file, line) { }
+    LoadGlyph::LoadGlyph(const string& message, const string& details, const char* file, int line)  :
+        ExceptionBase(message, details, file, line) { }
+    LoadGlyph::LoadGlyph(const string& message, const string& details, const string& data, const char* file, int line)  :
+        ExceptionBase(message, details, data, file, line) { }
 
-        string LoadGlyph::getExceptionName() {
-            return("File::LoadGlyph");
-        }
+    string LoadGlyph::getExceptionName()
+    {
+      return("File::LoadGlyph");
+    }
 
-        InsufficientMemory::InsufficientMemory(const string& message, const char* file, int line) :
-                ExceptionBase(message, file, line) { }
-        InsufficientMemory::InsufficientMemory(const string& message, const string& details, const char* file, int line)  :
-                ExceptionBase(message, details, file, line) { }
-        InsufficientMemory::InsufficientMemory(const string& message, const string& details, const string& data, const char* file, int line)  :
-                ExceptionBase(message, details, data, file, line) { }
+    InsufficientMemory::InsufficientMemory(const string& message, const char* file, int line) :
+        ExceptionBase(message, file, line) { }
+    InsufficientMemory::InsufficientMemory(const string& message, const string& details, const char* file, int line)  :
+        ExceptionBase(message, details, file, line) { }
+    InsufficientMemory::InsufficientMemory(const string& message, const string& details, const string& data, const char* file, int line)  :
+        ExceptionBase(message, details, data, file, line) { }
 
-        string InsufficientMemory::getExceptionName() {
-            return("File::InsufficientMemory");
-        }
+    string InsufficientMemory::getExceptionName()
+    {
+      return("File::InsufficientMemory");
+    }
 
-        Render::Render(const string& message, const char* file, int line) :
-                ExceptionBase(message, file, line) { }
-        Render::Render(const string& message, const string& details, const char* file, int line)  :
-                ExceptionBase(message, details, file, line) { }
-        Render::Render(const string& message, const string& details, const string& data, const char* file, int line)  :
-                ExceptionBase(message, details, data, file, line) { }
+    Render::Render(const string& message, const char* file, int line) :
+        ExceptionBase(message, file, line) { }
+    Render::Render(const string& message, const string& details, const char* file, int line)  :
+        ExceptionBase(message, details, file, line) { }
+    Render::Render(const string& message, const string& details, const string& data, const char* file, int line)  :
+        ExceptionBase(message, details, data, file, line) { }
 
-        string Render::getExceptionName() {
-            return("File::Render");
-        }
+    string Render::getExceptionName()
+    {
+      return("File::Render");
+    }
 
-    }	// namespace LoadError
+  }	// namespace LoadError
 
 }	// namespace Exceptions

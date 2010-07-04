@@ -22,8 +22,9 @@ using std::string;
 // Utility headers
 #include "Singleton.hh"
 
-class Log {
-private:
+class Log
+  {
+  private:
     ofstream	debug_stream;
     bool			use_cerr;
 
@@ -35,7 +36,7 @@ private:
     tm getNow();
     string date();
 
-public:
+  public:
     // ctor/dtor
     Log();
     ~Log();
@@ -43,7 +44,7 @@ public:
     void useFile(string);
     void append(string);
     void append(string, const char*, int);
-}; // class Log
+  }; // class Log
 
 // An easy way to refer to the singleton
 typedef Singleton<Log> Logger;

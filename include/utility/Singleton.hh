@@ -14,21 +14,23 @@
  * ToDo: Make thread safe
  */
 
-template <class S> class Singleton {
-private:
+template <class S> class Singleton
+  {
+  private:
     // Make ctor/dtor/assn inaccessable
     Singleton();
     ~Singleton();
     Singleton(const Singleton&);
     Singleton& operator=(const Singleton&);
 
-public:
-    static S& instance() {
-        // Returns a reference to the instance of the class
-        static S s_instance;
-        return(s_instance);
+  public:
+    static S& instance()
+    {
+      // Returns a reference to the instance of the class
+      static S s_instance;
+      return(s_instance);
     } // instance
 
-}; // template class Singleton
+  }; // template class Singleton
 
 #endif	// __SMF_SINGLETON_HH

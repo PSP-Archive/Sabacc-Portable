@@ -22,14 +22,15 @@
 #include "game/GameBoot.hh"
 #include "game/GameBase.hh"
 
-class GameBoot {
+class GameBoot
+  {
 
-public:
+  public:
 
     GameBoot();
     ~GameBoot();
 
-private:
+  private:
 
     StaticImage		bg;
     StaticImage		logo;
@@ -37,25 +38,25 @@ private:
     TextLabel	version;
     Menu		main_menu;
 
-  bool allow_continue;
+    bool allow_continue;
 
     Mix_Chunk*	menu_music;
 
-  std::string player_name;
+    std::string player_name;
 
-  //  GameBase* sabacc_game;
+    //  GameBase* sabacc_game;
 
-  // The game, defined here for continuing a game in progress
+    // The game, defined here for continuing a game in progress
     void eventLoop();
 
     // No reason to copy or assign GameBoot
     GameBoot(const GameBoot&);
     GameBoot& operator=(const GameBoot&);
 
-  // set up and clean up controls
-  // void createControls();
-  // void destroyControls();
+    // set up and clean up controls
+    // void createControls();
+    // void destroyControls();
 
-};	// class GameBoot
+  };	// class GameBoot
 
 #endif // __GAMEBOOT_HH

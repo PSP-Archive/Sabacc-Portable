@@ -15,14 +15,15 @@ using std::string;
 // SMF headers
 #include "geometry/Rect.hh"
 
-class SystemManager {
+class SystemManager
+  {
 
-public:
+  public:
 
     SystemManager();
     virtual ~SystemManager();
 
-  /** System resource paths @{ */
+    /** System resource paths @{ */
     virtual string getBasePath();
     virtual void setBasePath(string);
 
@@ -40,20 +41,20 @@ public:
     virtual string getImagePath();
     virtual string getImagePath(string);
     virtual void setImagePath(string);
-  /** @} @/
+    /** @} @/
 
-      /** Window manager settings. @{ */
+        /** Window manager settings. @{ */
     virtual string getWindowTitle();
     virtual void setWindowTitle(string);
-  /** @} */
+    /** @} */
 
-  /** Retrive and set the active joystick. @{ */
+    /** Retrive and set the active joystick. @{ */
     virtual int getActiveJoystick();
     virtual void setActiveJoystick(int);
-  /** @} */
+    /** @} */
 
 
-private:
+  private:
     // Paths
     string		path_base;
     string		path_delimiter;
@@ -85,7 +86,7 @@ private:
     SystemManager(const SystemManager&);
     SystemManager& operator=(const SystemManager&);
 
-};	// SystemManager
+  };	// SystemManager
 
 SystemManager& getSystemManager();
 

@@ -17,21 +17,24 @@ using std::string;
 #include "exceptions/base/ExceptionBase.hh"
 #include "exceptions/events/EventExceptions.hh"
 
-namespace Exceptions {
+namespace Exceptions
+  {
 
-    namespace Events {
+  namespace Events
+    {
 
-        PushFailed::PushFailed(const string& message, const char* file, int line) :
-                ExceptionBase(message, file, line) { }
-        PushFailed::PushFailed(const string& message, const string& details, const char* file, int line)  :
-                ExceptionBase(message, details, file, line) { }
-        PushFailed::PushFailed(const string& message, const string& details, const string& data, const char* file, int line)  :
-                ExceptionBase(message, details, data, file, line) { }
+    PushFailed::PushFailed(const string& message, const char* file, int line) :
+        ExceptionBase(message, file, line) { }
+    PushFailed::PushFailed(const string& message, const string& details, const char* file, int line)  :
+        ExceptionBase(message, details, file, line) { }
+    PushFailed::PushFailed(const string& message, const string& details, const string& data, const char* file, int line)  :
+        ExceptionBase(message, details, data, file, line) { }
 
-        string PushFailed::getExceptionName() {
-            return("Events::PushFailed");
-        }
+    string PushFailed::getExceptionName()
+    {
+      return("Events::PushFailed");
+    }
 
-    }	// namespace Events
+  }	// namespace Events
 
 }	// namespace Exceptions

@@ -31,9 +31,10 @@
  * A rectangle class for storing positions and sizes.
  */
 
-template <typename T> class BasicRect {
+template <typename T> class BasicRect
+  {
 
-public:
+  public:
 
     typedef T	rect_type;	/// Allow for easy changing of the internal type of the rectangle.
 
@@ -49,79 +50,87 @@ public:
     BasicRect(const BasicRect<T>& src) : left(src.left), top(src.top), width(src.width), height(src.height) { }
 
     /** Assign another Rect's member values to this one. */
-    BasicRect<rect_type>& operator=(const BasicRect<T>& src) {
+    BasicRect<rect_type>& operator=(const BasicRect<T>& src)
+    {
 
-        if (&src != this) {
+      if (&src != this)
+        {
 
-            left = src.left;
-            top = src.top;
-            width = src.width;
-            height = src.height;
+          left = src.left;
+          top = src.top;
+          width = src.width;
+          height = src.height;
 
         }	// if(not self)
 
-        return(*this);
+      return(*this);
     }	// operator=
 
     /** The following methods get the indiviual member's values. @{ */
     rect_type Left() const
-	{
-	    return(left);
-	}
+      {
+        return(left);
+      }
     rect_type Top() const
-	{
-	    return(top);
-	}
+      {
+        return(top);
+      }
     rect_type Right() const
-	{
-	    return(left + width);
-	}
+      {
+        return(left + width);
+      }
     rect_type Bottom() const
-	{
-	    return(top + height);
-	}
+      {
+        return(top + height);
+      }
     rect_type Width() const
-	{
-	    return(width);
-	}
+      {
+        return(width);
+      }
     rect_type Height() const
-	{
-	    return(height);
-	}
+      {
+        return(height);
+      }
     /** @} */
 
     /** The following methods set the indiviual member's values. @{ */
-    BasicRect &Left(rect_type left) {
-        this->left = left;
-	return *this;
+    BasicRect &Left(rect_type left)
+    {
+      this->left = left;
+      return *this;
     }
-    BasicRect &Top(rect_type top) {
-        this->top = top;
-	return *this;
+    BasicRect &Top(rect_type top)
+    {
+      this->top = top;
+      return *this;
     }
-    BasicRect &Right(rect_type right) {
-        this->width = right - this->left;
-	return *this;
+    BasicRect &Right(rect_type right)
+    {
+      this->width = right - this->left;
+      return *this;
     }
-    BasicRect &Bottom(rect_type bottom) {
-        this->height = bottom - this->top;
-	return *this;
+    BasicRect &Bottom(rect_type bottom)
+    {
+      this->height = bottom - this->top;
+      return *this;
     }
-    BasicRect &Width(rect_type width) {
-        this->width = width;
-	return *this;
+    BasicRect &Width(rect_type width)
+    {
+      this->width = width;
+      return *this;
     }
-    BasicRect &Height(rect_type height) {
-        this->height = height;
-	return *this;
+    BasicRect &Height(rect_type height)
+    {
+      this->height = height;
+      return *this;
     }
     /** @} */
 
-private:
+  private:
 
     rect_type	left, top, width, height;
 
-};	// class BasicRect
+  };	// class BasicRect
 
 /** Common rect types easily referenced. @{ */
 typedef BasicRect<int> Rect;
@@ -132,14 +141,16 @@ static const Rectf default_rectf;
 /** @} */
 
 /** A helper function for getting an SDL compatible Rect from a BasicRect<int>. */
-inline SDL_Rect SDLRect(Rect const &src_rect) {
-    SDL_Rect temp_rect = {
-	static_cast<Sint16>(src_rect.Left()),
-	static_cast<Sint16>(src_rect.Top()),
-	static_cast<Sint16>(src_rect.Width()),
-	static_cast<Sint16>(src_rect.Height())
-    };
-    return(temp_rect);
+inline SDL_Rect SDLRect(Rect const &src_rect)
+{
+  SDL_Rect temp_rect =
+  {
+    static_cast<Sint16>(src_rect.Left()),
+    static_cast<Sint16>(src_rect.Top()),
+    static_cast<Sint16>(src_rect.Width()),
+    static_cast<Sint16>(src_rect.Height())
+  };
+  return(temp_rect);
 }	// getSDLRect
 
 #endif // __SMF_RECT_HH

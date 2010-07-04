@@ -21,9 +21,10 @@ using std::string;
 #include "base/Widget.hh"
 #include "geometry/Rect.hh"
 
-class Button : public FreeTypeControl {
+class Button : public FreeTypeControl
+  {
 
-public:
+  public:
 
     /** Button has only one constructor:
      * @param text - the file to load. Required.
@@ -56,10 +57,10 @@ public:
     /** Draw image to screen. */
     virtual void draw();
 
-private:
+  private:
     string	label_text;
 
-};	// class Button
+  };	// class Button
 
 
 #endif // __SMF_STATICBUTTON_HH

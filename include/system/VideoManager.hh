@@ -6,9 +6,10 @@
 // Sabacc headers
 #include "geometry/Rect.hh"
 
-class VideoManager {
+class VideoManager
+  {
 
-public:
+  public:
 
     VideoManager();
     VideoManager(int, int, int);
@@ -36,7 +37,7 @@ public:
 
     virtual void swapBuffers();
 
-private:
+  private:
     Rect			resolution;
     int				color_depth;
 
@@ -48,6 +49,6 @@ private:
 
     void init();
 
-};	// class VideoManager
+  };	// class VideoManager
 
 #endif // __VIDEOMANAGER_HH
