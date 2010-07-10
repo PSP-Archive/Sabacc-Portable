@@ -129,24 +129,7 @@ void RenderManager::draw()
    * widgets we want the user to interact with. It seems more natural this way
    * than adding things in reverse in the ui building code (i.e. adding the backdrop last.) */
 
-  try
-    {
-
-      for_each(render_queue.begin(), render_queue.end(), mem_fun(&Widget::draw));
-
-    }
-  catch (Exceptions::ExceptionBase& exc)
-    {
-
-#if defined(_DEBUG) || defined(_DEBUGRENDERMANAGER)
-      logAppend(exceptionString(exc));
-#endif
-
-    }
-  catch (...)  	// Everything else propogates
-    {
-      throw;
-    }// try
+  for_each(render_queue.begin(), render_queue.end(), mem_fun(&Widget::draw));
 
   if (-1 == SDL_Flip(SDL_GetVideoSurface()))
     {

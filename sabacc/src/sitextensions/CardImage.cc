@@ -30,7 +30,7 @@
 
 // Image data
 #include "images/SmallCardData.h"
-#include "images/HeldCardData.h"
+// #include "images/HeldCardData.h"
 #include "images/CoinsData.h"
 #include "images/FlasksData.h"
 #include "images/SabresData.h"
@@ -217,22 +217,23 @@ void CardImage::init()
   else
     {
 
+	int font_size =
+	    card_renderer.getSize() * 2;
+
       card_renderer.setStyle(font_style_bold | font_style_italic
                              | font_style_outline);
-
-      card_renderer.setColor(default_card_value_color);
-      card_renderer.setStrokeColor(default_card_value_stroke_color);
-      card_renderer.setSize(card_renderer.getSize() * 3);
+      card_renderer.setSize(font_size);
 
       std::stringstream card_value;
       card_value << card_data->Value();
 
       temp_width = Width() - card_renderer.lineWidth(card_value.str());
-      temp_height = Height() - card_renderer.textHeight(card_value.str());
+      temp_height = (Height() - 10) 
+	  - card_renderer.textHeight(card_value.str());
 
       card_renderer.render(card_value.str(), getSurface(),
                            temp_width / 2,
-                           temp_height / 2);
+                           temp_height);
 
     } // if(face card)
 

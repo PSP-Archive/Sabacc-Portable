@@ -6,7 +6,7 @@ LIB_OBJ = $(patsubst %.cc,%.o,$(filter %.cc,$(LIB_SRC)))
 BIN_SRC = $(shell find sabacc/src -type f -name "*.cc")
 BIN_OBJ = $(patsubst %.cc,%.o,$(filter %.cc,$(BIN_SRC)))
 
-# SMFDEBUGFLAGS += -D_DEBUG
+SMFDEBUGFLAGS += -D_DEBUGRENDERMANAGERFPS -D_DEBUGENTRY
 # -D_DEBUGTOFILE
 DEBUGFLAGS += -g -ggdb
 PROFILEFLAGS += -pg
@@ -17,11 +17,11 @@ SDLLIBS = -lSDL_mixer -lSDL_image -lSDL_gfx $(shell sdl-config --libs)
 
 INCLUDEDIR = -I. -Iinclude -Isabacc/include -I/usr/include -I/usr/include/freetype2
 
-CFLAGS += $(INCLUDEDIR) $(SDLFLAGS) $(SMFDEBUGFLAGS) $(DEBUGFLAGS) $(PROFILEFLAGS) $(WARNFLAGS) -fprofile-generate
+CFLAGS += $(INCLUDEDIR) $(SDLFLAGS) $(SMFDEBUGFLAGS) $(DEBUGFLAGS) $(PROFILEFLAGS) $(WARNFLAGS)
 CXXFLAGS += $(CFLAGS)
 
 LIBDIR += -L. -L/home/anthony/local/lib -L/usr/lib
-LIBS += -fprofile-generate -lfreetype $(SDLLIBS)
+LIBS += -lfreetype $(SDLLIBS)
 
 CXX = g++-4.5
 

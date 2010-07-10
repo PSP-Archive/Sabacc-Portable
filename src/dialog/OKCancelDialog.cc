@@ -286,7 +286,7 @@ void OKCancelDialog::init()
   dialog_title.init();
   dialog_title.setTextColor(default_frame_titlecolor);
   dialog_title.Left(3 + Left()
-                    + ((Width() - dialog_title.Width()) / 2));
+		    + ((Width() - dialog_title.Width()) / 2));
   dialog_title.Top(Top() + 3);
 
   // 20081208: The location of the OK and Cancel buttons reversed so OK is on the right.
